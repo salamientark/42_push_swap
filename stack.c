@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:44:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/20 01:33:10 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/20 11:07:18 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,68 @@ t_stack *delete(t_stack *top)
 
 // Remove without free
 //  Do nothing if no stack or one element only
-// void    remove(t_stack *stack)
+t_stack    *remove(t_stack **top)
+{
+    t_stack *elem;
+    t_stack *removed_top;
+
+    if (!(*top) || (*top)->next == (*top))
+        return (*top);
+    removed_top = *top;
+    elem = (*top)->prev;
+    elem->next = (*top)->next;
+    elem = (*top)->next;
+    elem->prev = (*top)->prev;
+    removed_top->next = NULL;
+    removed_top->prev = NULL;
+    (*top) = elem;
+    return (removed_top);
+}
+
+// void    push(t_stack **dest,t_stack **src)
 // {
 //     t_stack *elem;
+//     t_stack *tmp;
 
-//     if (!stack || stack->next == stack)
+//     if (!(*src) || (*src)->next == (*src))
 //         return ;
-//     elem = stack->prev;
-//     elem->next = stack->next->next;
-//     elem = stack->next;
-//     elem->prev = stack->prev->prev;
-//     stack->next = stack;
-//     stack->prev = stack;
-//     stack = elem->prev;
-//     return ;
+//     elem = (*src);
+//     tmp = (*src)->next;
+//     tmp->prev = (*src)->prev;
+//     (tmp->prev)->next = tmp;
+//     // tmp = (*src)->prev;
+//     // tmp->next = (*src)->next;
+
+//     *src = tmp;
+//     if (!(*dest))
+//     {
+//         elem->next = elem;
+//         elem->prev = elem;
+//         (*dest) = elem;;
+//     }
+//     else if ((*dest)->next == (*dest))
+//     {
+//         (*dest)->next = elem;
+//         (*dest)->prev = elem;
+//         elem->next = (*dest);
+//         elem->prev = (*dest);
+//         (*dest) = elem;
+//     }
+//     else
+//     {
+//         tmp = (*dest)->prev;
+//         tmp->next = (*src);
+//         // ((*dest)->prev)->next = (*src);
+//         ((*dest)->next)->prev = (*src);
+//         tmp = (*src)->prev;
+//         tmp->next = (*src)->next;
+//         tmp = tmp->next;
+//         tmp = (*src)->next;
+//         tmp->prev = (*src)->prev;
+//         (*src)-
+//     }
 // }
+
 
 // // Find the element containing value
 // //  if exist remove it
@@ -112,11 +159,17 @@ t_stack *delete(t_stack *top)
 // }
 
 // rotate
-t_stack *rotate(t_stack *stack)
+// t_stack *rotate(t_stack *stack)
+// {
+//     if (!stack)
+//         return (NULL);
+//     return (stack->next);
+// }
+
+void    rotate(t_stack **stack)
 {
-    if (!stack)
-        return (NULL);
-    return (stack->next);
+    if (*stack)
+        *stack = (*stack)->next;
 }
 
 // Reverse rotate
@@ -151,21 +204,40 @@ t_stack *rev_rotate(t_stack *stack)
 // }
 
 // Swap the two first element of the stack
-t_stack *swap(t_stack *top)
+// t_stack *swap(t_stack *top)
+// {
+//     t_stack *new_head;
+//     t_stack *tmp;
+
+//     if (!top || top->next == top)
+//         return (top);
+//     new_head = top->next;
+//     tmp = top->prev;
+//     top->next = new_head->next;
+//     top->prev = new_head;
+//     new_head->next = top;
+//     new_head->prev = tmp;
+//     tmp->next = new_head;
+//     tmp = top->next;
+//     tmp->prev = top;
+//     return (new_head);
+// }
+
+void    swap(t_stack **top)
 {
     t_stack *new_head;
     t_stack *tmp;
 
-    if (!top || top->next == top)
-        return (top);
-    new_head = top->next;
-    tmp = top->prev;
-    top->next = new_head->next;
-    top->prev = new_head;
-    new_head->next = top;
+    if (!(*top) || (*top)->next == *top)
+        return ;
+    new_head = (*top)->next;
+    tmp = (*top)->prev;
+    (*top)->next = new_head->next;
+    (*top)->prev = new_head;
+    new_head->next = (*top);
     new_head->prev = tmp;
     tmp->next = new_head;
-    tmp = top->next;
-    tmp->prev = top;
-    return (new_head);
+    tmp = (*top)->next;
+    tmp->prev = (*top);
+    *top = new_head;
 }

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/20 01:05:10 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:28:24 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,24 +257,95 @@ void    print_stack(t_stack *a, t_stack *b)
     ft_printf("\n");
 }
 
+void    insert(t_stack **dest, t_stack *elem)
+{
+    if (!(*dest))
+    {
+        (*dest) = elem;
+        elem->next = elem;
+        elem->prev = elem;
+    }
+    if ((*dest) == (*dest)->next)
+        (*dest)->next = elem;
+    else
+        ((*dest)->prev)->next = elem;
+    elem->prev = (*dest)->prev;
+    elem->next = (*dest);
+    (*dest)->prev = elem;
+    *dest = elem;
+}
+
+// void    remove(t_stack **stack, t_stack **elem)
+// {
+//     if (*elem != *stack)
+//         return ;
+// }
+
+void    push(t_stack **dest, t_stack **src)
+{
+    t_stack *elem;
+
+    if (!(*src))
+        return ;
+    elem = *src;
+    if (*src != (*src)->next)
+    {
+        ((*src)->prev)->next = (*src)->next;
+        ((*src)->next)->prev = (*src)->prev;
+        *src = (*src)->next;
+    }
+    else
+        *src = NULL;
+    if (!(*dest))
+    {
+        (*dest) = elem;
+        elem->next = elem;
+        elem->prev = elem;
+    }
+    if ((*dest) == (*dest)->next)
+        (*dest)->next = elem;
+    else
+        ((*dest)->prev)->next = elem;
+    elem->prev = (*dest)->prev;
+    elem->next = (*dest);
+    (*dest)->prev = elem;
+    *dest = elem;
+}
+
+
 int    main()
 {
     t_stack *a = add_stack(1, NULL);
     // t_stack *b = add_stack(4, NULL);
+    t_stack *b = add_stack(4, NULL);
 
     a = add_stack(2, a);
     a = add_stack(3, a);
-    print_stack(a, NULL);
+    print_stack(a, b);
 
-    a = rotate(a);
-    print_stack(a, NULL);
+    // a = rotate(a);
+    rotate(&a);
+    print_stack(a, b);
 
-    print_stack_debug(a, NULL);
-    a = swap(a);
-    print_stack(a, NULL);
+    print_stack_debug(a, b);
+    swap(&a);
+    print_stack(a, b);
 
-    rot(a);
-    print_stack(a, NULL);
+    // remove(&a);
+    // remove(&a);
+    // remove(&a);
+
+    // insert(&a, b);
+    push(&a, &b);
+    push(&a, &b);
+    print_stack_debug(a, b);
+    print_stack(a, b);
+
+    push(&b, &a);
+    push(&b, &a);
+    print_stack_debug(a, b);
+    print_stack(a, b);
+
     // print_stack_debug(a, NULL);
 
     // a = add_stack(2, a);

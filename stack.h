@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/20 01:04:54 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:25:07 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,19 @@ typedef struct s_stack
     struct s_stack  *next;
 }               t_stack;
 
-void    rot(t_stack *stack);
+void    insert(t_stack **dest, t_stack *elem);
+
 
 t_stack *init_stack();
 t_stack *add_stack(const int val, t_stack *stack);
 t_stack *delete(t_stack *top);
+t_stack *remove(t_stack **stack);
 
 // push_swap operation
-t_stack *push();
-t_stack *swap(t_stack *stack);
-t_stack *rotate(t_stack *stack);
+// t_stack *push();
+void    push();
+void    swap(t_stack **stack);
+// t_stack *rotate(t_stack *stack);
+void    rotate(t_stack **stack);
 
 #endif
