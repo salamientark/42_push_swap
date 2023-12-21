@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:52:32 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/18 20:59:07 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/21 14:29:29 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int					ft_isdigit(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
+int					ft_isnumber(char *s);
 
 int					ft_toupper(int c);
 int					ft_tolower(int c);

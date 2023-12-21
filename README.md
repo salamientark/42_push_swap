@@ -1,0 +1,2 @@
+LIBFT
+Added ft_isnumber

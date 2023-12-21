@@ -1,68 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   testing_stack.c                                    :+:      :+:    :+:   */
+/*   stack_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/20 15:28:24 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:33:21 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "stack.h"
-# define SEP "---------------------------------------------------------------"
-# define MAX(a,b) a >= b ? a : b
+/*  -------------------------------------------------
+    --          >>> Contain functiond for <<<      --
+    --  >>> pretty printing && debug printing <<<  --
+    -------------------------------------------------
+*/
 
-typedef struct s_stack_param
-{
-    int     max_int_len;
-    int     line_nbr;
-    char    *printf_param;
-}           t_stack_param;
+
+/*
+    ==  ___ _  _ ___ _____     __   ___ ___  _  _ ___ ___ ___   ==
+    == |_ _| \| |_ _|_   _|   / /  / __/ _ \| \| | __|_ _/ __|  ==
+    ==  | || .` || |  | |    / /  | (_| (_) | .` | _| | | (_ |  ==
+    == |___|_|\_|___| |_|   /_/    \___\___/|_|\_|_| |___\___|  ==
+    ==                                                          ==
+*/
+
+#include "stack_print.h"
 
 int             line_nbr;
 char            *printf_param = NULL;
 t_stack_param   max_param;
 
-int     int_len(int n)
+// Get len of number in char nbr
+//  Mostly for pretty printing
+static int              nbr_len(int n)
 {
     long    n_cp;
-    int     int_len;
+    int     nbr_len;
 
-    int_len = 0;
+    nbr_len = 0;
     n_cp = (long) n;
     if (n_cp < 0)
     {
-        int_len++;
+        nbr_len++;
         n_cp = -n_cp;
     }
     while (n_cp != 0)
     {
         n_cp /= 10;
-        int_len++;
+        nbr_len++;
     }
     if (n == 0)
-        int_len = 1;
-    return (int_len);
+        nbr_len = 1;
+    return (nbr_len);
 }
 
-void    print_param(t_stack_param param)
-{
-    ft_printf("stack :\n");
-    ft_printf("max_int_len : %d\n", param.max_int_len);
-    ft_printf("line_nbr : %d\n", param.line_nbr);
-}
-
-void    print_elem(t_stack *elem)
-{
-    if (!elem)
-        return ;
-    ft_printf("%p <---| %p : %d |---> %p\n",
-        elem->prev, elem, elem->value, elem->next);
-}
-
-t_stack_param     get_stack_param(t_stack *begining)
+// Get t_stack * information -> t_stack_param
+//  nbr_len_max && stack_size && printf_param
+static t_stack_param    get_stack_param(t_stack *begining)
 {
     t_stack_param   param;
     t_stack         *record;
@@ -70,23 +65,20 @@ t_stack_param     get_stack_param(t_stack *begining)
     param.line_nbr = 0;
     if (!begining)
         return (param);
-    param.max_int_len = int_len(begining->value);
+    param.max_nbr_len = nbr_len(begining->value);
     record = begining->next;
     param.line_nbr++;
     while (record != begining)
     {
-        param.max_int_len = MAX(param.max_int_len, int_len(record->value));
+        param.max_nbr_len = MAX(param.max_nbr_len, nbr_len(record->value));
         record = record->next;
-        // ft_printf("record : %d\n", param.line_nbr);
-        // ft_printf("\n");
-        // print_elem(begining);
-        // print_elem(record);
         param.line_nbr++;
     }
     return (param);
 }
 
-char    *make_printf_param(char *nbr_len)
+//  Make printf_param based on max_nbr_len
+static char             *make_printf_param(char *nbr_len)
 {
     char    *param;
     int     index;
@@ -106,7 +98,8 @@ char    *make_printf_param(char *nbr_len)
     return (param);
 }
 
-t_stack_param    init_printing_var(t_stack *a, t_stack *b)
+// Init t_stack_param
+static t_stack_param    init_printing_var(t_stack *a, t_stack *b)
 {
     t_stack_param   a_param;
     t_stack_param   b_param;
@@ -115,21 +108,51 @@ t_stack_param    init_printing_var(t_stack *a, t_stack *b)
     b_param = get_stack_param(b);
 
     a_param.line_nbr = MAX(a_param.line_nbr, b_param.line_nbr);
-    a_param.max_int_len = MAX(a_param.max_int_len, b_param.max_int_len);
-    a_param.printf_param = make_printf_param(ft_itoa(a_param.max_int_len));
+    a_param.max_nbr_len = MAX(a_param.max_nbr_len, b_param.max_nbr_len);
+    a_param.printf_param = make_printf_param(ft_itoa(a_param.max_nbr_len));
     return (a_param);
 }
 
+/*
+    ==                                          ==
+    ==   ___ ___ ___ _  _ _____ ___ _  _  ___   ==
+    ==  | _ \ _ \_ _| \| |_   _|_ _| \| |/ __|  ==
+    ==  |  _/   /| || .` | | |  | || .` | (_ |  ==
+    ==  |_| |_|_\___|_|\_| |_| |___|_|\_|\___|  ==
+    ==                                          ==
+*/
+
+// Print s_stack_param informations
+void    print_param(t_stack_param param)
+{
+    ft_printf("stack :\n");
+    ft_printf("max_nbr_len : %d\n", param.max_nbr_len);
+    ft_printf("line_nbr : %d\n", param.line_nbr);
+    ft_printf("printf_param : %s\n", param.printf_param);
+}
+
+// Print t_stack * information
+//  Debug printing information
+void    print_elem(t_stack *elem)
+{
+    if (!elem)
+        return ;
+    ft_printf("%p <---| %p : %d |---> %p\n",
+        elem->prev, elem, elem->value, elem->next);
+}
+
+// Print t_stack * information
+//  For every element of the stack
 void    print_stack_debug(t_stack *a, t_stack *b)
 {
     t_stack         *a_record;
     t_stack         *b_record;
     int             tmp;
-    // int             int_len_str;
+    // int             nbr_len_str;
 
     max_param = init_printing_var(a, b);
     // printf_param = ft_strjoin(ft_strjoin("%",
-    //     ft_itoa(max_param->max_int_len)), "s");
+    //     ft_itoa(max_param->max_nbr_len)), "s");
     ft_printf("%s\n",SEP);
     // PRINT_COMMAND
     a_record = a;
@@ -168,7 +191,7 @@ void    print_stack_debug(t_stack *a, t_stack *b)
         ft_printf("%31c\n", 'b');
     }
     // // DOTTED LINE
-    // int_len_str = int_len(max_param.max_int_len);
+    // nbr_len_str = nbr_len(max_param.max_nbr_len);
     // if (a_record)
     // {
     //     tmp = -1;
@@ -180,7 +203,7 @@ void    print_stack_debug(t_stack *a, t_stack *b)
     // if (b_record)
     // {
     //     tmp = -1;
-    //     while (tmp++ < int_len_str)
+    //     while (tmp++ < nbr_len_str)
     //         write(1, "_", 1);
     // }
     // ft_printf("\n");
@@ -196,19 +219,20 @@ void    print_stack_debug(t_stack *a, t_stack *b)
     // ft_printf("\n");
 }
 
+// Pretty stack print
 void    print_stack(t_stack *a, t_stack *b)
 {
     t_stack         *a_record;
     t_stack         *b_record;
     int             tmp;
-    int             int_len_str;
+    int             nbr_len_str;
 
     max_param = init_printing_var(a, b);
     ft_printf("%s\n",SEP);
     // PRINT_COMMAND
     a_record = a;
     b_record = b;
-    print_param(max_param);
+    // print_param(max_param);
     if (a_record)
     {
         ft_printf(max_param.printf_param, ft_itoa(a_record->value));
@@ -241,13 +265,13 @@ void    print_stack(t_stack *a, t_stack *b)
         ft_printf("\n");
     }
     // DOTTED LINE
-    int_len_str = int_len(max_param.max_int_len);
+    nbr_len_str = max_param.max_nbr_len;
     tmp = 0;
-    while (tmp++ < int_len_str)
+    while (tmp++ < nbr_len_str)
         write(1, "_", 1);
     ft_printf(" ");
     tmp = 0;
-    while (tmp++ < int_len_str)
+    while (tmp++ < nbr_len_str)
         write(1, "_", 1);
     ft_printf("\n");
     // a or b LINE
@@ -255,113 +279,4 @@ void    print_stack(t_stack *a, t_stack *b)
     ft_printf(" ");
     ft_printf(max_param.printf_param, "b");
     ft_printf("\n");
-}
-
-void    insert(t_stack **dest, t_stack *elem)
-{
-    if (!(*dest))
-    {
-        (*dest) = elem;
-        elem->next = elem;
-        elem->prev = elem;
-    }
-    if ((*dest) == (*dest)->next)
-        (*dest)->next = elem;
-    else
-        ((*dest)->prev)->next = elem;
-    elem->prev = (*dest)->prev;
-    elem->next = (*dest);
-    (*dest)->prev = elem;
-    *dest = elem;
-}
-
-// void    remove(t_stack **stack, t_stack **elem)
-// {
-//     if (*elem != *stack)
-//         return ;
-// }
-
-void    push(t_stack **dest, t_stack **src)
-{
-    t_stack *elem;
-
-    if (!(*src))
-        return ;
-    elem = *src;
-    if (*src != (*src)->next)
-    {
-        ((*src)->prev)->next = (*src)->next;
-        ((*src)->next)->prev = (*src)->prev;
-        *src = (*src)->next;
-    }
-    else
-        *src = NULL;
-    if (!(*dest))
-    {
-        (*dest) = elem;
-        elem->next = elem;
-        elem->prev = elem;
-    }
-    if ((*dest) == (*dest)->next)
-        (*dest)->next = elem;
-    else
-        ((*dest)->prev)->next = elem;
-    elem->prev = (*dest)->prev;
-    elem->next = (*dest);
-    (*dest)->prev = elem;
-    *dest = elem;
-}
-
-
-int    main()
-{
-    t_stack *a = add_stack(1, NULL);
-    // t_stack *b = add_stack(4, NULL);
-    t_stack *b = add_stack(4, NULL);
-
-    a = add_stack(2, a);
-    a = add_stack(3, a);
-    print_stack(a, b);
-
-    // a = rotate(a);
-    rotate(&a);
-    print_stack(a, b);
-
-    print_stack_debug(a, b);
-    swap(&a);
-    print_stack(a, b);
-
-    // remove(&a);
-    // remove(&a);
-    // remove(&a);
-
-    // insert(&a, b);
-    push(&a, &b);
-    push(&a, &b);
-    print_stack_debug(a, b);
-    print_stack(a, b);
-
-    push(&b, &a);
-    push(&b, &a);
-    print_stack_debug(a, b);
-    print_stack(a, b);
-
-    // print_stack_debug(a, NULL);
-
-    // a = add_stack(2, a);
-    // print_stack(a, b);
-
-    // b = delete(b);
-    // print_stack(a, b);
-    
-    // a = delete(a);
-    // print_stack(a, b);
-    
-    // a = delete(a);
-    // print_stack(a, b);
-    
-    // a = delete(a);
-    // print_stack(a, b);
-    
-    return (0);
 }
