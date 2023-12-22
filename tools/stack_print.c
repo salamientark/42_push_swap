@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/21 16:33:21 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/22 20:06:02 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static t_stack_param    get_stack_param(t_stack *begining)
     t_stack         *record;
 
     param.line_nbr = 0;
+    param.max_nbr_len = 0;
     if (!begining)
         return (param);
     param.max_nbr_len = nbr_len(begining->value);
@@ -236,10 +237,13 @@ void    print_stack(t_stack *a, t_stack *b)
     if (a_record)
     {
         ft_printf(max_param.printf_param, ft_itoa(a_record->value));
-        if (b_record)
-            ft_printf(" ");
         a_record = a_record->next;
     }
+    else
+        ft_printf(max_param.printf_param, " ");
+    if (b_record)
+        ft_printf(" ");
+    
     if (b_record)
     {
         ft_printf(max_param.printf_param, ft_itoa(b_record->value));
@@ -252,12 +256,15 @@ void    print_stack(t_stack *a, t_stack *b)
         if (a_record && a_record != a)
         {
             ft_printf(max_param.printf_param, ft_itoa(a_record->value));
-            if (b_record)
-                ft_printf(" ");
             a_record = a_record->next;
+        }
+        else
+        {
+            ft_printf(max_param.printf_param, " "); 
         }
         if (b_record && b_record != b)
         {
+            ft_printf(" ");
             ft_printf(max_param.printf_param, ft_itoa(b_record->value));
             b_record = b_record->next;
         }

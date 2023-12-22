@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/21 16:01:19 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/22 19:40:57 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void    free_stack(t_stack  **stack);
 // arg_parser.c
 t_stack *parse_arg(int ac, char **av);
 
-void    push(t_stack **dest, t_stack **src);
+void    push(t_stack **src, t_stack **dest);
 void    swap(t_stack **stack);
 void    rotate(t_stack **stack);
 void    r_rotate(t_stack **stack);
