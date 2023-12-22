@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:44:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/22 20:55:53 by madlab           ###   ########.fr       */
+/*   Updated: 2023/12/22 22:05:55 by madlab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,16 @@ void	swap(t_stack **top)
 	if (!(*top) || (*top)->next == *top)
 		return ;
 	new_top = (*top)->next;
-	(*top)->next = new_top->next;
-	new_top->prev = (*top)->prev;
-	(*top)->prev = new_top;
-	new_top->next = (*top);
-	(*top)->next->prev = (*top);
+	if (new_top->next != *top)
+	{
+		(*top)->next = new_top->next;
+		new_top->prev = (*top)->prev;
+		(*top)->prev = new_top;
+		new_top->next = (*top);
+		(*top)->next->prev = (*top);
+		new_top->prev->next = new_top;
+	}
 	(*top) = new_top;
-	(*top)->prev->next = *top;
 }
 
 void	push(t_stack **src, t_stack **dest)

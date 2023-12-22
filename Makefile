@@ -7,7 +7,7 @@ PROJECT = push_swap
 PROJECT_DIR = ./
 
 ### SOURCE FILES ###
-SRC_FILE = arg_parser.c stack.c main.c
+SRC_FILE = arg_parser.c stack.c main.c stack_chacal.c
 
 # Development tools -> printing stuff
 TOOLS_DIR = ./tools

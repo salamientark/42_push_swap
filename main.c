@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 21:49:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/22 20:48:57 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/22 22:05:18 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,15 @@ int    main(int ac, char **av)
     b = NULL;
     push(&a, &b);
     push(&a, &b);
+    print_stack(a, b);
+    
+    swap_chacal(&a, &b);
+    // swap(&a);
     print_stack_debug(a, b);
+    print_stack(a, b);
+
+    swap(&a);
+    swap(&b);
     print_stack(a, b);
     
     return (0);
