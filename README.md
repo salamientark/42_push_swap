@@ -1,2 +1,3 @@
 LIBFT
 Added ft_isnumber
+Added ft_strcmp

@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:44:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/22 22:05:55 by madlab           ###   ########.fr       */
+/*   Updated: 2023/12/24 13:40:51 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stack.h"
+#include "includes/stack.h"
 
 void	free_stack(t_stack **stack)
 {

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/22 20:06:02 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/24 13:34:13 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,10 @@ void    print_param(t_stack_param param)
 void    print_elem(t_stack *elem)
 {
     if (!elem)
+    {
+        ft_printf("print_elem: (NULL)\n");
         return ;
+    }
     ft_printf("%p <---| %p : %d |---> %p\n",
         elem->prev, elem, elem->value, elem->next);
 }
@@ -160,64 +163,38 @@ void    print_stack_debug(t_stack *a, t_stack *b)
     b_record = b;
     print_param(max_param);
     // STACK A PART
-    if (a_record)
+    if (!a)
+    return ;
+    print_elem(a_record);
+    a_record = a_record->next;
+    while (a_record && a_record != a)
     {
+        ft_printf("before_print_elem\n");
         print_elem(a_record);
+        ft_printf("after_print_elem\n");
         a_record = a_record->next;
-        while (a_record && a_record != a)
-        {
-            print_elem(a_record);
-            a_record = a_record->next;
-        }
-        tmp = -1;
-            while (tmp++ < 62)
-                write(1, "_", 1);
-        write(1, "\n", 1);
-        ft_printf("%31c\n", 'a');
     }
+    tmp = -1;
+        while (tmp++ < 62)
+            write(1, "_", 1);
+    write(1, "\n", 1);
+    ft_printf("%31c\n", 'a');
     ft_printf("\n");
-    if (b_record)
+    ft_printf("en_of_while\n");
+    if (!b)
+        return ;
+    print_elem(b_record);
+    b_record = b_record->next;
+    while (b_record && b_record != b)
     {
         print_elem(b_record);
         b_record = b_record->next;
-        while (b_record && b_record != b)
-        {
-            print_elem(b_record);
-            b_record = b_record->next;
-        }
-        tmp = -1;
-            while (tmp++ < 62)
-                write(1, "_", 1);
-        write(1, "\n", 1);
-        ft_printf("%31c\n", 'b');
     }
-    // // DOTTED LINE
-    // nbr_len_str = nbr_len(max_param.max_nbr_len);
-    // if (a_record)
-    // {
-    //     tmp = -1;
-    //     while (tmp++ < 62)
-    //         write(1, "_", 1);
-    //     if (b_record)
-    //         ft_printf(" ");
-    // }
-    // if (b_record)
-    // {
-    //     tmp = -1;
-    //     while (tmp++ < nbr_len_str)
-    //         write(1, "_", 1);
-    // }
-    // ft_printf("\n");
-    // // a or b LINE
-    // if (a_record)
-    // {
-    //     ft_printf(printf_param, "a");
-    //     if (b_record)
-    //         ft_printf(" ");
-    // }
-    // if (b_record)
-    //     ft_printf(printf_param, "b");
-    // ft_printf("\n");
+    tmp = -1;
+        while (tmp++ < 62)
+            write(1, "_", 1);
+    write(1, "\n", 1);
+    ft_printf("%31c\n", 'b');
 }
 
 // Pretty stack print

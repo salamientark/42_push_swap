@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/22 22:08:20 by madlab           ###   ########.fr       */
+/*   Updated: 2023/12/23 23:31:43 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_stack
 void	insert(t_stack **dest, t_stack *elem);
 
 // stack.c
-t_stack	*init_stack(void);
+t_stack	*init_stack(const int value);
 t_stack	*add_stack(const int val, t_stack *stack);
 t_stack	*delete(t_stack *top);
 t_stack	*remove(t_stack **stack);
@@ -39,6 +39,7 @@ void	push(t_stack **src, t_stack **dest);
 void	swap(t_stack **stack);
 void	rotate(t_stack **stack);
 void	r_rotate(t_stack **stack);
+void	op(t_stack **a, t_stack **b, char *op);
 
 void	push_chacal(t_stack **src, t_stack **dest);
 void	swap_chacal(t_stack **stack_a, t_stack **stack_b);

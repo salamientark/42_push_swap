@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:52:32 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/21 14:29:29 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/23 23:21:47 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int					ft_memcmp(const void *s1, const void *s2, size_t n);
 
 void				*ft_calloc(size_t nelem, size_t elsize);
 
+int					ft_strcmp(const char *s1, const char *s2);
 size_t				ft_strlen(const char *s);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
