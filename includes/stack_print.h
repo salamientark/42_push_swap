@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 21:29:21 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/20 22:26:29 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/24 23:55:39 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void    print_param(t_stack_param param);
 void    print_elem(t_stack *elem);
 void    print_stack_debug(t_stack *a, t_stack *b);
 void    print_stack(t_stack *a, t_stack *b);
+void	print_operation(t_operation op);
 
 #endif
