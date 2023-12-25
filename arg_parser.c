@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 01:30:50 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 13:11:13 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/25 16:05:02 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,54 @@ static void	free_list(char ***p_list)
 	*p_list = NULL;
 }
 
+static int	arg_is_valid(t_stack *stack, int val, char *s_val)
+{
+	t_stack	*stack_cp;
+	char	*val_to_str;
+	int		is_valid;
+
+	if (!ft_isnumber(s_val))
+		return (0);
+	val_to_str = ft_itoa(val);
+	if (!val_to_str)
+		return (0);
+	is_valid = ft_strcmp(s_val, val_to_str);
+	free(val_to_str);
+	if (is_valid != 0)
+		return (0);
+	if (!stack)
+		return (1);
+	if (stack->next == stack && stack->value != val)
+		return (1);
+	stack_cp = stack->next;
+	while (stack_cp != stack)
+	{
+		if (stack_cp->value == val)
+			return (0);
+		stack_cp = stack_cp->next;
+	}
+	return (stack_cp->value != val);
+}
+
 static t_stack	*make_stack(char **arg, int size)
 {
 	t_stack	*stack;
+	int		tmp_value;
 
 	if (size == 0)
 		return (NULL);
 	stack = NULL;
 	while (size-- > 0)
 	{
-		if (!ft_isnumber(arg[size]))
+		tmp_value = ft_atoi(arg[size]);
+		if (!arg_is_valid(stack, tmp_value, arg[size]))
 		{
 			ft_putendl_fd("Error", 2);
 			if (stack)
 				free_stack(&stack);
 			return (NULL);
 		}
-		stack = add_stack(ft_atoi(arg[size]), stack);
+		stack = add_stack(tmp_value, stack);
 	}
 	return (stack);
 }
