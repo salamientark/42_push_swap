@@ -6,24 +6,32 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:44:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 00:15:22 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/25 11:29:26 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/stack.h"
 
+// REWORK TO FREE LAST ELEMENT OF LIST
 void	free_stack(t_stack **stack)
 {
 	t_stack	*tmp;
 
 	if (!(*stack))
 		return ;
+	if (*stack == (*stack)->next)
+	{
+		free(*stack);
+		*stack = NULL;
+		return ;
+	}
 	tmp = (*stack)->next;
 	(*stack)->prev->next = NULL;
-	while (tmp)
+	while (*stack)
 	{
-		free(tmp->prev);
-		tmp = tmp->next;
+		tmp = (*stack)->next;
+		free(*stack);
+		*stack = tmp;
 	}
 	*stack = NULL;
 }

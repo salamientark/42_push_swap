@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 00:07:49 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/25 10:18:13 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	push_old(t_stack **src, t_stack **dest);
 void	swap_old(t_stack **stack);
 void	rotate_old(t_stack **stack);
 void	r_rotate_old(t_stack **stack);
-void	operation(t_stack **a, t_stack **b, char *op);
+int		operation(t_stack **a, t_stack **b, char *op);
 
 // old_operation.c
 void	push(t_stack **src, t_stack **dest);

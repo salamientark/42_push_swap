@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 23:59:12 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 00:05:45 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/25 11:47:39 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,21 @@ void	push(t_stack **src, t_stack **dest)
 	*dest = elem;
 }
 
-void	operation(t_stack **a, t_stack **b, char *op)
+int	operation(t_stack **a, t_stack **b, char *op)
 {
 	t_operation	op_env;
 
 	op_env.arg_a = a;
-	if (op[0] == 's')
+	if (op && op[0] == 's')
 		op_env.operation = &swap;
-	else if (op[0] == 'p')
+	else if (op && op[0] == 'p')
 		op_env.operation = &push;
-	else if (op[0] == 'r' && ft_strlen(op) == 2)
+	else if (op && op[0] == 'r' && ft_strlen(op) == 2)
 		op_env.operation = &rotate;
-	else
+	else if (op && op[0] == 'r' && ft_strlen(op) == 3)
 		op_env.operation = &r_rotate;
+	else
+		return (0);
 	if (op_env.operation != &push)
 		op_env.arg_b = NULL;
 	else
@@ -111,4 +113,5 @@ void	operation(t_stack **a, t_stack **b, char *op)
 			op_env.arg_b = a;
 	}
 	op_env.operation(op_env.arg_a, op_env.arg_b);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 09:19:39 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/25 11:43:30 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,13 @@
 char            *printf_param = NULL;
 t_stack_param   max_param;
 
-void    free_print_param(void)
-{
-    if (max_param.printf_param[2] == '2')
+void    free_printf_param(){
+    if (printf_param && printf_param[2] != '2')
     {
-        // free(max_param.printf_param);
         free(printf_param);
         max_param.printf_param = NULL;
         printf_param = NULL;
     }
-    ft_printf("free_print_param end\n");
 }
 
 // Get len of number in char nbr
@@ -122,7 +119,7 @@ static char             *make_printf_param(int nbr_len)
         return (make_printf_param_failed_itoa("12"));
     param = (char *)malloc(ft_strlen(str_n_len) + 3);
     if (!param)
-        return (NULL);
+        param = "%12s";
     index = 0;
     param[0] = '%';
     while(str_n_len[index])
@@ -147,7 +144,9 @@ static t_stack_param    init_printing_var(t_stack *a, t_stack *b)
 
     a_param.line_nbr = MAX(a_param.line_nbr, b_param.line_nbr);
     a_param.max_nbr_len = MAX(a_param.max_nbr_len, b_param.max_nbr_len);
-    a_param.printf_param = make_printf_param(ft_itoa(a_param.max_nbr_len));
+    if (!printf_param)
+        printf_param = make_printf_param(a_param.max_nbr_len);
+    a_param.printf_param = printf_param;
     return (a_param);
 }
 
@@ -215,7 +214,6 @@ void    print_stack_debug(t_stack *a, t_stack *b)
     // PRINT_COMMAND
     a_record = a;
     b_record = b;
-    print_param(max_param);
     // STACK A PART
     if (a)
     {
@@ -251,7 +249,6 @@ void    print_stack_debug(t_stack *a, t_stack *b)
         write(1, "\n", 1);
         ft_printf("%31c\n", 'b');
     }
-    free(max_param.printf_param);
 }
 
 // Pretty stack print
@@ -265,12 +262,12 @@ void    print_stack(t_stack *a, t_stack *b)
 
     if (!printf_param)
         max_param = init_printing_var(a, b);
-    print_param(max_param);
     ft_printf("%s\n",SEP);
     // PRINT_COMMAND
     a_record = a;
     b_record = b;
     // print_param(max_param);
+    index = max_param.line_nbr;
     if (a_record)
     {
         value_s = ft_itoa(a_record->value);
@@ -300,9 +297,9 @@ void    print_stack(t_stack *a, t_stack *b)
         }
         b_record = b_record->next;
     }
-    index = 1;
+    index--;
     ft_printf("\n");
-    while (index < max_param.line_nbr)
+    while (index > 0)
     {
         if (a_record && a_record != a)
         {
@@ -335,7 +332,7 @@ void    print_stack(t_stack *a, t_stack *b)
             }
             b_record = b_record->next;
         }
-        max_param.line_nbr--;
+        index--;
         ft_printf("\n");
     }
     // DOTTED LINE
