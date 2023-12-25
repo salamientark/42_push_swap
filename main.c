@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 21:49:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 00:58:24 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/25 02:08:58 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int    main(int ac, char **av)
     a = parse_arg(ac, av);
     if (!a)
         return (0);
-    print_stack(a, b);
+    print_stack_debug(a, b);
     ft_printf("enter operation : ");
     op_str = get_next_line(0);
     while (op_str)
