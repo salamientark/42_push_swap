@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 01:30:50 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 16:05:02 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/25 16:07:08 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/stack.h"
+#include "../includes/stack.h"
 
 static void	free_list(char ***p_list)
 {

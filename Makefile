@@ -7,7 +7,8 @@ PROJECT = push_swap
 PROJECT_DIR = ./
 
 ### SOURCE FILES ###
-SRC_FILE = arg_parser.c stack.c main.c operation.c
+SRC_DIR = src
+SRC_FILE = $(SRC_DIR)/arg_parser.c $(SRC_DIR)/stack.c main.c $(SRC_DIR)/operation.c
 
 # Development tools -> printing stuff
 TOOLS_DIR = ./tools
@@ -38,12 +39,12 @@ all : $(PROJECT)
 
 test : $(OBJ_SRC) $(OBJ_TEST)
 	make -C $(FT_DIR)
-	$(CC) -g $(CFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_SRC)) \
+	$(CC) -g $(CFLAGS) $(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_SRC))) \
 		$(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_TOOLS))) -o $(PROJECT) $(FT_FLAG)
 
 $(PROJECT) : $(OBJ_SRC) $(OBJ_TOOLS)
 	make -C $(FT_DIR)
-	$(CC) -g $(CFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_SRC)) \
+	$(CC) -g $(CFLAGS) $(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_SRC))) \
 		$(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_TOOLS))) -o $(PROJECT) $(FT_FLAG)
 
 %.o : %.c

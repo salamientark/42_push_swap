@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:44:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 15:50:13 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/25 16:06:57 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/stack.h"
+#include "../includes/stack.h"
 
 // REWORK TO FREE LAST ELEMENT OF LIST
 void	free_stack(t_stack **stack)
