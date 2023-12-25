@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 21:29:21 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 00:47:51 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/24 23:55:39 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ typedef struct s_stack_param
     int     line_nbr;
     char    *printf_param;
 }           t_stack_param;
-
-void    free_print_param(void);
 
 void    print_param(t_stack_param param);
 void    print_elem(t_stack *elem);

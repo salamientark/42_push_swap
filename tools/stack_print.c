@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 02:06:46 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/25 09:19:39 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,11 +147,7 @@ static t_stack_param    init_printing_var(t_stack *a, t_stack *b)
 
     a_param.line_nbr = MAX(a_param.line_nbr, b_param.line_nbr);
     a_param.max_nbr_len = MAX(a_param.max_nbr_len, b_param.max_nbr_len);
-    if (!printf_param)
-        printf_param = make_printf_param(a_param.max_nbr_len);
-    if (printf_param[2] == '2')
-        a_param.max_nbr_len = 12;
-    a_param.printf_param = printf_param;
+    a_param.printf_param = make_printf_param(ft_itoa(a_param.max_nbr_len));
     return (a_param);
 }
 
