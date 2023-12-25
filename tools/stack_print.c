@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 00:11:31 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/25 00:58:05 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,16 @@
 
 #include "stack_print.h"
 
-int             line_nbr;
-char            *printf_param = NULL;
+// int             line_nbr;
+// char            *printf_param = NULL;
 t_stack_param   max_param;
+
+void    free_print_param(void)
+{
+    if (max_param.printf_param)
+        free(max_param.printf_param);
+    ft_printf("free_print_param end\n");
+}
 
 // Get len of number in char nbr
 //  Mostly for pretty printing
@@ -104,13 +111,21 @@ static t_stack_param    init_printing_var(t_stack *a, t_stack *b)
 {
     t_stack_param   a_param;
     t_stack_param   b_param;
+    char            *nbr_len_str;
 
     a_param = get_stack_param(a);
     b_param = get_stack_param(b);
 
     a_param.line_nbr = MAX(a_param.line_nbr, b_param.line_nbr);
     a_param.max_nbr_len = MAX(a_param.max_nbr_len, b_param.max_nbr_len);
-    a_param.printf_param = make_printf_param(ft_itoa(a_param.max_nbr_len));
+    nbr_len_str = ft_itoa(a_param.max_nbr_len);
+    if (!nbr_len_str)
+        a_param.printf_param = "%10s";
+    else
+    {
+        a_param.printf_param = make_printf_param(nbr_len_str);
+        free(nbr_len_str);
+    }
     return (a_param);
 }
 
@@ -222,6 +237,7 @@ void    print_stack(t_stack *a, t_stack *b)
     t_stack         *b_record;
     int             tmp;
     int             nbr_len_str;
+    char            *tmp_value;
 
     max_param = init_printing_var(a, b);
     ft_printf("%s\n",SEP);
@@ -231,7 +247,15 @@ void    print_stack(t_stack *a, t_stack *b)
     // print_param(max_param);
     if (a_record)
     {
-        ft_printf(max_param.printf_param, ft_itoa(a_record->value));
+        tmp_value = ft_itoa(a_record->value);
+        if (!tmp_value)
+            ft_printf(max_param.printf_param, "itoa:Error");
+        else
+        {
+            ft_printf(max_param.printf_param, tmp_value);
+            free(tmp_value);
+            tmp_value = NULL;
+        }
         a_record = a_record->next;
     }
     else
@@ -241,7 +265,15 @@ void    print_stack(t_stack *a, t_stack *b)
     
     if (b_record)
     {
-        ft_printf(max_param.printf_param, ft_itoa(b_record->value));
+        tmp_value = ft_itoa(b_record->value);
+        if (!tmp_value)
+            ft_printf(max_param.printf_param, "itoa:Error");
+        else
+        {
+            ft_printf(max_param.printf_param, tmp_value);
+            free(tmp_value);
+            tmp_value = NULL;
+        }
         b_record = b_record->next;
     }
     max_param.line_nbr--;
@@ -250,7 +282,15 @@ void    print_stack(t_stack *a, t_stack *b)
     {
         if (a_record && a_record != a)
         {
-            ft_printf(max_param.printf_param, ft_itoa(a_record->value));
+            tmp_value = ft_itoa(a_record->value);
+            if (!tmp_value)
+                ft_printf(max_param.printf_param, "itoa:Error");
+            else
+            {
+                ft_printf(max_param.printf_param, tmp_value);
+                free(tmp_value);
+                tmp_value = NULL;
+            }
             a_record = a_record->next;
         }
         else
@@ -260,7 +300,15 @@ void    print_stack(t_stack *a, t_stack *b)
         if (b_record && b_record != b)
         {
             ft_printf(" ");
-            ft_printf(max_param.printf_param, ft_itoa(b_record->value));
+            tmp_value = ft_itoa(b_record->value);
+            if (!tmp_value)
+                ft_printf(max_param.printf_param, "itoa:Error");
+            else
+            {
+                ft_printf(max_param.printf_param, tmp_value);
+                free(tmp_value);
+                tmp_value = NULL;
+            }
             b_record = b_record->next;
         }
         max_param.line_nbr--;
