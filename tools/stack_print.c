@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 11:43:30 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/25 15:21:57 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,18 +184,35 @@ void    print_elem(t_stack *elem)
 void	print_operation(t_operation op)
 {
 	ft_printf("=== PRINT_OPERATION ===\n");
-	ft_printf("| ");
-	if (!op.arg_a || !(*op.arg_a))
+	// ft_printf("| ");
+	if (op.arg_a)
 	{
-		ft_printf("op.arg_a = NULL | ");
-		return ;
+        if (*(op.arg_a))
+        {
+            ft_printf(" - stack_a -\n");
+            print_elem(*(op.arg_a));
+        }
+        else
+		    ft_printf("| *(op.arg_a) = NULL");
 	}
-	if (!(*op.arg_a))
-		ft_printf("*op.arg_a = NULL | ");
-	if (!op.arg_b)
-		ft_printf("op.arg_b = NULL | ");
-	if (!(*op.arg_b))
-		ft_printf("*op.arg_b = NULL |");
+    else
+    {
+		ft_printf("| op.arg_a = NULL");
+    }
+    if (op.arg_b)
+    {
+        if (*(op.arg_b))
+        {
+            ft_printf(" - stack_b -\n");
+            print_elem(*(op.arg_b));
+        }
+        else
+            ft_printf("| *(op.arg_b) = NULL |");
+    }
+    else
+    {
+        ft_printf("| op.arg_b = NULL |");
+    }
 	ft_printf("\n");
 	ft_printf("op.operation = %p\n", op.operation);
 }
@@ -260,8 +277,8 @@ void    print_stack(t_stack *a, t_stack *b)
     int             nbr_len_str;
     char            *value_s;
 
-    if (!printf_param)
-        max_param = init_printing_var(a, b);
+    // if (!printf_param)
+    max_param = init_printing_var(a, b);
     ft_printf("%s\n",SEP);
     // PRINT_COMMAND
     a_record = a;
