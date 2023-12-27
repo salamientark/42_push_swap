@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 23:59:12 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/27 22:27:57 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/28 00:12:04 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	operation(t_stack **a, t_stack **b, char *op)
 	else
 		return (0);
 	if (op_env.operation == &push || (op[2] == 'r'
-			|| op[1] == 'r' || op[1] == 's'))
+			|| (op[1] == 'r' && op[2] == '\n') || op[1] == 's'))
 		op_env.arg_b = b;
 	if (op[1] == 'b' || (ft_strlen(op) == 4 && op[2] == 'b'))
 	{
@@ -114,7 +114,6 @@ int	operation(t_stack **a, t_stack **b, char *op)
 		if (op_env.operation == &push)
 			op_env.arg_b = a;
 	}
-	print_operation(op_env);
 	op_env.operation(op_env.arg_a, op_env.arg_b);
 	return (1);
 }
