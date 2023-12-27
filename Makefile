@@ -8,7 +8,8 @@ PROJECT_DIR = ./
 
 ### SOURCE FILES ###
 SRC_DIR = src
-SRC_FILE = $(SRC_DIR)/arg_parser.c $(SRC_DIR)/stack.c main.c $(SRC_DIR)/operation.c
+SRC_FILE = $(SRC_DIR)/arg_parser.c $(SRC_DIR)/stack.c $(SRC_DIR)/operation.c \
+			$(SRC_DIR)/sort_stack.c $(SRC_DIR)/analyze_stack_a.c main.c
 
 # Development tools -> printing stuff
 TOOLS_DIR = ./tools

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 15:21:57 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/27 23:06:57 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int              nbr_len(int n)
 
 // Get t_stack * information -> t_stack_param
 //  nbr_len_max && stack_size && printf_param
-static t_stack_param    get_stack_param(t_stack *begining)
+static t_stack_param    get_stack_param(t_stack *begining, int (*get)(t_stack *))
 {
     t_stack_param   param;
     t_stack         *record;
@@ -75,12 +75,12 @@ static t_stack_param    get_stack_param(t_stack *begining)
     param.max_nbr_len = 0;
     if (!begining)
         return (param);
-    param.max_nbr_len = nbr_len(begining->value);
+    param.max_nbr_len = nbr_len(get(begining));
     record = begining->next;
     param.line_nbr++;
     while (record != begining)
     {
-        param.max_nbr_len = MAX(param.max_nbr_len, nbr_len(record->value));
+        param.max_nbr_len = MAX(param.max_nbr_len, nbr_len(get(record)));
         record = record->next;
         param.line_nbr++;
     }
@@ -134,13 +134,13 @@ static char             *make_printf_param(int nbr_len)
 }
 
 // Init t_stack_param
-static t_stack_param    init_printing_var(t_stack *a, t_stack *b)
+static t_stack_param    init_printing_var(t_stack *a, t_stack *b, int (*get)(t_stack *))
 {
     t_stack_param   a_param;
     t_stack_param   b_param;
 
-    a_param = get_stack_param(a);
-    b_param = get_stack_param(b);
+    a_param = get_stack_param(a, get);
+    b_param = get_stack_param(b, get);
 
     a_param.line_nbr = MAX(a_param.line_nbr, b_param.line_nbr);
     a_param.max_nbr_len = MAX(a_param.max_nbr_len, b_param.max_nbr_len);
@@ -170,7 +170,7 @@ void    print_param(t_stack_param param)
 
 // Print t_stack * information
 //  Debug printing information
-void    print_elem(t_stack *elem)
+void    print_elem(t_stack *elem, int (*get)(t_stack *))
 {
     if (!elem)
     {
@@ -178,7 +178,7 @@ void    print_elem(t_stack *elem)
         return ;
     }
     ft_printf("%p <---| %p : %d |---> %p\n",
-        elem->prev, elem, elem->value, elem->next);
+        elem->prev, elem, get(elem), elem->next);
 }
 
 void	print_operation(t_operation op)
@@ -190,7 +190,7 @@ void	print_operation(t_operation op)
         if (*(op.arg_a))
         {
             ft_printf(" - stack_a -\n");
-            print_elem(*(op.arg_a));
+            print_elem(*(op.arg_a), &get_stack_value);
         }
         else
 		    ft_printf("| *(op.arg_a) = NULL");
@@ -204,7 +204,7 @@ void	print_operation(t_operation op)
         if (*(op.arg_b))
         {
             ft_printf(" - stack_b -\n");
-            print_elem(*(op.arg_b));
+            print_elem(*(op.arg_b), &get_stack_value);
         }
         else
             ft_printf("| *(op.arg_b) = NULL |");
@@ -217,16 +217,30 @@ void	print_operation(t_operation op)
 	ft_printf("op.operation = %p\n", op.operation);
 }
 
+int    get_stack_key(t_stack *stack)
+{
+    if (!stack)
+        return (0);
+    return ((int) stack->key);
+}
+
+int    get_stack_value(t_stack *stack)
+{
+    if (!stack)
+        return (0);
+    return (stack->value);
+}
+
 // Print t_stack * information
 //  For every element of the stack
-void    print_stack_debug(t_stack *a, t_stack *b)
+void    print_stack_debug(t_stack *a, t_stack *b, int (*get)(t_stack *))
 {
     t_stack         *a_record;
     t_stack         *b_record;
     int             tmp;
 
     if (!printf_param)
-        max_param = init_printing_var(a, b);
+        max_param = init_printing_var(a, b, get);
     ft_printf("%s\n",SEP);
     // PRINT_COMMAND
     a_record = a;
@@ -234,12 +248,12 @@ void    print_stack_debug(t_stack *a, t_stack *b)
     // STACK A PART
     if (a)
     {
-        print_elem(a_record);
+        print_elem(a_record, get);
         a_record = a_record->next;
         while (a_record && a_record != a)
         {
             ft_printf("before_print_elem\n");
-            print_elem(a_record);
+            print_elem(a_record, get);
             ft_printf("after_print_elem\n");
             a_record = a_record->next;
         }
@@ -253,11 +267,11 @@ void    print_stack_debug(t_stack *a, t_stack *b)
     }
     if (b)
     {
-        print_elem(b_record);
+        print_elem(b_record, get);
         b_record = b_record->next;
         while (b_record && b_record != b)
         {
-            print_elem(b_record);
+            print_elem(b_record, get);
             b_record = b_record->next;
         }
         tmp = -1;
@@ -269,7 +283,7 @@ void    print_stack_debug(t_stack *a, t_stack *b)
 }
 
 // Pretty stack print
-void    print_stack(t_stack *a, t_stack *b)
+void    print_stack(t_stack *a, t_stack *b, int (*get)(t_stack *))
 {
     t_stack         *a_record;
     t_stack         *b_record;
@@ -278,7 +292,7 @@ void    print_stack(t_stack *a, t_stack *b)
     char            *value_s;
 
     // if (!printf_param)
-    max_param = init_printing_var(a, b);
+    max_param = init_printing_var(a, b, get);
     ft_printf("%s\n",SEP);
     // PRINT_COMMAND
     a_record = a;
@@ -287,7 +301,7 @@ void    print_stack(t_stack *a, t_stack *b)
     index = max_param.line_nbr;
     if (a_record)
     {
-        value_s = ft_itoa(a_record->value);
+        value_s = ft_itoa(get(a_record));
         if (!value_s)
             ft_printf(max_param.printf_param, "itoa:Error");
         else
@@ -303,7 +317,7 @@ void    print_stack(t_stack *a, t_stack *b)
     if (b_record)
     {
         ft_printf(" ");  
-        value_s = ft_itoa(b_record->value);
+        value_s = ft_itoa(get(b_record));
         if (!value_s)
             ft_printf(max_param.printf_param, "itoa:Error");
         else
@@ -320,7 +334,7 @@ void    print_stack(t_stack *a, t_stack *b)
     {
         if (a_record && a_record != a)
         {
-            value_s = ft_itoa(a_record->value);
+            value_s = ft_itoa(get(a_record));
             if (!value_s)
                 ft_printf(max_param.printf_param, "itoa:Error");
             else
@@ -338,7 +352,7 @@ void    print_stack(t_stack *a, t_stack *b)
         if (b_record && b_record != b)
         {
             ft_printf(" ");
-            value_s = ft_itoa(b_record->value);
+            value_s = ft_itoa(get(b_record));
             if (!value_s)
                 ft_printf(max_param.printf_param, "itoa:Error");
             else
@@ -368,3 +382,31 @@ void    print_stack(t_stack *a, t_stack *b)
     ft_printf(max_param.printf_param, "b");
     ft_printf("\n");
 }
+
+// void    print_dict(t_stack_dict dict)
+// {
+//     int     index;
+//     char    *tmp_nb;
+
+//     index = 0;
+//     ft_printf("==> PRINT DICT <==\n");
+//     ft_printf("size : %d\n", dict.size);
+//     ft_printf(printf_param, "KEY");
+//     ft_printf(":");
+//     ft_printf(printf_param, "VALUE");
+//     ft_printf("\n");
+//     while (index < dict.size)
+//     {
+//         tmp_nb = ft_itoa(dict.stack_dict[index].key);
+//         ft_printf(printf_param, tmp_nb);
+//         if (tmp_nb)
+//             free(tmp_nb);
+//         ft_printf(":");
+//         tmp_nb = ft_itoa(dict.stack_dict[index].value);
+//         ft_printf(printf_param, tmp_nb);
+//         if (tmp_nb)
+//             free(tmp_nb);
+//         ft_printf("\n");
+//         index++;
+//     }
+// }

@@ -6,11 +6,13 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 23:59:12 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/25 16:07:03 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:27:57 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/stack.h"
+
+#include "../includes/stack_print.h"
 
 /*	Description
 		Alt version make all function with two arg
@@ -60,7 +62,7 @@ void	swap(t_stack **stack_a, t_stack **stack_b)
 	swap(stack_b, NULL);
 }
 
-void	push(t_stack **src, t_stack **dest)
+void	push(t_stack **dest, t_stack **src)
 {
 	t_stack	*elem;
 
@@ -112,6 +114,7 @@ int	operation(t_stack **a, t_stack **b, char *op)
 		if (op_env.operation == &push)
 			op_env.arg_b = a;
 	}
+	print_operation(op_env);
 	op_env.operation(op_env.arg_a, op_env.arg_b);
 	return (1);
 }

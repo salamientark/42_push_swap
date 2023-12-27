@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arg_parser.c                                       :+:      :+:    :+:   */
+/*   arg_parse_v2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 01:30:50 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/27 22:33:31 by dbaladro         ###   ########.fr       */
+/*   Created: 2023/12/25 20:37:04 by dbaladro          #+#    #+#             */
+/*   Updated: 2023/12/27 22:28:12 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static t_stack	*make_stack(char **arg, int size)
 				free_stack(&stack);
 			return (NULL);
 		}
-		stack = add_stack(size + 1, tmp_value, stack);
+		stack = add_stack(tmp_value, stack);
 	}
 	return (stack);
 }
@@ -106,3 +106,5 @@ t_stack	*parse_arg(int ac, char **av)
 		return (make_one_arg_stack(av[1]));
 	return (make_stack(&(av[1]), ac - 1));
 }
+
+
