@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 20:18:42 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/27 22:43:42 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/27 23:33:56 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,34 @@
     [ 3, 6, 1, 5, 2, 4]
 */
 
-void    sort_stack_key(t_stack **stack)
-{
-    t_stack *limit;
-    t_stack *index;
-    int     tmp;
+// void    sort_stack_key(t_stack **stack)
+// {
+//     t_stack *limit;
+//     t_stack *index;
+//     int     tmp;
 
-    limit = (*stack)->prev;
-    while (limit != *stack)
-    {
-        index = *stack;
-        while (index != limit)
-        {
-            if (index->value > limit->value)
-            {
-                if (index->key > limit->key)
-                {
-                    tmp = limit->key;
-                    limit->key = index->key;
-                    index->key = tmp;
-                }
-            }
-            index = index->next;
-        }
-        limit = limit->prev;
-    }
-}
+//     limit = (*stack)->prev;
+//     while (limit != *stack)
+//     {
+//         index = *stack;
+//         while (index != limit)
+//         {
+//             if (index->value > limit->value)
+//             {
+//                     ft_printf("first_if_true\n");
+//                 if (index->key > limit->key)
+//                 {
+//                     ft_printf("swap: %d | %d\n", index->key, limit->key);
+//                     tmp = limit->key;
+//                     limit->key = index->key;
+//                     index->key = tmp;
+//                 }
+//             }
+//             index = index->next;
+//         }
+//         limit = limit->prev;
+//     }
+// }
     
 // t_stack_dict    stack_to_dict(t_stack *stack, int size)
 // {

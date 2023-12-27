@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/27 22:47:25 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/27 23:30:09 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_operation
 }				t_operation;
 
 // stack.c
-t_stack	*add_stack(const unsigned int key, const int val, t_stack *stack);
+t_stack	*add_stack(const int val, t_stack *stack);
 void	free_stack(t_stack**stack);
 int		stack_size(t_stack *stack);
 

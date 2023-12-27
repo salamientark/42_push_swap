@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:44:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/27 22:47:05 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/27 23:33:25 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,29 @@ void	free_stack(t_stack **stack)
 	*stack = NULL;
 }
 
-t_stack	*add_stack(const unsigned int key, const int val, t_stack *stack)
+static void	update_val(t_stack *stack)
+{
+	t_stack	*index;
+
+	index = stack->next;
+	while (index != stack)
+	{
+		if (index->value > stack->value)
+			index->key++;
+		else
+			stack->key++;
+		index = index->next;
+	}
+}
+
+t_stack	*add_stack(const int val, t_stack *stack)
 {
 	t_stack	*elem;
 
 	elem = (t_stack *)malloc(sizeof(struct s_stack));
 	if (!elem)
 		return (NULL);
-	elem->key = key;
+	elem->key = 1;
 	elem->value = val;
 	if (!stack)
 	{
@@ -59,6 +74,7 @@ t_stack	*add_stack(const unsigned int key, const int val, t_stack *stack)
 		(elem->prev)->next = elem;
 		stack->prev = elem;
 	}
+	update_val(elem);
 	return (elem);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 21:49:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/27 23:08:15 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/27 23:31:21 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int    main(int ac, char **av)
         return (0);
     // op_str = NULL;
     print_stack(a, b, &get_stack_key);
+    // sort_stack_key(&a);
+    // print_stack(a, b, &get_stack_key);
     // ft_printf("sorted_stack_a : %d\n", sorted_stack_a(a));
 
     // dict = stack_to_dict(a, stack_size(a));
