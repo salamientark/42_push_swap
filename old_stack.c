@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_old.c                                        :+:      :+:    :+:   */
+/*   old_stack.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 23:51:47 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/24 23:57:55 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/29 13:51:42 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/stack.h"
 
 // Init doubly rotary linked list
-t_stack	*init_stack(const int value)
+t_stack_data	*init_stack_data(const int value)
 {
-	t_stack	*stack;
+	t_stack_data	*stack;
 
-	stack = (t_stack *)malloc(sizeof(struct s_stack));
+	stack = (t_stack_data *)malloc(sizeof(struct s_stack_data));
 	if (!stack)
 		return (NULL);
 	stack->value = value;
@@ -27,9 +27,9 @@ t_stack	*init_stack(const int value)
 }
 
 // DELETE ELEM FROM STACK IF EXIST
-t_stack	*delete(t_stack *top)
+t_stack_data	*delete(t_stack_data *top)
 {
-	t_stack	*tmp;
+	t_stack_data	*tmp;
 
 	if (!top)
 		return (NULL);
@@ -50,10 +50,10 @@ t_stack	*delete(t_stack *top)
 
 // Remove without free
 //  Do nothing if no stack or one element only
-t_stack	*remove(t_stack **top)
+t_stack_data	*remove(t_stack_data **top)
 {
-	t_stack	*elem;
-	t_stack	*removed_top;
+	t_stack_data	*elem;
+	t_stack_data	*removed_top;
 
 	if (!(*top) || (*top)->next == (*top))
 		return (*top);

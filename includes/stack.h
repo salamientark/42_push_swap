@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/27 23:30:09 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/29 15:32:15 by madlab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,48 +16,64 @@
 # include "../libft/libft.h"
 
 // Double chained rotary structur allow push swap manipulation easily
+typedef struct s_stack_data
+{
+	unsigned int		key;
+	int					value;
+	struct s_stack_data	*prev;
+	struct s_stack_data	*next;
+}				t_stack_data;
+
 typedef struct s_stack
 {
-	unsigned int	key;
-	int				value;
-	struct s_stack	*prev;
-	struct s_stack	*next;
+	char			id;
+	int				size;
+	int				min;
+	int				max;
+	t_stack_data	*head;
 }				t_stack;
+
+typedef struct s_push_swap_env
+{
+	t_stack	stack_a;
+	t_stack	stack_b;
+	int		max_size;
+}				t_push_swap_env;
 
 // Type containg push_swap opeartion and variable
 typedef struct s_operation
 {
-	t_stack	**arg_a;
-	t_stack	**arg_b;
-	void	(*operation)(t_stack **, t_stack **);
+	t_stack_data	**arg_a;
+	t_stack_data	**arg_b;
+	void			(*operation)(t_stack_data **, t_stack_data **);
 }				t_operation;
 
 // stack.c
-t_stack	*add_stack(const int val, t_stack *stack);
-void	free_stack(t_stack**stack);
-int		stack_size(t_stack *stack);
+t_stack			init_stack(char id);
+void			free_stack_data(t_stack_data**stack);
+t_stack_data	*add_stack_data(const int val, t_stack_data *stack);
+int				stack_size(t_stack_data *stack);
 
 // arg_parser.c
-t_stack	*parse_arg(int ac, char **av);
+t_push_swap_env	init_push_swap(int ac, char **av);
 
 //operation.c
-void	push_old(t_stack **src, t_stack **dest);
-void	swap_old(t_stack **stack);
-void	rotate_old(t_stack **stack);
-void	r_rotate_old(t_stack **stack);
-int		operation(t_stack **a, t_stack **b, char *op);
+void			push_old(t_stack_data **src, t_stack_data **dest);
+void			swap_old(t_stack_data **stack);
+void			rotate_old(t_stack_data **stack);
+void			r_rotate_old(t_stack_data **stack);
+int				operation(t_stack_data **a, t_stack_data **b, char *op);
 
-// sort_stack.c
-// t_stack_dict    stack_to_dict(t_stack *stack, int size);
-void    sort_stack_key(t_stack **stack);
+// sort_stack_data.c
+void			sort_stack_data_3(t_stack_data **stack);
 
 //analyze stack.c
-int sorted_stack_a(t_stack *stack);
+int				a_sorted(t_stack_data *stack);
 
 // old_operation.c
-void	push(t_stack **src, t_stack **dest);
-void	swap(t_stack **stack_a, t_stack **stack_b);
-void	rotate(t_stack **stack_a, t_stack **stack_b);
-void	r_rotate(t_stack **stack_a, t_stack **stack_b);
+void			push(t_stack_data **src, t_stack_data **dest);
+void			swap(t_stack_data **stack_a, t_stack_data **stack_b);
+void			rotate(t_stack_data **stack_a, t_stack_data **stack_b);
+void			r_rotate(t_stack_data **stack_a, t_stack_data **stack_b);
 
 #endif

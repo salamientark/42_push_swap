@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/13 23:23:18 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/29 13:51:42 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ typedef enum e_bool
 }           t_bool;
 
 // Double chained rotary structur allow push swap manipulation easily
-typedef struct s_stack
+typedef struct s_stack_data
 {
     int             value;
-    struct s_stack  *prev;
-    struct s_stack  *next;
-}               t_stack;
+    struct s_stack_data  *prev;
+    struct s_stack_data  *next;
+}               t_stack_data;
 
-t_stack *init_stack();
-t_stack push();
-t_stack init_stack();
-t_stack init_stack();
+t_stack_data *init_stack_data();
+t_stack_data push();
+t_stack_data init_stack_data();
+t_stack_data init_stack_data();
 
 
 #endif

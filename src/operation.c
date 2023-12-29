@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 23:59:12 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/28 00:12:04 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/29 13:51:34 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 	to stop the function
 */
 
-void	rotate(t_stack **stack_a, t_stack **stack_b)
+void	rotate(t_stack_data **stack_a, t_stack_data **stack_b)
 {
 	if (*stack_a)
 		*stack_a = (*stack_a)->next;
@@ -32,7 +32,7 @@ void	rotate(t_stack **stack_a, t_stack **stack_b)
 }
 
 // Reverse rotate
-void	r_rotate(t_stack **stack_a, t_stack **stack_b)
+void	r_rotate(t_stack_data **stack_a, t_stack_data **stack_b)
 {
 	if (*stack_a)
 		*stack_a = (*stack_a)->prev;
@@ -40,9 +40,9 @@ void	r_rotate(t_stack **stack_a, t_stack **stack_b)
 		r_rotate(stack_b, NULL);
 }
 
-void	swap(t_stack **stack_a, t_stack **stack_b)
+void	swap(t_stack_data **stack_a, t_stack_data **stack_b)
 {
-	t_stack	*new_top;
+	t_stack_data	*new_top;
 
 	if (!(*stack_a) || (*stack_a)->next == *stack_a)
 		return ;
@@ -62,9 +62,9 @@ void	swap(t_stack **stack_a, t_stack **stack_b)
 	swap(stack_b, NULL);
 }
 
-void	push(t_stack **dest, t_stack **src)
+void	push(t_stack_data **dest, t_stack_data **src)
 {
-	t_stack	*elem;
+	t_stack_data	*elem;
 
 	if (!(*src))
 		return ;
@@ -89,7 +89,7 @@ void	push(t_stack **dest, t_stack **src)
 	*dest = elem;
 }
 
-int	operation(t_stack **a, t_stack **b, char *op)
+int	operation(t_stack_data **a, t_stack_data **b, char *op)
 {
 	t_operation	op_env;
 
@@ -115,5 +115,6 @@ int	operation(t_stack **a, t_stack **b, char *op)
 			op_env.arg_b = a;
 	}
 	op_env.operation(op_env.arg_a, op_env.arg_b);
+	ft_printf("%s",op);
 	return (1);
 }

@@ -6,16 +6,28 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:44:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/27 23:33:25 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/29 15:28:56 by madlab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/stack.h"
 
-// REWORK TO FREE LAST ELEMENT OF LIST
-void	free_stack(t_stack **stack)
+t_stack	init_stack(char id)
 {
-	t_stack	*tmp;
+	t_stack	stack;
+
+	stack.id = id;
+	stack.size = 0;
+	stack.min = 0;
+	stack.max = 0;
+	stack.head = NULL;
+	return (stack);
+}
+
+// REWORK TO FREE LAST ELEMENT OF LIST
+void	free_stack_data(t_stack_data **stack)
+{
+	t_stack_data	*tmp;
 
 	if (!(*stack))
 		return ;
@@ -36,9 +48,9 @@ void	free_stack(t_stack **stack)
 	*stack = NULL;
 }
 
-static void	update_val(t_stack *stack)
+static void	update_val(t_stack_data *stack)
 {
-	t_stack	*index;
+	t_stack_data	*index;
 
 	index = stack->next;
 	while (index != stack)
@@ -51,11 +63,11 @@ static void	update_val(t_stack *stack)
 	}
 }
 
-t_stack	*add_stack(const int val, t_stack *stack)
+t_stack_data	*add_stack_data(const int val, t_stack_data *stack)
 {
-	t_stack	*elem;
+	t_stack_data	*elem;
 
-	elem = (t_stack *)malloc(sizeof(struct s_stack));
+	elem = (t_stack_data *)malloc(sizeof(struct s_stack_data));
 	if (!elem)
 		return (NULL);
 	elem->key = 1;
@@ -78,10 +90,10 @@ t_stack	*add_stack(const int val, t_stack *stack)
 	return (elem);
 }
 
-int	stack_size(t_stack *stack)
+int	stack_size(t_stack_data *stack)
 {
-	int		size;
-	t_stack	*stack_cp;
+	int				size;
+	t_stack_data	*stack_cp;
 
 	size = 0;
 	if (!stack)

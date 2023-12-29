@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_stack.c                                       :+:      :+:    :+:   */
+/*   test_stack_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 22:24:46 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/21 01:26:10 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/29 13:50:26 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/stack.h"
 #include "../includes/stack_print.h"
 
-t_bool  stack_is_equal(t_stack *a, t_stack *b)
+t_bool  stack_is_equal(t_stack_data *a, t_stack_data *b)
 {
-    t_stack *a_record;
-    t_stack *b_record;
+    t_stack_data *a_record;
+    t_stack_data *b_record;
 
     if (!a && !b)
         return (TRUE);
