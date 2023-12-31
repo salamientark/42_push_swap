@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/29 15:32:15 by madlab           ###   ########.fr       */
+/*   Updated: 2023/12/29 16:36:50 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int				operation(t_stack_data **a, t_stack_data **b, char *op);
 void			sort_stack_data_3(t_stack_data **stack);
 
 //analyze stack.c
+int 			follow(t_stack_data *elem_a, t_stack_data *elem_b, unsigned int total_stack_size);
 int				a_sorted(t_stack_data *stack);
 
 // old_operation.c

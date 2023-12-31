@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 01:30:50 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/29 15:26:29 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/31 17:20:51 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ static t_stack	make_stack(char **arg, int size)
 	if (size == 0)
 		return (stack);
 	stack.size = size;
+	stack.min = 1;
+	stack.max = size;
 	while (size-- > 0)
 	{
 		tmp_value = ft_atoi(arg[size]);

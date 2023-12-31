@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/29 15:21:44 by dbaladro         ###   ########.fr       */
+/*   Updated: 2023/12/30 08:59:22 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,6 @@ void    print_stack_data_debug(t_stack_data *a, t_stack_data *b, int (*get)(t_st
         write(1, "\n", 1);
         ft_printf("%31c\n", 'a');
         ft_printf("\n");
-        ft_printf("en_of_while\n");
     }
     if (b)
     {

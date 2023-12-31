@@ -40,25 +40,31 @@ int a_sorted(t_stack_data *stack)
     rot = 0;
     while (index < size_stack)
     {
-        if ((record->value != (record->prev)->value + 1)
-            && !(record->prev->value == size_stack && record->value == 1))
+        if ((record->value != (record->next)->value - 1)
+            && !(record->value == size_stack && record->next->value == 1))
             return (-1);
         if (record->value == 1)
-            rot = size_stack - index;
+            rot = index;
         index++;
         record = record->next;
     }
     return (rot);
 }
 
-// /*  Check if the two value perfectly follow
-//     1 : TRUE
-//     0 : FALSE
-// */
-// int follow(t_stack_data *elem_a, t_stack_data *elem_b, int total_stack_size)
-// {
-    
-// }
+/*  Check if the two value perfectly follow
+    1 : TRUE
+    0 : FALSE
+*/
+int follow(t_stack_data *elem_a, t_stack_data *elem_b, unsigned int total_stack_size)
+{
+    if (elem_a->key == elem_b->key - 1
+        || (elem_a->key == 1 && elem_b->key == total_stack_size))
+        return (1);
+    if ((elem_a->key == elem_b->key + 1
+        || (elem_a->key == total_stack_size && elem_b->key == 1)))
+        return (-1);
+    return (0);
+}
 
 
 
