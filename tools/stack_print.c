@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2023/12/30 08:59:22 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/02 15:44:51 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,10 +187,10 @@ void	print_operation(t_operation op)
 	// ft_printf("| ");
 	if (op.arg_a)
 	{
-        if (*(op.arg_a))
+        if (op.arg_a->head)
         {
             ft_printf(" - stack_a -\n");
-            print_elem(*(op.arg_a), &get_elem_value);
+            print_elem(op.arg_a->head, &get_elem_value);
         }
         else
 		    ft_printf("| *(op.arg_a) = NULL");
@@ -199,12 +199,12 @@ void	print_operation(t_operation op)
     {
 		ft_printf("| op.arg_a = NULL");
     }
-    if (op.arg_b)
+    if (op.arg_b->head)
     {
-        if (*(op.arg_b))
+        if (op.arg_b->head)
         {
             ft_printf(" - stack_b -\n");
-            print_elem(*(op.arg_b), &get_elem_value);
+            print_elem(op.arg_b->head, &get_elem_value);
         }
         else
             ft_printf("| *(op.arg_b) = NULL |");
@@ -401,4 +401,11 @@ void    print_stack(t_stack a, t_stack b, int (*get)(t_stack_data *),
 {
     print(a.head, b.head, get);
     print_stack_param(a, b);
+}
+
+void    print_ps_env(t_push_swap_env *ps_env)
+{
+    ft_printf("===== PRINT_PS_ENV =====\n");
+    ft_printf("= max_size = % 11d=\n", ps_env->max_size);
+    ft_printf("========================\n");
 }

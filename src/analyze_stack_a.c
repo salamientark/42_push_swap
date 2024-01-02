@@ -25,30 +25,49 @@
     [1,n]    : Sorted but n rotate to start with 1
     -1       : Not sorted
 */
-int a_sorted(t_stack_data *stack)
+int a_sorted(t_stack_data *stack, unsigned int stack_size)
 {
     int     rot;
-    int     index;
-    int     size_stack;
+    unsigned int     index;
     t_stack_data *record;
 
     if (!stack || stack == stack->next)
         return (0);
     index = 0;
-    size_stack = stack_size(stack);
     record = stack;
     rot = 0;
-    while (index < size_stack)
+    while (index < stack_size)
     {
-        if ((record->value != (record->next)->value - 1)
-            && !(record->value == size_stack && record->next->value == 1))
+        if ((record->key != (record->next)->key - 1)
+            && !(record->key == stack_size && record->next->key == 1))
             return (-1);
-        if (record->value == 1)
+        if (record->key == 1)
             rot = index;
         index++;
         record = record->next;
     }
     return (rot);
+}
+
+int r_sorted(t_stack_data *stack, unsigned int stack_size)
+{
+
+    unsigned int    index;
+    t_stack_data    *record;
+
+    if (!stack || stack == stack->prev)
+        return (0);
+    index = 0;
+    record = stack;
+    while (index < stack_size)
+    {
+        if ((record->key != record->prev->key - 1)
+            && !(record->key == stack_size && record->prev->key == 1))
+            return (0);
+        index++;
+        record = record->prev;
+    }
+    return (1);
 }
 
 /*  Check if the two value perfectly follow
@@ -58,10 +77,10 @@ int a_sorted(t_stack_data *stack)
 int follow(t_stack_data *elem_a, t_stack_data *elem_b, unsigned int total_stack_size)
 {
     if (elem_a->key == elem_b->key - 1
-        || (elem_a->key == 1 && elem_b->key == total_stack_size))
+        || (elem_a->key == total_stack_size && elem_b->key == 1))
         return (1);
     if ((elem_a->key == elem_b->key + 1
-        || (elem_a->key == total_stack_size && elem_b->key == 1)))
+        || (elem_a->key == 1 && elem_b->key == total_stack_size)))
         return (-1);
     return (0);
 }
@@ -80,7 +99,7 @@ int follow(t_stack_data *elem_a, t_stack_data *elem_b, unsigned int total_stack_
 // // // {
 // // //     int     rot;
 // // //     int     index;
-// // //     int     size_stack;
+// // //     int     stack_size;
 // // //     t_stack_data *record;
 
 // // //     if (!stack || stack == stack->next)

@@ -128,49 +128,51 @@ static char *best_rotate(int rot, int size)
         return ("ra\n");
 }
 
-void    sort_stack_data_3(t_stack_data **stack)
+void    sort_stack_data_3(t_stack *stack)
 {
     int sorted;
 
-    sorted = a_sorted(*stack);
+    sorted = a_sorted(stack->head, stack->size);
     while (sorted != 0)
     {
-        sorted = a_sorted(*stack);
         if (sorted > 0)
-            operation(stack, NULL, best_rotate(sorted, stack_size(*stack)));
+            operation(stack, NULL, best_rotate(sorted, stack->size));
         else
             operation(stack, NULL, "sa\n");
+        sorted = a_sorted(stack->head, stack->size);
     }
 }
 
-// void    sort_stack_data_5(t_stack_data **stack_a, t_stack_data **stack_b)
-// {
-//     int sorted;
+void    sort_stack_data_5(t_stack *stack_a)
+{
+    int sorted;
 
-//     sorted = a_sorted(*stack_a);
-//     if (sorted)
-//         return ;
-//     else if (sorted > 0)
-//         operation(stack_a, NULL, best_rotate(sorted, stack_size(*stack_a)));
-//     else if (!(*stack_b))
-//     {
-//         if (follow((*stack_a), (*stack_a)->prev, 5) == -1)
-//             operation(stack_a, NULL, "rra\n");
-//         else if (follow(*stack_a, (*stack_a)->next, 5) == -1
-//             || follow((*stack_a)->next, (*stack_a)->prev, 5))
-//             operation(stack_a, NULL, "sa\n");
-//         else if (follow((*stack_a), (*stack_a)->next, 5) == 1)
-//             operation(stack_a, NULL, "ra\n");
-//         else
-//             operation(stack_b, stack_a, "pa\n");
-//     }
-//     else
-//     {
-//         if (follow((*stack_b), (*stack_a), 5) == 1)
-//             operation(stack_a, stack_b, "pb\n");
-        
-//     }
-// }
+    if (r_sorted(stack_a->head, stack_a->size))
+        operation(stack_a, NULL, "sa\n");
+    sorted = a_sorted(stack_a->head, stack_a->size);
+    while (sorted != 0)
+    {
+        if (sorted > 0)
+            operation(stack_a, NULL, best_rotate(sorted, 5));
+        else if (follow(stack_a->head, stack_a->head->next, 5) == 1)
+            operation(stack_a, NULL, "ra\n");
+        else if (follow(stack_a->head->prev, stack_a->head->next, 5) == 1
+            && follow(stack_a->head->prev, stack_a->head, 5) != 1)
+            operation(stack_a, NULL, "sa\n");
+        else if (follow(stack_a->head->prev, stack_a->head, 5) == -1)
+            operation(stack_a, NULL, "rra\n");
+        else if (follow(stack_a->head, stack_a->head->next->next, 5)
+            && !(follow(stack_a->head->next, stack_a->head->next->next->next, 5)))
+            operation(stack_a, NULL, "sa\n");
+        else if (follow(stack_a->head->prev, stack_a->head, 5) == 1)
+            operation(stack_a, NULL, "ra\n");
+        else if (follow(stack_a->head, stack_a->head->next, 5) == -1)
+            operation(stack_a, NULL, "sa\n");
+        else
+            operation(stack_a, NULL, "ra\n");
+        sorted = a_sorted(stack_a->head, stack_a->size);
+    }
+}
 
 // void    b_analyze_a(t_stack_data **a, t_stack_data **b)
 // {
