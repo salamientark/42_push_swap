@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/02 18:21:04 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/03 07:23:42 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ typedef struct s_stack_data
 typedef struct s_stack
 {
 	char			id;
-	int				size;
-	int				min;
-	int				max;
+	unsigned int	size;
+	unsigned int	min;
+	unsigned int	max;
 	t_stack_data	*head;
 }				t_stack;
 
@@ -77,12 +77,13 @@ int				operation(t_stack *a, t_stack *b, char *op);
 
 // sort_stack_data.c
 void			sort_stack_data_3(t_stack *stack);
-void    		sort_stack_data_5(t_stack *stack);
+void    		sort_stack_data_5(t_stack *stack_a, t_stack *stack_b);
 
 //analyze stack.c
 int 			follow(t_stack_data *elem_a, t_stack_data *elem_b, unsigned int total_stack_size);
 int 			a_sorted(t_stack_data *stack, unsigned int stack_size);
-int				r_sorted(t_stack_data *stack, unsigned int stack_size);
+int				is_r_sorted(t_stack *stack);
+int				is_sorted(t_stack *stack);
 
 //old_operation.c
 void			push_old(t_stack_data **src, t_stack_data **dest);

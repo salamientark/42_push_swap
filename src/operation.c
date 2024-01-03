@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 23:59:12 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/02 13:52:46 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/03 07:23:13 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	swap(t_stack *stack_a, t_stack *stack_b)
 
 static void	update_stack_after_push(t_stack *dest, t_stack *src)
 {
-	int	push_value;
+	unsigned int	push_value;
 
 	push_value = dest->head->key;
 	if (!(dest->head))

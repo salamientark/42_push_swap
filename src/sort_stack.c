@@ -143,34 +143,40 @@ void    sort_stack_data_3(t_stack *stack)
     }
 }
 
-void    sort_stack_data_5(t_stack *stack_a)
+void    sort_stack_data_5(t_stack *stack_a, t_stack *stack_b)
 {
     int sorted;
 
-    if (r_sorted(stack_a->head, stack_a->size))
+    (void) stack_b;
+    if (is_r_sorted(stack_a))
         operation(stack_a, NULL, "sa\n");
-    sorted = a_sorted(stack_a->head, stack_a->size);
-    while (sorted != 0)
+    sorted = is_sorted(stack_a);
+    while (!(sorted == 1 && stack_a->size == 5 && stack_a->head->key == 1))
     {
-        if (sorted > 0)
-            operation(stack_a, NULL, best_rotate(sorted, 5));
-        else if (follow(stack_a->head, stack_a->head->next, 5) == 1)
-            operation(stack_a, NULL, "ra\n");
-        else if (follow(stack_a->head->prev, stack_a->head->next, 5) == 1
-            && follow(stack_a->head->prev, stack_a->head, 5) != 1)
-            operation(stack_a, NULL, "sa\n");
-        else if (follow(stack_a->head->prev, stack_a->head, 5) == -1)
-            operation(stack_a, NULL, "rra\n");
-        else if (follow(stack_a->head, stack_a->head->next->next, 5)
-            && !(follow(stack_a->head->next, stack_a->head->next->next->next, 5)))
-            operation(stack_a, NULL, "sa\n");
-        else if (follow(stack_a->head->prev, stack_a->head, 5) == 1)
-            operation(stack_a, NULL, "ra\n");
-        else if (follow(stack_a->head, stack_a->head->next, 5) == -1)
-            operation(stack_a, NULL, "sa\n");
-        else
-            operation(stack_a, NULL, "ra\n");
-        sorted = a_sorted(stack_a->head, stack_a->size);
+        if (!(stack_b->head))
+        {
+            if (a_sorted(stack_a->head, stack_a->size) > 0)
+                operation(stack_a, NULL, best_rotate(a_sorted(stack_a->head, 5), 5));
+            else if (follow(stack_a->head, stack_a->head->next, 5) == -1)
+                operation(stack_a, NULL, "sa\n");
+            else if (follow(stack_a->head, stack_a->head->next, 5) == 1
+                || follow(stack_a->head->prev, stack_a->head, 5) == 1)
+                operation(stack_a, NULL, "ra\n");
+            else if (follow(stack_a->head->prev, stack_a->head, 5) == -1)
+                operation(stack_a, NULL, "rra\n");
+            else if (follow(stack_a->head->prev, stack_a->head->next, 5) == 1
+                || follow(stack_a->head, stack_a->head->next, 5) == 1)
+                operation(stack_a, NULL, "sa\n");
+            // else if (follow(stack_a->head, stack_a->head->next->next, 5)
+            //     && !(follow(stack_a->head->next, stack_a->head->next->next->next, 5)))
+            //     operation(stack_a, NULL, "sa\n");
+            // else if (follow(stack_a->head->prev, stack_a->head, 5) == 1)
+            //     operation(stack_a, NULL, "ra\n");
+            else
+                operation(stack_a, NULL, "sa\n");
+        }
+        // sleep(1);
+        sorted = is_sorted(stack_a);
     }
 }
 

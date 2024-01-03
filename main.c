@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 21:49:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/02 18:06:32 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/03 08:10:59 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ int    main(int ac, char **av)
     ps_env = init_push_swap(ac, av);
     if (!(ps_env.stack_a.head))
         return (0);
-    print_ps_env(&ps_env);
-    print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
+    // print_ps_env(&ps_env);
+    // print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
 
     if (ps_env.max_size == 3)
     {
         sort_stack_data_3(&(ps_env.stack_a));
-        print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
+        // print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
         return (0);
     }
     if (ps_env.max_size == 5)
     {
-        sort_stack_data_5(&(ps_env.stack_a));
-        print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
+        sort_stack_data_5(&(ps_env.stack_a), &(ps_env.stack_b));
+        // print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
         return (0);
     }
     
