@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/02 15:44:51 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/04 10:16:31 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,4 +408,21 @@ void    print_ps_env(t_push_swap_env *ps_env)
     ft_printf("===== PRINT_PS_ENV =====\n");
     ft_printf("= max_size = % 11d=\n", ps_env->max_size);
     ft_printf("========================\n");
+}
+
+// =================
+// === OP BUFFER ===
+// =================
+
+void    print_op_buffer(t_list *op_buffer)
+{
+    t_list  *head;
+
+    head = op_buffer->next;
+    while (head != op_buffer)
+    {
+        ft_putendl_fd(head->content, 1);
+        head = head->next;
+    }
+    ft_putendl_fd(head->content, 1);
 }

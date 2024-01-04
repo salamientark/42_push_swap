@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/03 07:23:42 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/04 11:09:51 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ typedef struct s_stack
 
 typedef struct s_push_swap_env
 {
-	t_stack	stack_a;
-	t_stack	stack_b;
-	int		max_size;
+	t_stack				stack_a;
+	t_stack				stack_b;
+	unsigned int		max_size;
 }				t_push_swap_env;
 
 // Type containg push_swap opeartion and variable
@@ -74,16 +74,21 @@ void			r_rotate(t_stack *stack_a, t_stack *stack_b);
 
 // push_swap.c
 int				operation(t_stack *a, t_stack *b, char *op);
+void			push_swap(int ac, char **av);
 
 // sort_stack_data.c
-void			sort_stack_data_3(t_stack *stack);
-void    		sort_stack_data_5(t_stack *stack_a, t_stack *stack_b);
+t_list	*sort_small_stack(t_stack *stack_a, unsigned int size);
 
 //analyze stack.c
 int 			follow(t_stack_data *elem_a, t_stack_data *elem_b, unsigned int total_stack_size);
 int 			a_sorted(t_stack_data *stack, unsigned int stack_size);
 int				is_r_sorted(t_stack *stack);
 int				is_sorted(t_stack *stack);
+
+// op_bufer.c
+void	free_op_buffer(t_list **list, void (*free_content)(void *));
+t_list  *init_op_buffer(char *op);
+t_list  *add_op_buffer(t_list *op_buffer, char *op);
 
 //old_operation.c
 void			push_old(t_stack_data **src, t_stack_data **dest);
