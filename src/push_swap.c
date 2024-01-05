@@ -6,11 +6,12 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:11:55 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/04 12:15:43 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/05 09:34:37 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/stack.h"
+#include "../includes/stack_print.h"
 
 static void	free_push_swap(t_push_swap_env *ps_env, t_list **operation_buffer)
 {
@@ -19,20 +20,20 @@ static void	free_push_swap(t_push_swap_env *ps_env, t_list **operation_buffer)
 	free_stack_data(&((*ps_env).stack_b.head));
 }
 
-static void    print_op_buffer(t_list *op_buffer)
-{
-    t_list  *head;
+// static void    print_op_buffer(t_list *op_buffer)
+// {
+//     t_list  *head;
 
-	if (!op_buffer)
-		return ;
-    head = op_buffer->next;
-    while (head != op_buffer)
-    {
-        ft_putendl_fd(head->content, 1);
-        head = head->next;
-    }
-    ft_putendl_fd(head->content, 1);
-}
+// 	if (!op_buffer)
+// 		return ;
+//     head = op_buffer->next;
+//     while (head != op_buffer)
+//     {
+//         ft_putendl_fd(head->content, 1);
+//         head = head->next;
+//     }
+//     ft_putendl_fd(head->content, 1);
+// }
 
 int	operation(t_stack *a, t_stack *b, char *op)
 {
