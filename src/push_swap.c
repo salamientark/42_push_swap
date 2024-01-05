@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:11:55 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/05 09:34:37 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:54:13 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	operation(t_stack *a, t_stack *b, char *op)
 			op_env.arg_b = a;
 	}
 	op_env.operation(op_env.arg_a, op_env.arg_b);
+	ft_putendl_fd(op, 1);
 	return (1);
 }
 
@@ -69,15 +70,22 @@ void    push_swap(int ac, char **av)
 	t_push_swap_env	ps_env;
     t_list  		*operation_buffer;
 
+	operation_buffer = NULL;
 	ps_env = init_push_swap(ac, av);
     if (!(ps_env.stack_a.head))
 	{
 		free_push_swap(&ps_env, &operation_buffer);
 		return ;
 	}
+	else
+	{
+		unstack_a(&(ps_env.stack_a), &(ps_env.stack_b));
+		print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, print_stack_data);
+		free_push_swap(&ps_env, &operation_buffer);
+		return ;
+	}
 	// if ((*ps_env).stack_a.size > 5)
 	// 	operation = unstack_a()
-	
     if (ps_env.stack_a.size <= 5)
 		operation_buffer = sort_small_stack(&(ps_env.stack_a), ps_env.stack_a.size);
 	print_op_buffer(operation_buffer);

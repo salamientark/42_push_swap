@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/05 09:43:23 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/05 14:29:08 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,9 @@ unsigned int	op_buffer_size(t_list *op_buffer);
 t_list  		*lst_remove(t_list *head, unsigned int to_remove);
 t_list  		*lst_insert(t_list *dest_head, t_list *to_insert);
 t_list  		*lst_replace(t_list *dest, t_list *replace, unsigned int replace_size);
+
+// sort_big_stack.c
+void    unstack_a(t_stack *stack_a, t_stack *stack_b);
 
 //old_operation.c
 void			push_old(t_stack_data **src, t_stack_data **dest);

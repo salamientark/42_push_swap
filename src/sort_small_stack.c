@@ -30,7 +30,7 @@ static char *best_rotate(int rot, int size)
 }
 
 t_list  *optimize_rotate(t_list *op_buffer, unsigned int *index,
-    unsigned int buffer_size)
+    unsigned int buffer_size, unsigned int stack_size)
 {
     unsigned int    r_count;
     t_list          *record;
@@ -43,9 +43,9 @@ t_list  *optimize_rotate(t_list *op_buffer, unsigned int *index,
         record = record->next;
         r_count++;
     }
-    if (r_count > buffer_size / 2)
+    if (r_count > stack_size / 2)
     {
-        op_buffer = lst_replace(op_buffer, make_op_buffer(buffer_size - r_count, "rra"),
+        op_buffer = lst_replace(op_buffer, make_op_buffer(stack_size - r_count, "rra"),
             r_count);
     }
     *index = (*index) + r_count;
@@ -53,23 +53,22 @@ t_list  *optimize_rotate(t_list *op_buffer, unsigned int *index,
 }
 
 t_list  *optimize_r_rotate(t_list *op_buffer, unsigned int *index,
-    unsigned int buffer_size)
+    unsigned int buffer_size, unsigned int stack_size)
 {
     unsigned int    r_count;
     t_list          *record;
 
     r_count = 0;
     record = op_buffer;
-
     while (*index + r_count < buffer_size && ((char *)(record->content))[0] == 'r'
         && ((char *)(record->content))[1] == 'r')
     {
         record = record->next;
         r_count++;
     }
-    if (r_count > buffer_size / 2)
+    if (r_count > stack_size / 2)
     {
-        record = lst_replace(op_buffer, make_op_buffer(buffer_size - r_count, "ra"),
+        record = lst_replace(op_buffer, make_op_buffer(stack_size - r_count, "ra"),
             r_count);
     }
     *index = *index + r_count;
@@ -93,9 +92,9 @@ t_list  *optimize_operation(t_list *op_buffer, unsigned int stack_size)
         {
             record = prev_op_buffer(record);
             if (((char *)(record->next->content))[1] == 'r')
-                record = optimize_r_rotate(record->next, &index, stack_size);
+                record = optimize_r_rotate(record->next, &index, buffer_size, stack_size);
             else
-                record = optimize_rotate(record->next, &index, stack_size);
+                record = optimize_rotate(record->next, &index, buffer_size, stack_size);
         }
         else
         {

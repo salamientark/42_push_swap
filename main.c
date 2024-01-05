@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 21:49:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/05 09:36:31 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/05 14:27:06 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,6 @@ int    main(int ac, char **av)
 {
 
     push_swap(ac, av);
-
-    // (void) ac;
-    // (void) av;
-    // t_list *l = add_op_buffer(NULL, "ra");
-    // l = add_op_buffer(l, "ra");
-    // l = add_op_buffer(l, "ra");
-    // l = add_op_buffer(l, "ra");
-    // l = add_op_buffer(l, "pa");
-
-    // print_op_buffer(l);
-    // l = lst_replace(l, make_op_buffer(5, "bbb"), 1);
-    // print_op_buffer(l);
-
-    // free_op_buffer(&l, NULL);
-
 
     // char    *op_str;
     // int     index;

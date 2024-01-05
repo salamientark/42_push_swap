@@ -11,7 +11,7 @@ SRC_DIR = src
 SRC_FILE = $(SRC_DIR)/init_push_swap.c $(SRC_DIR)/stack.c $(SRC_DIR)/stack_utils.c \
 			$(SRC_DIR)/operation.c $(SRC_DIR)/push_swap.c $(SRC_DIR)/sort_small_stack.c \
 			$(SRC_DIR)/analyze_stack_a.c $(SRC_DIR)/op_buffer_utils.c $(SRC_DIR)/op_buffer.c \
-			main.c
+			$(SRC_DIR)/sort_big_stack.c main.c
 
 # Development tools -> printing stuff
 TOOLS_DIR = ./tools
