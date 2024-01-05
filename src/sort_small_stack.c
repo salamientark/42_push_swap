@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/stack.h"
+#include "../includes/stack_print.h"
 
 /*
     Point of this is to make stack sort easier by having only
@@ -28,58 +29,80 @@ static char *best_rotate(int rot, int size)
         return ("ra");
 }
 
-// t_list  *lst_remove(t_list *head, unsigned int to_remove)
-// {
-//     t_list          *record;
-//     unsigned int    to_remove;
+t_list  *optimize_rotate(t_list *op_buffer, unsigned int *index,
+    unsigned int buffer_size)
+{
+    unsigned int    r_count;
+    t_list          *record;
 
-//     record = 
-// }
+    r_count = 0;
+    record = op_buffer;
+    ft_printf("In optimize_rotate\n");
+    while (*index + r_count < buffer_size && ((char *)(record->content))[0] == 'r'
+        && ((char *)(record->content))[1] != 'r')
+    {
+        record = record->next;
+        r_count++;
+    }
+    ft_printf("== Optimize_rotate: r_count == %d\n");
+    if (r_count > buffer_size / 2)
+    {
+        record = lst_replace(op_buffer, make_op_buffer(r_count, "ra"),
+            r_count);
+        *index = *index + r_count;
+    }
+    return (record);
+}
 
-// t_list  *optimize_rotate(t_list *op_buffer, unsigned int *index,
-//     unsigned int buffer_size)
-// {
-//     int     rotate_count;
-//     t_list  *record;
+t_list  *optimize_r_rotate(t_list *op_buffer, unsigned int *index,
+    unsigned int buffer_size)
+{
+    unsigned int    r_count;
+    t_list          *record;
 
-//     rotate_count = 0;
-//     record = op_buffer;
-//     while (*index < buffer_size && ((char *)(op_buffer->content))[0] == 'r'
-//         && ((char *)(op_buffer->content))[1] != 'r')
-//     {
-//         record = record->next;
-//         *index = *index + 1;
-//         rotate_count++;
-//     }
-//     if (rotate_count > buffer_size / 2)
-//     {
-//         record = lst_remove(op_buffer, rotate_count);
-//     }
-//     return (record);
-// }
+    r_count = 0;
+    record = op_buffer;
 
-// t_list  *optimize_operation(t_list *op_buffer, unsigned int stack_size)
-// {
-//     unsigned int    rotate_count;
-//     unsigned int    index;
-//     t_list          *record;
+    ft_printf("In optimize_r_rotate\n");
+    while (*index + r_count < buffer_size && ((char *)(record->content))[0] == 'r'
+        && ((char *)(record->content))[1] == 'r')
+    {
+        record = record->next;
+        r_count++;
+    }
+    if (r_count > buffer_size / 2)
+    {
+        record = lst_replace(op_buffer, make_op_buffer(r_count, "rra"),
+            r_count);
+        *index = *index + r_count;
+    }
+    return (record);
+}
 
-//     if (!op_buffer)
-//         return (op_buffer);
-//     rotate_count = 0;
-//     index = 0;
-//     record = op_buffer->next;
-//     while (index < stack_size)
-//     {        
-//         if (((char *)(record->content))[0] == 'r')
-//         {
-//             if (((char *)(record->content))[1] == 'rr')
-//                 record = 
-//         }
-//         index++;
-//     }
+t_list  *optimize_operation(t_list *op_buffer, unsigned int stack_size)
+{
+    unsigned int    index;
+    t_list          *record;
 
-// }
+    if (!op_buffer)
+        return (op_buffer);
+    index = 0;
+    record = op_buffer->next;
+    while (index < stack_size)
+    {
+        if (((char *)(record->content))[0] == 'r')
+        {
+            if (((char *)(record->content))[1] == 'r')
+                record = optimize_r_rotate(record, &index, stack_size);
+            else
+                record = optimize_rotate(record, &index, stack_size);
+        }
+        record = record->next;
+        ft_printf("index = %d\n");
+        index++;
+    }
+    return (op_buffer);
+}
 
 t_list  *sort_small_stack(t_stack *stack_a, unsigned int size)
 {
@@ -105,6 +128,11 @@ t_list  *sort_small_stack(t_stack *stack_a, unsigned int size)
             operation(stack_a, NULL, op_buffer->content);
         sorted = is_sorted(stack_a);
     }
-    // op_buffer = optimize_operation(op_buffer);
+    ft_printf("sort_small_stack: before optimize \n");
+    print_op_buffer(op_buffer);
+    op_buffer = optimize_operation(op_buffer, size);
+    ft_printf("sort_small_stack: after optimize \n");
+    print_op_buffer(op_buffer);
+    ft_printf("sort_small_stack: <-- \n");
     return (op_buffer);
 }

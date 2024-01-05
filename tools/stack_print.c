@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:22:59 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/04 10:16:31 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/05 08:08:57 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,11 +418,14 @@ void    print_op_buffer(t_list *op_buffer)
 {
     t_list  *head;
 
-    head = op_buffer->next;
+    if (!op_buffer)
+        return ;
+    head = op_buffer;
+    ft_putendl_fd(head->content, 1);
+    head = head->next;
     while (head != op_buffer)
     {
         ft_putendl_fd(head->content, 1);
         head = head->next;
     }
-    ft_putendl_fd(head->content, 1);
 }

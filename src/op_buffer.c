@@ -6,65 +6,59 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 09:49:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/04 12:12:05 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/05 08:36:17 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/stack.h"
 
-void free_op_buffer(t_list **list, void (*free_content)(void *))
+t_list  *lst_remove(t_list *head, unsigned int to_remove)
 {
-    t_list *end;
-    t_list *tmp;
+    t_list          *record;
+    t_list          *prev;
+    unsigned int    index;
 
-    if (!(*list))
-        return ;
-    end = (*list)->next;
-    while (end != *list)
+    if (!head)
+        return (NULL);
+    if (to_remove <= 0)
+        return (head);
+    record = head;
+    prev = prev_op_buffer(head);
+    index = 1;
+    while (index < to_remove)
     {
-        tmp = end->next;
-        if (free_content)
-            free_content(end->content);
-        end->content = NULL;
-        free(end);
-        end = NULL;
-        end = tmp;
+        record = record->next;
+        if (record == head)
+            return (free_op_buffer(&record, NULL), NULL);
+        index++;
     }
-    if (free_content)
-            free_content(end->content);
-    end->content = NULL;
-    free(end);
-    end = NULL;
-    *list = NULL;
+    if (record->next == head)
+        return (free_op_buffer(&record, NULL), NULL);
+    prev->next = record->next;
+    record->next = head;
+    free_op_buffer(&record, NULL);
+    return (prev->next);
 }
 
-t_list  *init_op_buffer(char *op)
+t_list  *lst_insert(t_list *dest_head, t_list *to_insert)
 {
-    t_list *new_list;
+    t_list  *record;
 
-    if (!op)
-        return (NULL);
-    new_list = (t_list *)malloc(sizeof(struct s_list));
-    if (!new_list)
-        return (NULL);
-    new_list->next = new_list;
-    new_list->content = op;
-    return (new_list);
+    if (!dest_head)
+        return (to_insert);
+    record = to_insert;
+    while (record->next != to_insert)
+        record = record->next;
+    record->next = dest_head->next;
+    dest_head->next = to_insert;
+    return (to_insert);
 }
 
-t_list  *add_op_buffer(t_list *op_buffer, char *op)
+t_list  *lst_replace(t_list *dest, t_list *replace, unsigned int replace_size)
 {
-    t_list *new_elem;
+    t_list  *after_replace;
 
-    new_elem = init_op_buffer(op);
-    if (!new_elem)
-    {
-        free_op_buffer(&op_buffer, NULL);
-        return (NULL);
-    }
-    if (!op_buffer)
-        return (new_elem);
-    new_elem->next = op_buffer->next;
-    op_buffer->next = new_elem;
-    return (new_elem);
+    after_replace = lst_remove(dest, replace_size);
+    after_replace = lst_insert(after_replace, replace);
+    return (after_replace);
 }

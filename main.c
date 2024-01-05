@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 21:49:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/04 11:10:07 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/05 08:43:17 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ int    main(int ac, char **av)
 {
 
     push_swap(ac, av);
+
+    // (void) ac;
+    // (void) av;
+    // t_list *l = add_op_buffer(NULL, "ra");
+    // l = add_op_buffer(l, "ra");
+    // l = add_op_buffer(l, "ra");
+    // l = add_op_buffer(l, "ra");
+    // l = add_op_buffer(l, "pa");
+
+    // print_op_buffer(l);
+
+    // free_op_buffer(&l, NULL);
+
+
     // char    *op_str;
     // int     index;
     // t_push_swap_env ps_env;
