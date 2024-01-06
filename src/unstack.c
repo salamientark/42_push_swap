@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_big_stack.c                                   :+:      :+:    :+:   */
+/*   unstack.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:04:34 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/06 07:56:54 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/06 16:10:28 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,58 +177,7 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
         operation(stack_a, stack_b, op_buffer->content);
         index++;
     }
-    ft_printf("NB_VOUP : %d\n", index);
+    ft_printf("NB_COUP : %d\n", index);
+    op_buffer = optimize_unstack(op_buffer, index);
     return (op_buffer);
 }
-
-// void    unstack_a(t_stack *stack_a, t_stack *stack_b)
-// {
-//     unsigned int    high_limit;
-//     unsigned int    low_limit;
-//     unsigned int    final_size;
-
-//     int index = 0;
-
-//     low_limit = stack_a->size / 3;
-//     high_limit = stack_a->size - low_limit;
-//     final_size = high_limit - low_limit;
-//     while (stack_a->size > final_size)
-//     {
-//         if (swap_b(stack_b, low_limit, high_limit))
-//                 operation(NULL, stack_b, "sb");
-//         if (stack_a->head->key > high_limit)
-//         {
-//             if (stack_b->head && are_in_same_block(stack_a->head->key, stack_b->head->key, low_limit, high_limit)
-//                 && stack_a->head->key > stack_b->head->key)
-//                 operation(stack_a, stack_b, "pb");
-//             else if (!is_block_aligned(low_limit, high_limit, stack_b->head))
-//                 operation(NULL, stack_b, align_block(low_limit, high_limit, stack_a->head, stack_a->size));
-//             else if (stack_a->head->key > stack_a->head->next->key &&
-//                 stack_a->head->key < stack_a->head->next->next->key)
-//                 operation(stack_a, NULL, "sa");
-//             else
-//                 operation(stack_a, stack_b, "pb");
-//         }
-//         else if (stack_a->head->key <= low_limit)
-//         {
-//             if ((are_in_same_block(stack_a->head->key, stack_a->head->next->key, low_limit, high_limit)
-//                     && stack_a->head->key > stack_a->head->next->key))
-//                 operation(stack_a, NULL, "sa");
-//             else if (stack_b->head && are_in_same_block(stack_a->head->key, stack_b->head->key, low_limit, high_limit))
-//                 operation(stack_a, stack_b, "pb");
-//             else if (!is_block_aligned(low_limit, high_limit, stack_b->head))
-//                 operation(NULL, stack_b, align_block(low_limit, high_limit, stack_a->head, stack_a->size));
-//             else
-//                 operation(stack_a, stack_b, "pb");
-//         }
-//         else
-//         {
-//             if (are_in_same_block(stack_a->head->key, stack_a->head->next->key, low_limit, high_limit)
-//                 && stack_a->head->key > stack_a->head->next->key)
-//                 operation(stack_a, NULL, "sa");
-//             else
-//                 operation(stack_a, NULL, "ra"); 
-//         }
-//         index++;
-//     }
-// }

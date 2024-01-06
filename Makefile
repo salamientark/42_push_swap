@@ -11,11 +11,11 @@ SRC_DIR = src
 SRC_FILE = $(SRC_DIR)/init_push_swap.c $(SRC_DIR)/stack.c $(SRC_DIR)/stack_utils.c \
 			$(SRC_DIR)/operation.c $(SRC_DIR)/push_swap.c $(SRC_DIR)/sort_small_stack.c \
 			$(SRC_DIR)/analyze_stack.c $(SRC_DIR)/op_buffer_utils.c $(SRC_DIR)/op_buffer.c \
-			$(SRC_DIR)/sort_big_stack.c main.c
+			$(SRC_DIR)/optimize_unstack.c $(SRC_DIR)/unstack.c $(SRC_DIR)/lst_replace.c main.c
 
 # Development tools -> printing stuff
 TOOLS_DIR = ./tools
-TOOLS_FILE = $(TOOLS_DIR)/stack_print.c
+TOOLS_FILE = $(TOOLS_DIR)/stack_print.c $(TOOLS_DIR)/op_buffer_print.c
 
 # BONUS_FILE = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 # 			 ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \

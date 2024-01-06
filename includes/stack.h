@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/05 20:02:30 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/06 12:00:20 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,21 +85,26 @@ int 			a_sorted(t_stack_data *stack, unsigned int stack_size);
 int				is_r_sorted(t_stack *stack);
 int				is_sorted(t_stack *stack);
 
-// op_bufer_utils.c
+// op_bufer.c
 void			free_op_buffer(t_list **list, void (*free_content)(void *));
 t_list  		*init_op_buffer(char *op);
 t_list  		*add_op_buffer(t_list *op_buffer, char *op);
 t_list  		*make_op_buffer(unsigned int size, char *content);
 t_list  		*prev_op_buffer(t_list *op_buffer);
 
-// op_buffer.c
+// op_buffer_utils.c
 unsigned int	op_buffer_size(t_list *op_buffer);
+
+// lst_replace.c
 t_list  		*lst_remove(t_list *head, unsigned int to_remove);
 t_list  		*lst_insert(t_list *dest_head, t_list *to_insert);
 t_list  		*lst_replace(t_list *dest, t_list *replace, unsigned int replace_size);
 
-// sort_big_stack.c
+// unstack.c
 t_list	*unstack_a(t_stack *stack_a, t_stack *stack_b);
+
+// optimize_unstack.c
+t_list  *optimize_unstack(t_list *op_buffer, unsigned int op_buffer_size);
 
 //old_operation.c
 void			push_old(t_stack_data **src, t_stack_data **dest);

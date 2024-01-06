@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 21:29:21 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/04 10:18:00 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:50:30 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void    print_stack(t_stack a, t_stack b, int (*get)(t_stack_data *),
 void    print_ps_env(t_push_swap_env *ps_env);
 void    print_op_buffer(t_list *op_buffer);
 // void    print_dict(t_stack_data_dict dict);
+void    print_op_buffer_a_and_b(t_list  *a, t_list  *b);
 
 #endif

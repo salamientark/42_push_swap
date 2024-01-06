@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:11:55 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/06 08:43:55 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:50:55 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void    push_swap(int ac, char **av)
 	{
 		operation_buffer = unstack_a(&(ps_env.stack_a), &(ps_env.stack_b));
 		// print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, print_stack_data);
-		print_op_buffer(operation_buffer);
+		// print_op_buffer(operation_buffer);
 		free_push_swap(&ps_env, &operation_buffer);
 		return ;
 	}
