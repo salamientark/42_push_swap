@@ -6,13 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 23:59:12 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/04 10:18:15 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/06 08:50:33 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/stack.h"
-
-#include "../includes/stack_print.h"
 
 /*	Description
 		Alt version make all function with two arg

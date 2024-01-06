@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:11:55 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/05 18:54:13 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/06 08:43:55 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	operation(t_stack *a, t_stack *b, char *op)
 			op_env.arg_b = a;
 	}
 	op_env.operation(op_env.arg_a, op_env.arg_b);
-	ft_putendl_fd(op, 1);
+	// ft_putendl_fd(op, 1);
 	return (1);
 }
 
@@ -77,10 +77,18 @@ void    push_swap(int ac, char **av)
 		free_push_swap(&ps_env, &operation_buffer);
 		return ;
 	}
+	else if (ps_env.stack_a.size <= 5)
+	{
+		operation_buffer = sort_small_stack(&(ps_env.stack_a), ps_env.max_size);
+		print_op_buffer(operation_buffer);
+		free_push_swap(&ps_env, &operation_buffer);
+		return ;
+	}
 	else
 	{
-		unstack_a(&(ps_env.stack_a), &(ps_env.stack_b));
-		print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, print_stack_data);
+		operation_buffer = unstack_a(&(ps_env.stack_a), &(ps_env.stack_b));
+		// print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, print_stack_data);
+		print_op_buffer(operation_buffer);
 		free_push_swap(&ps_env, &operation_buffer);
 		return ;
 	}
@@ -88,6 +96,6 @@ void    push_swap(int ac, char **av)
 	// 	operation = unstack_a()
     if (ps_env.stack_a.size <= 5)
 		operation_buffer = sort_small_stack(&(ps_env.stack_a), ps_env.stack_a.size);
-	print_op_buffer(operation_buffer);
+	// print_op_buffer(operation_buffer);
 	free_push_swap(&ps_env, &operation_buffer);
 }
