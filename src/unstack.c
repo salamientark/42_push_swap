@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:04:34 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/06 16:10:28 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:05:14 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ char    *align_block(unsigned int low_limit, unsigned int high_limit, t_stack_da
 {
     t_stack_data    *record;
     unsigned int    rotate;
-    
+    unsigned int    r_rotate; 
+   
     record = stack;
     rotate = 0;
     while (!(is_block_aligned(low_limit, high_limit, record)))
@@ -78,7 +79,15 @@ char    *align_block(unsigned int low_limit, unsigned int high_limit, t_stack_da
         rotate++;
         record = record->next;
     }
-    ft_printf("after_while\n");
+    r_rotate = 0;
+    record = stack;
+    while (!(is_block_aligned(low_limit, high_limit, record)))
+    {
+        r_rotate++;
+        record = record->prev;
+    }
+    if (r_rotate < rotate)
+        return (best_rotate(stack_size - r_rotate, stack_size));
     return (best_rotate(rotate, stack_size));
 }
 
@@ -146,7 +155,7 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
                 && stack_a->head->key > stack_b->head->key)
                 op_buffer = add_op_buffer(op_buffer, "pb");
             else if (!is_block_aligned(low_limit, high_limit, stack_b->head))
-                op_buffer = add_op_buffer(op_buffer,align_block(low_limit, high_limit, stack_a->head, stack_a->size));
+                op_buffer = add_op_buffer(op_buffer,align_block(low_limit, high_limit, stack_b->head, stack_b->size));
             else if (stack_a->head->key > stack_a->head->next->key &&
                 stack_a->head->key < stack_a->head->next->next->key)
                 op_buffer = add_op_buffer(op_buffer,"sa");
@@ -178,6 +187,6 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
         index++;
     }
     ft_printf("NB_COUP : %d\n", index);
-    op_buffer = optimize_unstack(op_buffer, index);
+    op_buffer = optimize_unstack(op_buffer, op_buffer_size(op_buffer));
     return (op_buffer);
 }
