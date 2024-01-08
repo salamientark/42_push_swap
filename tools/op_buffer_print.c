@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 12:06:15 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/07 16:12:41 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:05:25 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void    print_op_buffer_a_and_b(t_list  *a, t_list  *b)
     ft_printf("OP_SIZE A: %d | B: %d \n", a_size, b_size);
     // max_size = MAX(a_size, b_size);
     line_nbr = 0;
-    while ((a_record != a && b_record != b) || line_nbr == 0)
+    while ((a_record != a || b_record != b) || line_nbr == 0)
     {
         line_space = MAX(line_before_next_push(a_record, buffer_a_pos, a_size),
             line_before_next_push(b_record, buffer_b_pos, b_size));
@@ -80,7 +80,6 @@ void    print_op_buffer_a_and_b(t_list  *a, t_list  *b)
             write(1, "\n", 1);
             counter++;
         }
-        line_nbr += counter;
         if ((a_record != a || line_nbr == 0)
             && ((char *)(a_record->content))[0] == 'p')
         {
@@ -98,6 +97,7 @@ void    print_op_buffer_a_and_b(t_list  *a, t_list  *b)
             buffer_b_pos++;
         }
         write(1, "\n", 1);
+        line_nbr += counter;
         line_nbr++;
     }
     ft_printf("___ ___\n");

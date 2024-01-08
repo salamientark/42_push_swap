@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:04:34 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/06 19:05:14 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/08 15:23:53 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,6 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
         index++;
     }
     ft_printf("NB_COUP : %d\n", index);
-    op_buffer = optimize_unstack(op_buffer, op_buffer_size(op_buffer));
+    op_buffer = optimize_unstack(op_buffer->next, op_buffer_size(op_buffer));
     return (op_buffer);
 }
