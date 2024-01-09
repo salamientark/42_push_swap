@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:04:34 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/09 18:25:22 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:30:06 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,10 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
 
     int index = 0;
     op_buffer = NULL;
-    low_limit = stack_a->size / 3;
-    high_limit = stack_a->size - low_limit;
+    low_limit = stack_a->size / 3 + stack_a->min - 1;
+    high_limit = stack_a->max - stack_a->size / 3;
     final_size = high_limit - low_limit;
+    ft_printf("LIMITS : %d | %d\n", low_limit, high_limit);
     while (stack_a->size > final_size)
     {
         if (swap_b(stack_b, low_limit, high_limit))
