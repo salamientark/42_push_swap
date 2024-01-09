@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 12:06:15 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/08 16:05:25 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:23:08 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void    print_op_buffer_a_and_b(t_list  *a, t_list  *b)
     ft_printf("OP_SIZE A: %d | B: %d \n", a_size, b_size);
     // max_size = MAX(a_size, b_size);
     line_nbr = 0;
-    while ((a_record != a || b_record != b) || line_nbr == 0)
+    while ((a_record != a && b_record != b) || line_nbr == 0)
     {
         line_space = MAX(line_before_next_push(a_record, buffer_a_pos, a_size),
             line_before_next_push(b_record, buffer_b_pos, b_size));

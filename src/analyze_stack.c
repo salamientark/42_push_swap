@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:06:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/06 08:55:02 by madlab           ###   ########.fr       */
+/*   Updated: 2024/01/09 18:16:52 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,23 @@
 	[1,n]	: Sorted but n rotate to start with 1
 	-1	   : Not sorted
 */
-int	a_sorted(t_stack_data *stack, unsigned int stack_size)
+int	a_sorted(t_stack *stack)
 {
 	int				rot;
 	unsigned int	index;
+	unsigned int	size;
 	t_stack_data	*record;
 
-	if (!stack || stack == stack->next)
+	if (!(stack->head) || stack->head == stack->head->next)
 		return (0);
 	index = 0;
-	record = stack;
+	size = stack->size;
+	record = stack->head;
 	rot = 0;
-	while (index < stack_size)
+	while (index < size)
 	{
 		if ((record->key != (record->next)->key - 1)
-			&& !(record->key == stack_size && record->next->key == 1))
+			&& !(record->key == size && record->next->key == 1))
 			return (-1);
 		if (record->key == 1)
 			rot = index;

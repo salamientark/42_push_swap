@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:04:34 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/08 15:23:53 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:25:22 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,9 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
     final_size = high_limit - low_limit;
     while (stack_a->size > final_size)
     {
-        print_stack_data(stack_a->head, stack_b->head, &get_elem_key);
         if (swap_b(stack_b, low_limit, high_limit))
         {
                 op_buffer = add_op_buffer(op_buffer,"sb");
-                ft_putendl_fd(op_buffer->content, 1);
         }
         else if (stack_a->head->key > high_limit)
         {
@@ -182,11 +180,14 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
             else
                 op_buffer = add_op_buffer(op_buffer,"ra"); 
         }
-                ft_putendl_fd(op_buffer->content, 1);
         operation(stack_a, stack_b, op_buffer->content);
         index++;
     }
-    ft_printf("NB_COUP : %d\n", index);
-    op_buffer = optimize_unstack(op_buffer->next, op_buffer_size(op_buffer));
+    while (!is_block_aligned(low_limit, high_limit, stack_b->head))
+    {
+        op_buffer = add_op_buffer(op_buffer,align_block(low_limit, high_limit, stack_b->head, stack_b->size));
+        operation(stack_a, stack_b, op_buffer->content);
+    }
+    optimize_unstack(op_buffer->next, op_buffer_size(op_buffer));
     return (op_buffer);
 }

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/06 12:00:20 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:15:31 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_list	*sort_small_stack(t_stack *stack_a, unsigned int size);
 
 //analyze stack.c
 int 			follow(t_stack_data *elem_a, t_stack_data *elem_b, unsigned int total_stack_size);
-int 			a_sorted(t_stack_data *stack, unsigned int stack_size);
+int 			a_sorted(t_stack *stack);
 int				is_r_sorted(t_stack *stack);
 int				is_sorted(t_stack *stack);
 
@@ -100,11 +100,20 @@ t_list  		*lst_remove(t_list *head, unsigned int to_remove);
 t_list  		*lst_insert(t_list *dest_head, t_list *to_insert);
 t_list  		*lst_replace(t_list *dest, t_list *replace, unsigned int replace_size);
 
+// lst_join.c
+t_list  *lst_join(t_list *dest_head, t_list *to_join);
+
 // unstack.c
 t_list	*unstack_a(t_stack *stack_a, t_stack *stack_b);
 
 // optimize_unstack.c
 t_list  *optimize_unstack(t_list *op_buffer, unsigned int op_buffer_size);
+
+// math.c
+int 			ft_min(int a, int b);
+int 			ft_max(int a, int b);
+unsigned int 	ft_abs(int n);
+
 
 //old_operation.c
 void			push_old(t_stack_data **src, t_stack_data **dest);

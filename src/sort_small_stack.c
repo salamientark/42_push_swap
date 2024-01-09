@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 20:18:42 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/06 08:49:58 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:25:28 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ t_list	*sort_small_stack(t_stack *stack_a, unsigned int size)
 
 	sorted = is_sorted(stack_a);
 	op_buffer = NULL;
-	while (!(sorted == 1 && stack_a->size == size && stack_a->head->key == 1))
+	while (!(sorted == 1 && stack_a->size == size && stack_a->head->key == stack_a->min))
 	{
-		if (a_sorted(stack_a->head, stack_a->size) > 0)
+		if (is_sorted(stack_a) > 0)
 			op_buffer = add_op_buffer(op_buffer,
-					best_rotate(a_sorted(stack_a->head, size), size));
+					best_rotate(a_sorted(stack_a), size));
 		else if (follow(stack_a->head, stack_a->head->next, size) == -1)
 			op_buffer = add_op_buffer(op_buffer, "sa");
 		else if (follow(stack_a->head, stack_a->head->next, size) == 1

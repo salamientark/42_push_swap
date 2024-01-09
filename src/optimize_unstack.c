@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:41:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/08 20:02:42 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:36:43 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void    print_sr_map(t_swap_rotate_map sr_map)
         if (index < sr_map.size)
             ft_printf(",");
     }
-    ft_printf("]\n");
+    ft_printf("] SIZE : %d\n", sr_map.size);
 }
 
 t_swap_rotate_map   make_sr_map(t_list **op_buffer)
@@ -66,7 +66,6 @@ t_swap_rotate_map   make_sr_map(t_list **op_buffer)
     }
     if (map.size == 0)
     {
-        *op_buffer = (*op_buffer)->next;
         return (map);
     }
     map.map = (int *)malloc(sizeof(int) * map.size);
@@ -147,6 +146,183 @@ t_list  *exract_b_op(t_list *op_buffer)
         
 // }
 
+int count_operation(t_swap_rotate_map big_sr_map, t_swap_rotate_map sml_sr_map,
+    int start)
+{
+    int op_count;
+    int index;
+
+    op_count = start;
+    index = 0;
+    while (index < start)
+    {
+        op_count += ft_abs(big_sr_map.map[index]);
+        index++;
+    }
+    index = 0;
+    while (index < sml_sr_map.size)
+    {
+        if (index + start < big_sr_map.size)
+            op_count += ft_abs(big_sr_map.map[start + index] - sml_sr_map.map[index]);
+        else
+            op_count += ft_abs(sml_sr_map.map[index]);
+        op_count++;
+        index++;
+    }
+    while (index + start < big_sr_map.size)
+    {
+        op_count += ft_abs(big_sr_map.map[index + start]);
+        index++;
+        op_count += (index + start < big_sr_map.size);
+    }
+    return (op_count);
+}
+
+int best_start(t_swap_rotate_map a_sr_map, t_swap_rotate_map b_sr_map)
+{
+    t_swap_rotate_map   min;
+    t_swap_rotate_map   max;
+    int                 start;
+    int                 min_move;
+    int                 index;
+
+    max = b_sr_map;
+    min = a_sr_map;
+    if (a_sr_map.size > b_sr_map.size)
+    {
+        max = a_sr_map;
+        min = b_sr_map;
+    }
+    start = 0;
+    min_move = count_operation(max, min, start);
+    index = 1;
+    while (index < max.size)
+    {
+        if (count_operation(max, min, index) < min_move)
+        {
+            min_move = count_operation(max, min, index);
+            start = index;
+        }
+        index++;
+    }
+    return (start);
+}
+
+t_list  *val_to_op_buffer(int val, char stack_id)
+{
+    if (val > 0)
+    {
+        if (stack_id == 'a')
+            return (make_op_buffer(val, "ra"));
+        else if (stack_id == 'b')
+            return (make_op_buffer(val, "rb"));
+        return (make_op_buffer(val, "rr"));
+    }
+    if (val < 0)
+    {
+        if (stack_id == 'a')
+            return (make_op_buffer(abs(val), "rra"));
+        else if (stack_id == 'b')
+            return (make_op_buffer(abs(val), "rrb"));
+        return (make_op_buffer(abs(val), "rrr"));
+    }
+    return (NULL);
+}
+
+t_list  *opti_val_to_op_buffer(int val_a, int val_b)
+{
+    t_list          *op_buffer;
+    unsigned int     diff;
+
+    op_buffer = NULL;
+    if (val_a > 0)
+    {
+        if (val_b > 0)
+        {
+            diff = (unsigned int) ft_min(val_a, val_b);
+            op_buffer = val_to_op_buffer(diff, 'r');
+            if (val_a > val_b)
+                return (lst_join(op_buffer, make_op_buffer(val_a - diff, "ra")));
+            return (lst_join(op_buffer, make_op_buffer(val_b - diff, "rb")));
+        }
+        op_buffer = make_op_buffer(val_a, "ra");
+        if (val_b < 0)
+            op_buffer = lst_join(op_buffer, make_op_buffer(ft_abs(val_b), "rrb"));
+        return (op_buffer);
+    }
+    if (val_a < 0)
+    {
+        if (val_b < 0)
+        {
+            diff = (unsigned int)ft_min(ft_abs(val_a), ft_abs(val_b));
+            op_buffer = val_to_op_buffer(-diff, 'r');
+            if (val_a < val_b)
+                return (lst_join(op_buffer, make_op_buffer(ft_abs(val_a - diff), "rra")));
+            return (lst_join(op_buffer, make_op_buffer(ft_abs(val_b - diff), "rb")));
+        }
+        op_buffer = make_op_buffer(ft_abs(val_a), "rra");
+        if (val_b > 0)
+            op_buffer = lst_join(op_buffer, make_op_buffer(val_b, "rb"));
+        return (op_buffer);
+    }
+    if (val_b > 0)
+        return (make_op_buffer(val_b, "rb"));
+    return (make_op_buffer(ft_abs(val_b), "rrb"));
+}
+
+char    *best_swap(int index, int start, int a_size, int b_size)
+{
+    if (index < a_size && index + start < b_size)
+        return ("ss");
+    if (index < a_size)
+        return ("sa");
+    return ("sb");
+}
+
+/* b is bigger than a 
+*/
+t_list  *sr_map_to_op_buffer_a_smaller(t_swap_rotate_map a_sr_map,
+    t_swap_rotate_map b_sr_map)
+{
+    int     index;
+    int     start;
+    t_list  *op_buffer;
+
+    start = best_start(a_sr_map, b_sr_map);
+    index = 0;
+    op_buffer = NULL;
+    while (index < start)
+    {
+        op_buffer = lst_join(op_buffer,
+            val_to_op_buffer(b_sr_map.map[index], 'b'));
+        index++;
+        if (index < start)
+            op_buffer = add_op_buffer(op_buffer, "sb");
+    }
+    index = 0;
+    while (index < a_sr_map.size)
+    {
+        if (index + start < b_sr_map.size)
+            op_buffer = lst_join(op_buffer,
+                opti_val_to_op_buffer(a_sr_map.map[index],
+                b_sr_map.map[start + index]));
+        else
+            op_buffer = lst_join(op_buffer, val_to_op_buffer(a_sr_map.map[index], 'a'));
+        index++;
+        if (index < a_sr_map.size || start + index < b_sr_map.size)
+            op_buffer = add_op_buffer(op_buffer, best_swap(index, start, a_sr_map.size, b_sr_map.size));
+    }
+    while (index + start < b_sr_map.size)
+    {
+        op_buffer = lst_join(op_buffer,
+            val_to_op_buffer(b_sr_map.map[index + start], 'b'));
+        index++;
+        if (index + start < b_sr_map.size)
+            op_buffer = add_op_buffer(op_buffer, "sb");
+    }
+    return (op_buffer->next);
+}
+
 t_list  *optimize_unstack(t_list *op_buffer, unsigned int op_buffer_size)
 {
     (void) op_buffer_size;
@@ -154,7 +330,10 @@ t_list  *optimize_unstack(t_list *op_buffer, unsigned int op_buffer_size)
     t_list  *op_buffer_b;
     t_list  *a_record;
     t_list  *b_record;
-    // int     start;
+    t_list  *final_op_buffer;
+    t_swap_rotate_map   a_sr_map;
+    t_swap_rotate_map   b_sr_map;
+    int     start;
     // t_list  *op_optimized;
 
     if (!op_buffer)
@@ -162,24 +341,30 @@ t_list  *optimize_unstack(t_list *op_buffer, unsigned int op_buffer_size)
     // op_optimized = NULL;
     op_buffer_a = exract_a_op(op_buffer);
     op_buffer_b = exract_b_op(op_buffer);
-    // start = 0;
+    start = 0;
     a_record = op_buffer_a;
     b_record = op_buffer_b;
-	print_op_buffer_a_and_b(a_record, b_record);
-    print_sr_map(make_sr_map(&a_record));
-    print_sr_map(make_sr_map(&b_record));
-
-    // while(a_record != op_buffer_a && b_record != op_buffer_b && start == 0)
-    // {
-    //     if (((char *)a_record->content)[0] == 'p')
-    //     {
-            
-    //     }
-    // }
-
-	print_op_buffer_a_and_b(a_record, b_record);
-
-    ft_printf("===\n");
-    print_op_buffer(op_buffer);
+    final_op_buffer = NULL;
+    while ((a_record != op_buffer_a && b_record != op_buffer_b) || start == 0)
+    {
+        if (((char *)a_record->content)[0] == 'p' && ((char *)b_record->content)[0] == 'p')
+        {
+            final_op_buffer = add_op_buffer(final_op_buffer, "pb");
+            if (a_record != op_buffer_a || start == 0)
+                a_record = a_record->next;
+            if (b_record != op_buffer_b || start == 0)
+                b_record = b_record->next;
+            start++;        
+        }
+        else
+        {
+            a_sr_map = make_sr_map(&a_record);
+            b_sr_map = make_sr_map(&b_record);
+            final_op_buffer = lst_join(final_op_buffer, sr_map_to_op_buffer_a_smaller(a_sr_map, b_sr_map));
+        }
+        
+    }
+    final_op_buffer = final_op_buffer->next;
+    op_buffer = final_op_buffer;
     return (op_buffer);
 }

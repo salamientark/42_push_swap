@@ -6,12 +6,15 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 08:55:52 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/06 08:57:53 by madlab           ###   ########.fr       */
+/*   Updated: 2024/01/09 13:39:33 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/stack.h"
 
+/*
+	Remove and head is the next element after remove
+*/
 t_list	*lst_remove(t_list *head, unsigned int to_remove)
 {
 	t_list			*record;
@@ -40,6 +43,9 @@ t_list	*lst_remove(t_list *head, unsigned int to_remove)
 	return (prev->next);
 }
 
+/*
+	Dest_head = next elem after insert	
+*/
 t_list	*lst_insert(t_list *dest_head, t_list *to_insert)
 {
 	t_list	*record;
@@ -54,6 +60,9 @@ t_list	*lst_insert(t_list *dest_head, t_list *to_insert)
 	return (record->next);
 }
 
+/*
+	dest = next elem after insert	
+*/
 t_list	*lst_replace(t_list *dest, t_list *replace, unsigned int replace_size)
 {
 	t_list	*after_replace;
