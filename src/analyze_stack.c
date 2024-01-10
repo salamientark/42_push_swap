@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:06:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/09 18:26:48 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/10 09:31:14 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	follow(t_stack_data *elem_a, t_stack_data *elem_b,
 	unsigned int total_stack_size)
 {
 	if (elem_a->key == elem_b->key - 1
-		|| (elem_a->key == total_stack_size && elem_b->key == 1))
+		|| (elem_a->key - total_stack_size + 1 == elem_b->key))
 		return (1);
 	if ((elem_a->key == elem_b->key + 1
 			|| (elem_a->key == 1 && elem_b->key == total_stack_size)))

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 20:18:42 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/09 18:26:53 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/10 09:28:35 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ t_list	*sort_small_stack(t_stack *stack_a, unsigned int size)
 			op_buffer = add_op_buffer(op_buffer, "sa");
 		operation(stack_a, NULL, op_buffer->content);
 		sorted = is_sorted(stack_a);
+		ft_printf("sort_small: OP_buff = %s\n", op_buffer->content);
+		print_stack_data(stack_a->head, NULL, &get_elem_key);
 	}
 	op_buffer = optimize_operation(op_buffer, size);
 	return (op_buffer);

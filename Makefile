@@ -43,16 +43,16 @@ all : $(PROJECT)
 
 test : $(OBJ_SRC) $(OBJ_TEST)
 	make -C $(FT_DIR)
-	$(CC) -g $(CFLAGS) $(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_SRC))) \
+	$(CC) -g3 $(CFLAGS) $(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_SRC))) \
 		$(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_TOOLS))) -o $(PROJECT) $(FT_FLAG)
 
 $(PROJECT) : $(OBJ_SRC) $(OBJ_TOOLS)
 	make -C $(FT_DIR)
-	$(CC) -g $(CFLAGS) $(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_SRC))) \
+	$(CC) -g3 $(CFLAGS) $(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_SRC))) \
 		$(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_TOOLS))) -o $(PROJECT) $(FT_FLAG)
 
 %.o : %.c
-	$(CC) -g $(CFLAGS) -I $(HEADER_DIR) -c $< -o $(OBJ_DIR)/$(notdir $@)
+	$(CC) -g3 $(CFLAGS) -I $(HEADER_DIR) -c $< -o $(OBJ_DIR)/$(notdir $@)
 
 bonus : $(BONUS_OBJ)
 	ar rc $(PROJECT) $(BONUS_OBJ)
