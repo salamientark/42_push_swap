@@ -6,12 +6,17 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 21:49:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/10 09:46:08 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/13 00:29:10 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/stack.h"
 #include "includes/stack_print.h"
+
+void    doom_that_mem(void)
+{
+    free_printf_param();
+}
 
 // static void free_push_swap(t_stack_data **stack_a, t_stack_data **stack_b, char **op_str)
 // {
@@ -26,7 +31,7 @@ int    main(int ac, char **av)
 {
 
     push_swap(ac, av);
-
+    doom_that_mem();
     // char    *op_str;
     // int     index;
     // t_push_swap_env ps_env;

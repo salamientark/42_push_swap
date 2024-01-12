@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:11:55 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/09 18:17:53 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/13 00:34:21 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ void    push_swap(int ac, char **av)
 		free_push_swap(&ps_env, &operation_buffer);
 		return ;
 	}
-	else if (ps_env.stack_a.size <= 5)
+	if (ps_env.stack_a.size <= 5)
 	{
 		operation_buffer = sort_small_stack(&(ps_env.stack_a), ps_env.max_size);
 		print_op_buffer(operation_buffer);
 		free_push_swap(&ps_env, &operation_buffer);
 		return ;
 	}
-	else
+	if (ps_env.stack_a.size > 5)
 	{
 		operation_buffer = unstack_a(&(ps_env.stack_a), &(ps_env.stack_b));
 		print_stack_data(ps_env.stack_a.head, ps_env.stack_b.head, &get_elem_key);
@@ -97,14 +97,9 @@ void    push_swap(int ac, char **av)
 
 		ft_printf("Nbr Coup = %d\n", op_buffer_size(operation_buffer));
 		// print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, print_stack_data);
-		// print_op_buffer(operation_buffer);
+		print_op_buffer(operation_buffer);
 		free_push_swap(&ps_env, &operation_buffer);
 		return ;
 	}
-	// if ((*ps_env).stack_a.size > 5)
-	// 	operation = unstack_a()
-    if (ps_env.stack_a.size <= 5)
-		operation_buffer = sort_small_stack(&(ps_env.stack_a), ps_env.stack_a.size);
-	// print_op_buffer(operation_buffer);
 	free_push_swap(&ps_env, &operation_buffer);
 }

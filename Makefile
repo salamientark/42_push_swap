@@ -28,8 +28,7 @@ HEADER_DIR = ./includes
 # LIBFT
 FT_DIR = ./libft
 FT = ft
-
-FT_FLAG = -L $(FT_DIR) -l $(FT)
+FT_FLAG = -L$(FT_DIR) -l$(FT)
 
 ## OBJECT FILE ###
 OBJ_DIR = .obj

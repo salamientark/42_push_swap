@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:04:34 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/10 12:09:44 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/13 00:31:35 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int     are_in_same_block(unsigned int val_a, unsigned int val_b,
 {
     int result;
     
+    // ft_printf("Are_in same_block?\n");
     result = 0;
     result = is_in_block(limit.a_low_lim, limit.a_high_lim, val_a);
     if (result)
@@ -73,6 +74,7 @@ int both_bound_in_block(t_limit limit, t_stack_data *stack)
     record = stack;
     while (record->next != stack)
     {
+        // ft_printf("both_bound_in_block in while\n");
         if (bound_nbr == 1 && is_in_bound(limit, record->key) && !are_in_same_block(first_bound->key, record->key, limit))
             return (1);
         if (bound_nbr == 0 && is_in_bound(limit, record->key))
@@ -87,11 +89,12 @@ int both_bound_in_block(t_limit limit, t_stack_data *stack)
 
 int is_block_aligned(t_limit limit, t_stack_data *stack)
 {
+    // ft_printf("is_block_aligned?\n");
 	if (!stack || stack->next == stack)
         return (1);
 	if (!both_bound_in_block(limit, stack))
     {
-        ft_printf("block_aligned : Not both bound in block\n");
+        // ft_printf("block_aligned : Not both bound in block\n");
 		return (1);
     }
     if (is_in_bound(limit, stack->prev->key) && is_in_bound(limit, stack->key)
@@ -117,6 +120,7 @@ char    *align_block(t_limit limit, t_stack *stack)
     rotate = 0;
     while (!(is_block_aligned(limit, record)))
     {
+        // ft_printf("align_block: in first while\n");
         rotate++;
         record = record->next;
     }
@@ -124,6 +128,7 @@ char    *align_block(t_limit limit, t_stack *stack)
     record = stack->head;
     while (!(is_block_aligned(limit, record)))
     {
+        // ft_printf("align_block: in second while\n");
         r_rotate++;
         record = record->prev;
     }
@@ -213,14 +218,14 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
             if ((are_in_same_block(stack_a->head->key, stack_a->head->next->key, limit)
                     && stack_a->head->key > stack_a->head->next->key))
                 op_buffer = add_op_buffer(op_buffer,"sa");
-            else if (stack_b->head && are_in_same_block(stack_a->head->key, stack_b->head->key, limit))
+            if (stack_b->head && are_in_same_block(stack_a->head->key, stack_b->head->key, limit))
             {
                 op_buffer = add_op_buffer(op_buffer, "pb");
                 ft_printf("In same block\n");
             }
             else if (!is_block_aligned(limit, stack_b->head))
             {
-                op_buffer = add_op_buffer(op_buffer,align_block(limit, stack_a));
+                op_buffer = add_op_buffer(op_buffer,align_block(limit, stack_b));
                 ft_printf("Not aligned\n");
             }
             else
@@ -235,8 +240,8 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
                 op_buffer = add_op_buffer(op_buffer,"ra"); 
         }
         ft_printf("--\n%s\n", op_buffer->content);
-        print_stack_data(stack_a->head, stack_b->head, &get_elem_key);
         operation(stack_a, stack_b, op_buffer->content);
+        print_stack_data(stack_a->head, stack_b->head, &get_elem_key);
         index++;
     }
     while (!is_block_aligned(limit, stack_b->head))

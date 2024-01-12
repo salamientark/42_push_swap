@@ -6,12 +6,20 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:41:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/09 17:36:43 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/13 00:24:35 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/stack.h"
 #include "../includes/stack_print.h"
+#include "../libft/libft.h"
+
+
+/// LIBFT
+
+///
+
+// void    ft_lstclear(t_list **list, void (*free)(void *));
 
 /*  Int map of every operation between 2 push operation;
     This map contain the swap / rotate / r_rotate operation saved like this :
@@ -47,6 +55,12 @@ void    print_sr_map(t_swap_rotate_map sr_map)
             ft_printf(",");
     }
     ft_printf("] SIZE : %d\n", sr_map.size);
+}
+
+void    free_sr_map(t_swap_rotate_map sr_map)
+{
+    free(sr_map.map);
+    sr_map.map = NULL;
 }
 
 t_swap_rotate_map   make_sr_map(t_list **op_buffer)
@@ -323,6 +337,8 @@ t_list  *sr_map_to_op_buffer_a_smaller(t_swap_rotate_map a_sr_map,
     return (op_buffer->next);
 }
 
+
+
 t_list  *optimize_unstack(t_list *op_buffer, unsigned int op_buffer_size)
 {
     (void) op_buffer_size;
@@ -361,9 +377,17 @@ t_list  *optimize_unstack(t_list *op_buffer, unsigned int op_buffer_size)
             a_sr_map = make_sr_map(&a_record);
             b_sr_map = make_sr_map(&b_record);
             final_op_buffer = lst_join(final_op_buffer, sr_map_to_op_buffer_a_smaller(a_sr_map, b_sr_map));
+            free(a_sr_map.map);
+            a_sr_map.map = NULL;
+            free(b_sr_map.map);
+            b_sr_map.map = NULL;
         }
         
     }
+    free_sr_map(a_sr_map);
+    free_sr_map(b_sr_map);
+    free_op_buffer(&op_buffer_a, NULL);
+    free_op_buffer(&op_buffer_b, NULL);
     final_op_buffer = final_op_buffer->next;
     op_buffer = final_op_buffer;
     return (op_buffer);
