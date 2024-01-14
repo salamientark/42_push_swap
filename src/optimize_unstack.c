@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:41:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/13 00:24:35 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/14 12:22:42 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,7 +339,7 @@ t_list  *sr_map_to_op_buffer_a_smaller(t_swap_rotate_map a_sr_map,
 
 
 
-t_list  *optimize_unstack(t_list *op_buffer, unsigned int op_buffer_size)
+void    optimize_unstack(t_list **op_buffer, unsigned int op_buffer_size)
 {
     (void) op_buffer_size;
     t_list  *op_buffer_a;
@@ -353,10 +353,10 @@ t_list  *optimize_unstack(t_list *op_buffer, unsigned int op_buffer_size)
     // t_list  *op_optimized;
 
     if (!op_buffer)
-        return (NULL);
+        return ;
     // op_optimized = NULL;
-    op_buffer_a = exract_a_op(op_buffer);
-    op_buffer_b = exract_b_op(op_buffer);
+    op_buffer_a = exract_a_op(*op_buffer);
+    op_buffer_b = exract_b_op(*op_buffer);
     start = 0;
     a_record = op_buffer_a;
     b_record = op_buffer_b;
@@ -388,7 +388,8 @@ t_list  *optimize_unstack(t_list *op_buffer, unsigned int op_buffer_size)
     free_sr_map(b_sr_map);
     free_op_buffer(&op_buffer_a, NULL);
     free_op_buffer(&op_buffer_b, NULL);
+    free_op_buffer(op_buffer, NULL);
     final_op_buffer = final_op_buffer->next;
-    op_buffer = final_op_buffer;
-    return (op_buffer);
+    *op_buffer = final_op_buffer;
+    // return (op_buffer);
 }

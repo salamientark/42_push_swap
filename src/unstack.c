@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:04:34 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/13 00:31:35 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/14 12:26:31 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
         op_buffer = add_op_buffer(op_buffer,align_block(limit, stack_b));
         operation(stack_a, stack_b, op_buffer->content);
     }
-    optimize_unstack(op_buffer->next, op_buffer_size(op_buffer));
+    op_buffer = op_buffer->next;
+    optimize_unstack(&(op_buffer), op_buffer_size(op_buffer));
     return (op_buffer);
 }

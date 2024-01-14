@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/13 00:24:41 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/14 12:22:26 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_list  *lst_join(t_list *dest_head, t_list *to_join);
 t_list	*unstack_a(t_stack *stack_a, t_stack *stack_b);
 
 // optimize_unstack.c
-t_list  *optimize_unstack(t_list *op_buffer, unsigned int op_buffer_size);
+void	optimize_unstack(t_list **op_buffer, unsigned int op_buffer_size);
 
 // math.c
 int 			ft_min(int a, int b);
