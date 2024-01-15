@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 19:39:35 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:07:29 by madlab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ typedef struct s_operation
 */
 typedef struct s_limit
 {
-    unsigned int    a_low_lim;
-    unsigned int    a_high_lim;
-    unsigned int    b_low_lim;
-    unsigned int    b_high_lim;
-}               t_limit;
+	unsigned int	a_low_lim;
+	unsigned int	a_high_lim;
+	unsigned int	b_low_lim;
+	unsigned int	b_high_lim;
+}				t_limit;
 
 // stack.c
 t_stack			init_stack(char id);
@@ -79,8 +79,8 @@ t_stack_data	*add_stack_data(const int val, t_stack_data *stack);
 int				stack_size(t_stack_data *stack);
 
 //stack_utils.c
-unsigned int smallest_key(t_stack *stack);
-unsigned int biggest_key(t_stack *stack);
+unsigned int	smallest_key(t_stack *stack);
+unsigned int	biggest_key(t_stack *stack);
 
 // arg_parser.c
 t_push_swap_env	init_push_swap(int ac, char **av);
@@ -96,66 +96,69 @@ int				operation(t_stack *a, t_stack *b, char *op);
 void			push_swap(int ac, char **av);
 
 // sort_stack_data.c
-t_list	*sort_small_stack(t_stack *stack_a, unsigned int size);
-char	*best_a_rotate(int rot, int size);
+t_list			*sort_small_stack(t_stack *stack_a, unsigned int size);
+char			*best_a_rotate(int rot, int size);
 
 //analyze stack.c
-int 			a_sorted(t_stack *stack);
+int				a_sorted(t_stack *stack);
 int				is_r_sorted(t_stack *stack);
 int				is_sorted(t_stack *stack);
 
 // op_bufer.c
 void			free_op_buffer(t_list **list, void (*free_content)(void *));
-t_list  		*init_op_buffer(char *op);
-t_list  		*add_op_buffer(t_list *op_buffer, char *op);
-t_list  		*make_op_buffer(unsigned int size, char *content);
-t_list  		*prev_op_buffer(t_list *op_buffer);
+t_list			*init_op_buffer(char *op);
+t_list			*add_op_buffer(t_list *op_buffer, char *op);
+t_list			*make_op_buffer(unsigned int size, char *content);
+t_list			*prev_op_buffer(t_list *op_buffer);
 
 // op_buffer_utils.c
 unsigned int	op_buffer_size(t_list *op_buffer);
-void    		execute_op_buffer(t_stack *stack_a, t_stack *stack_b, t_list *op_buffer);
+void			execute_op_buffer(t_stack *stack_a, t_stack *stack_b,
+					t_list *op_buffer);
 
 // lst_utils.c
-t_list  		*lst_remove(t_list *head, unsigned int to_remove);
-t_list  		*lst_insert(t_list *dest_head, t_list *to_insert);
-t_list  		*lst_replace(t_list *dest, t_list *replace, unsigned int replace_size);
+t_list			*lst_remove(t_list *head, unsigned int to_remove);
+t_list			*lst_insert(t_list *dest_head, t_list *to_insert);
+t_list			*lst_replace(t_list *dest, t_list *replace,
+					unsigned int replace_size);
 t_list			*lst_join(t_list *dest, t_list *src);
 t_list			*lst_concat(t_list *dest, t_list *src);
 
-
 // lst_join.c
-t_list  *lst_join(t_list *dest_head, t_list *to_join);
+t_list			*lst_join(t_list *dest_head, t_list *to_join);
 
 // unstack_utils.c
-int     is_in_bound(t_limit limit, unsigned int val);
-int     is_in_block(unsigned int low_block_lim, unsigned int high_block_lim,
-    		unsigned int val);
-int     are_in_same_block(unsigned int val_a, unsigned int val_b,
-            t_limit limit);
-int both_bound_in_block(t_limit limit, t_stack_data *stack);
+int				is_in_bound(t_limit limit, unsigned int val);
+int				is_in_block(unsigned int low_block_lim,
+					unsigned int high_block_lim, unsigned int val);
+int				are_in_same_block(unsigned int val_a, unsigned int val_b,
+					t_limit limit);
+int				both_bound_in_block(t_limit limit, t_stack_data *stack);
 
 // unstack.c
-t_list	*unstack_a(t_stack *stack_a, t_stack *stack_b);
+t_list			*unstack_a(t_stack *stack_a, t_stack *stack_b);
 
 // optimize_unstack.c
-void	optimize_unstack(t_list **op_buffer, unsigned int op_buffer_size);
+void			optimize_unstack(t_list **op_buffer,
+					unsigned int op_buffer_size);
 
 // math.c
-int 			ft_min(int a, int b);
-int 			ft_max(int a, int b);
-unsigned int 	ft_abs(int n);
+int				ft_min(int a, int b);
+int				ft_max(int a, int b);
+unsigned int	ft_abs(int n);
 
 // restack_utils.c
-int dist_from_head(t_stack *stack, unsigned int value);
-int good_pos_in_stack(t_stack *stack, unsigned int val);
-int best_dist(int stack_a_size, int stack_b_size, int rot_a, int rot_b);
+int				dist_from_head(t_stack *stack, unsigned int value);
+int				good_pos_in_stack(t_stack *stack, unsigned int val);
+int				best_dist(int stack_a_size, int stack_b_size,
+					int rot_a, int rot_b);
 
 // restack.c
-t_list  *restack(t_stack *dest, t_stack *src);
-void    execute_op_buffer(t_stack *stack_a, t_stack *stack_b, t_list *op_buffer);
+t_list			*restack(t_stack *dest, t_stack *src);
+void			execute_op_buffer(t_stack *stack_a, t_stack *stack_b,
+					t_list *op_buffer);
 
 // optimize_restack.c
-void    optimize_restack(t_list **op_buffer);
-
+void			optimize_restack(t_list **op_buffer);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:11:55 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 18:43:06 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 20:57:28 by madlab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	operation(t_stack *a, t_stack *b, char *op)
 	else
 		return (0);
 	if (op_env.operation == &push || (op[1] == 'r' && !op[2])
-			|| (op[2] && op[2] == 'r') || op[1] == 's')
+		|| (op[2] && op[2] == 'r') || op[1] == 's')
 		op_env.arg_b = b;
 	if (op[1] == 'b' || (ft_strlen(op) == 3 && op[2] == 'b'))
 	{
@@ -49,14 +49,40 @@ int	operation(t_stack *a, t_stack *b, char *op)
 	return (1);
 }
 
-void    push_swap(int ac, char **av)
+t_list	*sort_big_stack(t_push_swap_env ps_env)
+{
+	t_list	*operation_buffer;
+
+	operation_buffer = unstack_a(&(ps_env.stack_a), &(ps_env.stack_b));
+	while (ps_env.stack_a.size > 5)
+		operation_buffer = lst_concat(operation_buffer,
+				unstack_a(&(ps_env.stack_a), &(ps_env.stack_b)));
+	operation_buffer = lst_concat(operation_buffer,
+			sort_small_stack(&(ps_env.stack_a), ps_env.stack_a.size));
+	while (ps_env.stack_a.size < ps_env.max_size)
+		operation_buffer = lst_concat(operation_buffer,
+				restack(&(ps_env.stack_a), &(ps_env.stack_b)));
+	while (!(ps_env.stack_a.head->key == 1))
+	{
+		operation_buffer = prev_op_buffer(operation_buffer);
+		operation_buffer = add_op_buffer(operation_buffer,
+				best_a_rotate(a_sorted(&(ps_env.stack_a)),
+					ps_env.stack_a.size));
+		operation(&(ps_env.stack_a), &(ps_env.stack_b),
+			operation_buffer->content);
+		operation_buffer = operation_buffer->next;
+	}
+	return (operation_buffer);
+}
+
+void	push_swap(int ac, char **av)
 {
 	t_push_swap_env	ps_env;
-    t_list  		*operation_buffer;
+	t_list			*operation_buffer;
 
 	operation_buffer = NULL;
 	ps_env = init_push_swap(ac, av);
-    if (!(ps_env.stack_a.head))
+	if (!(ps_env.stack_a.head))
 	{
 		free_push_swap(&ps_env, &operation_buffer);
 		return ;
@@ -64,22 +90,7 @@ void    push_swap(int ac, char **av)
 	if (ps_env.stack_a.size <= 5)
 		operation_buffer = sort_small_stack(&(ps_env.stack_a), ps_env.max_size);
 	else
-	{
-		operation_buffer = unstack_a(&(ps_env.stack_a), &(ps_env.stack_b));
-		while (ps_env.stack_a.size > 5)
-			operation_buffer = lst_concat(operation_buffer, unstack_a(&(ps_env.stack_a), &(ps_env.stack_b)));
-
-		operation_buffer = lst_concat(operation_buffer, sort_small_stack(&(ps_env.stack_a), ps_env.stack_a.size));
-		while (ps_env.stack_a.size < ps_env.max_size)
-			operation_buffer = lst_concat(operation_buffer, restack(&(ps_env.stack_a), &(ps_env.stack_b)));
-		while (!(ps_env.stack_a.head->key == 1))
-		{
-			operation_buffer = prev_op_buffer(operation_buffer);
-			operation_buffer = add_op_buffer(operation_buffer, best_a_rotate(a_sorted(&(ps_env.stack_a)), ps_env.stack_a.size));
-			operation(&(ps_env.stack_a), &(ps_env.stack_b), operation_buffer->content);
-			operation_buffer = operation_buffer->next;
-		}
-	}
+		operation_buffer = sort_big_stack(ps_env);
 	print_op_buffer(operation_buffer);
 	free_push_swap(&ps_env, &operation_buffer);
 }

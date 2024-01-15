@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analyze_stack.c                                    :+:      :+:    :+:   */
+/*   stack_sorted.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:06:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 18:34:08 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:09:07 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,3 @@ int	is_sorted(t_stack *stack)
 	}
 	return (1);
 }
-
-// int	is_r_sorted(t_stack *stack)
-// {
-// 	unsigned int	index;
-// 	t_stack_data	*record;
-
-// 	if (!stack->head || stack->head == stack->head->prev)
-// 		return (1);
-// 	index = stack->size;
-// 	record = stack->head;
-// 	while (index > 0)
-// 	{
-// 		if ((record->prev->key < record->key)
-// 			&& !(record->prev->key == stack->min && record->key == stack->max))
-// 			return (0);
-// 		index--;
-// 		record = record->prev;
-// 	}
-// 	return (1);
-// }
