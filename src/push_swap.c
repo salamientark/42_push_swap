@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:11:55 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/13 00:34:21 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 10:07:20 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,19 @@ void    push_swap(int ac, char **av)
 		ft_printf("Nbr Coup = %d\n", op_buffer_size(operation_buffer));
 		// print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, print_stack_data);
 		print_op_buffer(operation_buffer);
+		ft_printf("\nbest restack:\n");
+		t_list *zdeg = best_move(&(ps_env.stack_a), &(ps_env.stack_b));
+		int index = 0;
+		while (index < 95)
+		{
+			zdeg = lst_join(zdeg, best_move(&(ps_env.stack_a), &(ps_env.stack_b)));
+			print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
+			index++;
+		}
+		print_op_buffer(zdeg);
+		print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
 		free_push_swap(&ps_env, &operation_buffer);
+		ft_printf("Nbr Coup = %d\n", op_buffer_size(operation_buffer) + op_buffer_size(zdeg));
 		return ;
 	}
 	free_push_swap(&ps_env, &operation_buffer);

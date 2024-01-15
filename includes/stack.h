@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/14 12:22:26 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:22:44 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,8 @@ int 			ft_min(int a, int b);
 int 			ft_max(int a, int b);
 unsigned int 	ft_abs(int n);
 
+// restack.c
+t_list  *best_move(t_stack *dest, t_stack *src);
 
-//old_operation.c
-void			push_old(t_stack_data **src, t_stack_data **dest);
-void			swap_old(t_stack_data **stack);
-void			rotate_old(t_stack_data **stack);
-void			r_rotate_old(t_stack_data **stack);
 
 #endif
