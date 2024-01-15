@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 20:18:42 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 12:46:14 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:09:28 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,6 @@ t_list	*sort_small_stack(t_stack *stack_a, unsigned int size)
 		// print_stack_data(stack_a->head, NULL, &get_elem_key);
 	}
 	op_buffer = optimize_operation(op_buffer, size);
+	// print_op_buffer(op_buffer);
 	return (op_buffer);
 }

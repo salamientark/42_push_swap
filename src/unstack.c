@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:04:34 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 12:45:59 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:37:54 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
             if ((are_in_same_block(stack_a->head->key, stack_a->head->next->key, limit)
                     && stack_a->head->key > stack_a->head->next->key))
                 op_buffer = add_op_buffer(op_buffer,"sa");
-            if (stack_b->head && are_in_same_block(stack_a->head->key, stack_b->head->key, limit))
+            else if (stack_b->head && are_in_same_block(stack_a->head->key, stack_b->head->key, limit))
             {
                 op_buffer = add_op_buffer(op_buffer, "pb");
                 // ft_printf("In same block\n");
@@ -246,10 +246,11 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
     }
     while (!is_block_aligned(limit, stack_b->head))
     {
-        op_buffer = add_op_buffer(op_buffer,align_block(limit, stack_b));
+        op_buffer = add_op_buffer(op_buffer, align_block(limit, stack_b));
         operation(stack_a, stack_b, op_buffer->content);
     }
     op_buffer = op_buffer->next;
-    optimize_unstack(&(op_buffer), op_buffer_size(op_buffer));
+    // print_op_buffer(op_buffer);
+    // optimize_unstack(&(op_buffer), op_buffer_size(op_buffer));
     return (op_buffer);
 }
