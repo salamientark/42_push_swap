@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:11:55 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 12:31:48 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:46:47 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,37 +79,41 @@ void    push_swap(int ac, char **av)
 	if (ps_env.stack_a.size <= 5)
 	{
 		operation_buffer = sort_small_stack(&(ps_env.stack_a), ps_env.max_size);
-		print_op_buffer(operation_buffer);
+		// print_op_buffer(operation_buffer);
 		free_push_swap(&ps_env, &operation_buffer);
 		return ;
 	}
 	if (ps_env.stack_a.size > 5)
 	{
 		operation_buffer = unstack_a(&(ps_env.stack_a), &(ps_env.stack_b));
-		print_stack_data(ps_env.stack_a.head, ps_env.stack_b.head, &get_elem_key);
+		// print_stack_data(ps_env.stack_a.head, ps_env.stack_b.head, &get_elem_key);
 		while (ps_env.stack_a.size > 5)
 		{
 			operation_buffer = lst_join(operation_buffer, unstack_a(&(ps_env.stack_a), &(ps_env.stack_b)));
-			print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
+			// print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
 		}
 		operation_buffer = lst_join(operation_buffer, sort_small_stack(&(ps_env.stack_a), ps_env.stack_a.size));
-			print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
+			// print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
 
-		ft_printf("Nbr Coup UNSTACK = %d\n", op_buffer_size(operation_buffer));
+		// ft_printf("Nbr Coup UNSTACK = %d\n", op_buffer_size(operation_buffer));
 		// print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, print_stack_data);
-		print_op_buffer(operation_buffer);
-		ft_printf("\nbest restack:\n");
-		t_list *zdeg = best_move(&(ps_env.stack_a), &(ps_env.stack_b));
-		int index = 0;
+		// print_op_buffer(operation_buffer);
+		// ft_printf("\nbest restack:\n");
 		while (ps_env.stack_a.size < ps_env.max_size)
 		{
-			zdeg = lst_join(zdeg, best_move(&(ps_env.stack_a), &(ps_env.stack_b)));
-			print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
-			index++;
+			operation_buffer = lst_join(operation_buffer, best_move(&(ps_env.stack_a), &(ps_env.stack_b)));
+			// print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
 		}
-		print_op_buffer(zdeg);
-		print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
-		ft_printf("Nbr Coup = %d\n", (op_buffer_size(operation_buffer) + op_buffer_size(zdeg)));
+		while (!(ps_env.stack_a.head->key == 1))
+		{
+			operation_buffer = add_op_buffer(operation_buffer, best_a_rotate(a_sorted(&(ps_env.stack_a)), ps_env.stack_a.size));
+			operation(&(ps_env.stack_a), &(ps_env.stack_b), operation_buffer->content);
+			// print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
+		}
+		operation_buffer = operation_buffer->next;
+		print_op_buffer(operation_buffer);
+		// print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
+		// ft_printf("Nbr Coup TOTAUX= %d\n", op_buffer_size(operation_buffer));
 		free_push_swap(&ps_env, &operation_buffer);
 		return ;
 	}

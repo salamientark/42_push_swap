@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:04:34 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/14 12:26:31 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:45:59 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_limit
     unsigned int    b_high_lim;
 }               t_limit;
 
-static char *best_rotate(int rot, int size)
+static char *best_b_rotate(int rot, int size)
 {
     if (rot > size / 2)
         return ("rrb");
@@ -133,8 +133,8 @@ char    *align_block(t_limit limit, t_stack *stack)
         record = record->prev;
     }
     if (r_rotate < rotate)
-        return (best_rotate(stack->size - r_rotate, stack->size));
-    return (best_rotate(rotate, stack->size));
+        return (best_b_rotate(stack->size - r_rotate, stack->size));
+    return (best_b_rotate(rotate, stack->size));
 }
 
 int swap_b(t_stack *stack_b, t_limit limit)
@@ -187,7 +187,7 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
     op_buffer = NULL;
     limit = make_limit(stack_a);
     final_size = limit.b_low_lim - limit.a_high_lim;
-    print_limit(limit);
+    // print_limit(limit);
     while (stack_a->size > final_size)
     {
         // if (swap_b(stack_b, low_limit, high_limit))
@@ -200,12 +200,12 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
                 // && stack_a->head->key > stack_b->head->key)
             {
                 op_buffer = add_op_buffer(op_buffer, "pb");
-                ft_printf("In same_block\n");
+                // ft_printf("In same_block\n");
             }
             else if (!is_block_aligned(limit, stack_b->head))
             {
                 op_buffer = add_op_buffer(op_buffer,align_block(limit, stack_b));
-                ft_printf("Not aligned\n");
+                // ft_printf("Not aligned\n");
             }
             else if (stack_a->head->key > stack_a->head->next->key &&
                 stack_a->head->key < stack_a->head->next->next->key)
@@ -221,12 +221,12 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
             if (stack_b->head && are_in_same_block(stack_a->head->key, stack_b->head->key, limit))
             {
                 op_buffer = add_op_buffer(op_buffer, "pb");
-                ft_printf("In same block\n");
+                // ft_printf("In same block\n");
             }
             else if (!is_block_aligned(limit, stack_b->head))
             {
                 op_buffer = add_op_buffer(op_buffer,align_block(limit, stack_b));
-                ft_printf("Not aligned\n");
+                // ft_printf("Not aligned\n");
             }
             else
                 op_buffer = add_op_buffer(op_buffer, "pb");
@@ -239,9 +239,9 @@ t_list  *unstack_a(t_stack *stack_a, t_stack *stack_b)
             else
                 op_buffer = add_op_buffer(op_buffer,"ra"); 
         }
-        ft_printf("--\n%s\n", op_buffer->content);
+        // ft_printf("--\n%s\n", op_buffer->content);
         operation(stack_a, stack_b, op_buffer->content);
-        print_stack_data(stack_a->head, stack_b->head, &get_elem_key);
+        // print_stack_data(stack_a->head, stack_b->head, &get_elem_key);
         index++;
     }
     while (!is_block_aligned(limit, stack_b->head))

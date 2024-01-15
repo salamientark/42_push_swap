@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 18:18:17 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 12:19:03 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:45:16 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,12 +207,12 @@ t_list  *best_insert(t_stack *dest, t_stack *src, unsigned int val)
     if (op_buffer)
     {
         op_buffer = op_buffer->next;
-        ft_printf("BEFORE_OPTIMIZE\n");
-        print_op_buffer(op_buffer);
+        // ft_printf("BEFORE_OPTIMIZE\n");
+        // print_op_buffer(op_buffer);
         restack_optimize(&op_buffer);
         op_buffer = op_buffer->next;
-        ft_printf("AFTER_OPTIMIZE\n");
-        print_op_buffer(op_buffer);
+        // ft_printf("AFTER_OPTIMIZE\n");
+        // print_op_buffer(op_buffer);
     }
     return (op_buffer);
 }

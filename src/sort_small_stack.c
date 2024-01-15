@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 20:18:42 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/12 22:47:30 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:46:14 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 	[ 3, 6, 1, 5, 2, 4]
 */
 
-static char	*best_rotate(int rot, int size)
+char	*best_a_rotate(int rot, int size)
 {
 	if (rot > size / 2)
 		return ("rra");
@@ -98,7 +98,7 @@ t_list	*sort_small_stack(t_stack *stack_a, unsigned int size)
 	{
 		if (is_sorted(stack_a) > 0)
 			op_buffer = add_op_buffer(op_buffer,
-					best_rotate(a_sorted(stack_a), size));
+					best_a_rotate(a_sorted(stack_a), size));
 		else if (follow(stack_a->head, stack_a->head->next, size) == -1)
 			op_buffer = add_op_buffer(op_buffer, "sa");
 		else if (follow(stack_a->head, stack_a->head->next, size) == 1
@@ -110,8 +110,8 @@ t_list	*sort_small_stack(t_stack *stack_a, unsigned int size)
 			op_buffer = add_op_buffer(op_buffer, "sa");
 		operation(stack_a, NULL, op_buffer->content);
 		sorted = is_sorted(stack_a);
-		ft_printf("sort_small: OP_buff = %s\n", op_buffer->content);
-		print_stack_data(stack_a->head, NULL, &get_elem_key);
+		// ft_printf("sort_small: OP_buff = %s\n", op_buffer->content);
+		// print_stack_data(stack_a->head, NULL, &get_elem_key);
 	}
 	op_buffer = optimize_operation(op_buffer, size);
 	return (op_buffer);

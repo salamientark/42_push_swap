@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 11:07:27 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:38:01 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void			push_swap(int ac, char **av);
 
 // sort_stack_data.c
 t_list	*sort_small_stack(t_stack *stack_a, unsigned int size);
+char	*best_a_rotate(int rot, int size);
 
 //analyze stack.c
 int 			follow(t_stack_data *elem_a, t_stack_data *elem_b, unsigned int total_stack_size);
