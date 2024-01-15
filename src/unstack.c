@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:04:34 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 19:57:41 by madlab           ###   ########.fr       */
+/*   Updated: 2024/01/15 20:17:16 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,56 +92,26 @@ t_limit	make_limit(t_stack *stack)
 */
 t_list	*unstack_a(t_stack *stack_a, t_stack *stack_b)
 {
-	t_limit		 limit;
+	t_limit			limit;
 	unsigned int	final_size;
-	t_list		  *op_buffer;
+	t_list			*op_buffer;
 
-	int index = 0;
 	op_buffer = NULL;
 	limit = make_limit(stack_a);
 	final_size = limit.b_low_lim - limit.a_high_lim;
 	while (stack_a->size > final_size)
 	{
-		if (stack_a->head->key > limit.b_low_lim)
-		{
-			if (stack_b->head && are_in_same_block(stack_a->head->key, stack_b->head->key, limit))
-				op_buffer = add_op_buffer(op_buffer, "pb");
-			else if (!is_block_aligned(limit, stack_b->head))
-				op_buffer = add_op_buffer(op_buffer,align_block(limit, stack_b));
-			else if (stack_a->head->key > stack_a->head->next->key &&
-				stack_a->head->key < stack_a->head->next->next->key)
-				op_buffer = add_op_buffer(op_buffer,"sa");
-			else
-				op_buffer = add_op_buffer(op_buffer, "pb");
-		}
-		else if (stack_a->head->key <= limit.a_high_lim)
-		{
-			if ((are_in_same_block(stack_a->head->key, stack_a->head->next->key, limit)
-					&& stack_a->head->key > stack_a->head->next->key))
-				op_buffer = add_op_buffer(op_buffer,"sa");
-			else if (stack_b->head && are_in_same_block(stack_a->head->key, stack_b->head->key, limit))
-				op_buffer = add_op_buffer(op_buffer, "pb");
-			else if (!is_block_aligned(limit, stack_b->head))
-				op_buffer = add_op_buffer(op_buffer,align_block(limit, stack_b));
-			else
-				op_buffer = add_op_buffer(op_buffer, "pb");
-		}
+		if (limit.a_high_lim < stack_a->head->key
+			&& stack_a->head->key <= limit.b_low_lim)
+			op_buffer = add_op_buffer(op_buffer, "ra");
+		else if (stack_b->head && are_in_same_block(stack_a->head->key,
+				stack_b->head->key, limit))
+			op_buffer = add_op_buffer(op_buffer, "pb");
+		else if (!is_block_aligned(limit, stack_b->head))
+			op_buffer = add_op_buffer(op_buffer, align_block(limit, stack_b));
 		else
-		{
-			if (are_in_same_block(stack_a->head->key, stack_a->head->next->key, limit)
-				&& stack_a->head->key > stack_a->head->next->key)
-				op_buffer = add_op_buffer(op_buffer,"sa");
-			else
-				op_buffer = add_op_buffer(op_buffer,"ra"); 
-		}
-		operation(stack_a, stack_b, op_buffer->content);
-		index++;
-	}
-	while (!is_block_aligned(limit, stack_b->head))
-	{
-		op_buffer = add_op_buffer(op_buffer, align_block(limit, stack_b));
+			op_buffer = add_op_buffer(op_buffer, "pb");
 		operation(stack_a, stack_b, op_buffer->content);
 	}
-	op_buffer = op_buffer->next;
-	return (op_buffer);
+	return (op_buffer->next);
 }
