@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:11:55 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 10:07:20 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:31:48 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	operation(t_stack *a, t_stack *b, char *op)
 		op_env.operation = &r_rotate;
 	else
 		return (0);
-	if (op_env.operation == &push || (op[2] == 'r'
-			|| (op[1] == 'r' && op[2] == '\n') || op[1] == 's'))
+	if (op_env.operation == &push || (op[1] == 'r' && !op[2])
+			|| (op[2] && op[2] == 'r') || op[1] == 's')
 		op_env.arg_b = b;
 	if (op[1] == 'b' || (ft_strlen(op) == 3 && op[2] == 'b'))
 	{
@@ -95,13 +95,13 @@ void    push_swap(int ac, char **av)
 		operation_buffer = lst_join(operation_buffer, sort_small_stack(&(ps_env.stack_a), ps_env.stack_a.size));
 			print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
 
-		ft_printf("Nbr Coup = %d\n", op_buffer_size(operation_buffer));
+		ft_printf("Nbr Coup UNSTACK = %d\n", op_buffer_size(operation_buffer));
 		// print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, print_stack_data);
 		print_op_buffer(operation_buffer);
 		ft_printf("\nbest restack:\n");
 		t_list *zdeg = best_move(&(ps_env.stack_a), &(ps_env.stack_b));
 		int index = 0;
-		while (index < 95)
+		while (ps_env.stack_a.size < ps_env.max_size)
 		{
 			zdeg = lst_join(zdeg, best_move(&(ps_env.stack_a), &(ps_env.stack_b)));
 			print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
@@ -109,8 +109,8 @@ void    push_swap(int ac, char **av)
 		}
 		print_op_buffer(zdeg);
 		print_stack(ps_env.stack_a, ps_env.stack_b, &get_elem_key, &print_stack_data);
+		ft_printf("Nbr Coup = %d\n", (op_buffer_size(operation_buffer) + op_buffer_size(zdeg)));
 		free_push_swap(&ps_env, &operation_buffer);
-		ft_printf("Nbr Coup = %d\n", op_buffer_size(operation_buffer) + op_buffer_size(zdeg));
 		return ;
 	}
 	free_push_swap(&ps_env, &operation_buffer);

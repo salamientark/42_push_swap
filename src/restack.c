@@ -6,11 +6,12 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 18:18:17 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 09:55:02 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:19:03 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/stack.h"
+#include "../includes/stack_print.h"
 
 /* 
     Distance in rotate count OR -1 if not found
@@ -86,9 +87,10 @@ int best_dist(int stack_a_size, int stack_b_size,
     int dist;
 
     dist = ft_max(rot_a, rot_b);
-    dist = ft_min(dist, rot_a + (stack_b_size - rot_b));
-    dist = ft_min(dist, (stack_a_size - rot_a) + rot_b);
-    dist = ft_min(dist, ft_max((stack_a_size - rot_a), (stack_b_size - rot_b)));
+    dist = ft_min(dist, rot_a + (stack_b_size - rot_b) % stack_b_size);
+    dist = ft_min(dist, (stack_a_size - rot_a) % stack_a_size + rot_b);
+    dist = ft_min(dist, ft_max((stack_a_size - rot_a) % stack_a_size,
+        (stack_b_size - rot_b) % stack_b_size));
     return (dist);
 }
 
@@ -136,7 +138,7 @@ int best_rotate_dist(t_stack *dest, t_stack *src, unsigned int val)
 
 int best_head_dist(t_stack *stack, unsigned int val)
 {
-    int dist;
+    int             dist;
     t_stack_data    *record;
 
     record = stack->head;
@@ -186,13 +188,13 @@ t_list  *best_insert(t_stack *dest, t_stack *src, unsigned int val)
     unsigned int dist;
     t_list  *op_buffer;
 
-    place_in_src = dist_from_head(src, val);
-    place_in_dest = good_pos_in_stack(dest, val);
+    place_in_src = dist_from_head(src, val) % src->size;
+    place_in_dest = good_pos_in_stack(dest, val) % dest->size;
     dist = best_dist(dest->size, src->size, place_in_dest, place_in_src);
     if (dist == (unsigned int)ft_max(place_in_dest, place_in_src))
         op_buffer = lst_join(make_op_buffer(place_in_dest, "ra"),
         make_op_buffer(place_in_src, "rb"));
-    else if (dist == (place_in_dest + (int)src->size - place_in_src) % src->size)
+    else if (dist == (place_in_dest + ((int)src->size - place_in_src) % src->size))
         op_buffer = lst_join(make_op_buffer(place_in_dest, "ra"),
         make_op_buffer(((int)src->size - place_in_src) % src->size, "rrb"));
     else if (dist == ((int)dest->size - place_in_dest) % dest->size + place_in_src)
@@ -202,8 +204,16 @@ t_list  *best_insert(t_stack *dest, t_stack *src, unsigned int val)
         op_buffer = lst_join(make_op_buffer((dest->size - place_in_dest)
             % dest->size, "rra"), make_op_buffer((src->size - place_in_src)
             % src->size, "rrb"));
-    // op_buffer = op_buffer -> next
-    // optimize_buffer(&op_buffer, op_buffer_size(op_buffer));
+    if (op_buffer)
+    {
+        op_buffer = op_buffer->next;
+        ft_printf("BEFORE_OPTIMIZE\n");
+        print_op_buffer(op_buffer);
+        restack_optimize(&op_buffer);
+        op_buffer = op_buffer->next;
+        ft_printf("AFTER_OPTIMIZE\n");
+        print_op_buffer(op_buffer);
+    }
     return (op_buffer);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/14 21:22:44 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:07:27 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,9 @@ unsigned int 	ft_abs(int n);
 
 // restack.c
 t_list  *best_move(t_stack *dest, t_stack *src);
+
+// restack_optimize.c
+void    restack_optimize(t_list **op_buffer);
 
 
 #endif

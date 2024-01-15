@@ -12,7 +12,8 @@ SRC_FILE = $(SRC_DIR)/init_push_swap.c $(SRC_DIR)/stack.c $(SRC_DIR)/stack_utils
 			$(SRC_DIR)/operation.c $(SRC_DIR)/push_swap.c $(SRC_DIR)/sort_small_stack.c \
 			$(SRC_DIR)/analyze_stack.c $(SRC_DIR)/op_buffer_utils.c $(SRC_DIR)/op_buffer.c \
 			$(SRC_DIR)/optimize_unstack.c $(SRC_DIR)/unstack.c $(SRC_DIR)/lst_replace.c \
-			$(SRC_DIR)/math.c $(SRC_DIR)/lst_join.c $(SRC_DIR)/restack.c main.c
+			$(SRC_DIR)/math.c $(SRC_DIR)/lst_join.c $(SRC_DIR)/restack.c $(SRC_DIR)/restack_optimize.c \
+			main.c
 
 # Development tools -> printing stuff
 TOOLS_DIR = ./tools
