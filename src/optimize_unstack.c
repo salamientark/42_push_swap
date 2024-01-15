@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:41:07 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 13:41:19 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:34:27 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,10 +235,10 @@ t_list  *val_to_op_buffer(int val, char stack_id)
     if (val < 0)
     {
         if (stack_id == 'a')
-            return (make_op_buffer(abs(val), "rra"));
+            return (make_op_buffer(ft_abs(val), "rra"));
         else if (stack_id == 'b')
-            return (make_op_buffer(abs(val), "rrb"));
-        return (make_op_buffer(abs(val), "rrr"));
+            return (make_op_buffer(ft_abs(val), "rrb"));
+        return (make_op_buffer(ft_abs(val), "rrr"));
     }
     return (NULL);
 }
@@ -350,7 +350,6 @@ void    optimize_unstack(t_list **op_buffer, unsigned int op_buffer_size)
     t_swap_rotate_map   a_sr_map;
     t_swap_rotate_map   b_sr_map;
     int     start;
-    // t_list  *op_optimized;
 
     if (!op_buffer)
         return ;

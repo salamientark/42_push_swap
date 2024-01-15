@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:06:51 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 12:38:53 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:34:08 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	Check if value are in ASCENDING order.
 	Return:
 	0		: Is_sorted
-	[1,n]	: Sorted but n rotate to start with 1
+	[1,n]	: Sorted but n rotate to start with minimum value
 	-1	   : Not sorted
 */
 int	a_sorted(t_stack *stack)
@@ -45,6 +45,9 @@ int	a_sorted(t_stack *stack)
 	return (rot);
 }
 
+/*
+	OBVIOUS
+*/
 int	is_sorted(t_stack *stack)
 {
 	unsigned int	index;
@@ -65,38 +68,22 @@ int	is_sorted(t_stack *stack)
 	return (1);
 }
 
-int	is_r_sorted(t_stack *stack)
-{
-	unsigned int	index;
-	t_stack_data	*record;
+// int	is_r_sorted(t_stack *stack)
+// {
+// 	unsigned int	index;
+// 	t_stack_data	*record;
 
-	if (!stack->head || stack->head == stack->head->prev)
-		return (1);
-	index = stack->size;
-	record = stack->head;
-	while (index > 0)
-	{
-		if ((record->prev->key < record->key)
-			&& !(record->prev->key == stack->min && record->key == stack->max))
-			return (0);
-		index--;
-		record = record->prev;
-	}
-	return (1);
-}
-
-/*  Check if the two value perfectly follow
-	1 : TRUE
-	0 : FALSE
-*/
-int	follow(t_stack_data *elem_a, t_stack_data *elem_b,
-	unsigned int total_stack_size)
-{
-	if (elem_a->key == elem_b->key - 1
-		|| (elem_a->key - total_stack_size + 1 == elem_b->key))
-		return (1);
-	if ((elem_a->key == elem_b->key + 1
-			|| (elem_a->key == 1 && elem_b->key == total_stack_size)))
-		return (-1);
-	return (0);
-}
+// 	if (!stack->head || stack->head == stack->head->prev)
+// 		return (1);
+// 	index = stack->size;
+// 	record = stack->head;
+// 	while (index > 0)
+// 	{
+// 		if ((record->prev->key < record->key)
+// 			&& !(record->prev->key == stack->min && record->key == stack->max))
+// 			return (0);
+// 		index--;
+// 		record = record->prev;
+// 	}
+// 	return (1);
+// }

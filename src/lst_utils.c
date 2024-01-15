@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_replace.c                                      :+:      :+:    :+:   */
+/*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 08:55:52 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/09 13:39:33 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:27:52 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,36 @@ t_list	*lst_replace(t_list *dest, t_list *replace, unsigned int replace_size)
 		after_replace = prev_op_buffer(after_replace);
 	after_replace = lst_insert(after_replace, replace);
 	return (after_replace);
+}
+
+/*
+	dest_head point to last elem to be joined
+	and
+	No one care about what happend to to_join
+*/
+t_list	*lst_join(t_list *dest_head, t_list *to_join)
+{
+	t_list	*record;
+
+	if (!to_join)
+		return (dest_head);
+	if (!dest_head)
+		return (to_join);
+	record = prev_op_buffer(to_join);
+	record->next = dest_head->next;
+	dest_head->next = to_join;
+	return (record);
+}
+
+/*
+	Concat two list and return the element after join
+*/
+t_list	*lst_concat(t_list *dest, t_list *src)
+{
+	t_list	*op_buffer;
+
+	op_buffer = prev_op_buffer(dest);
+	op_buffer = lst_join(op_buffer, src);
+	op_buffer = op_buffer->next;
+	return (op_buffer);
 }
