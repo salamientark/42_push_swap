@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:14:03 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/16 10:23:22 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:04:38 by madlab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,25 +89,20 @@ void	free_stack_data(t_stack_data **stack)
 	*stack = NULL;
 }
 
-void    end_checker(t_checker *ps_env, char **op, char *msg)
+void	end_checker(t_checker *ps_env, char **op, char *msg)
 {
-    free_stack_data(&(ps_env->stack_a.head));
-    ps_env->stack_a.head = NULL;
-    free_stack_data(&(ps_env->stack_b.head));
-    ps_env->stack_b.head = NULL;
-    // if (*ps_env)
-    // {
-    //     free(*ps_env);
-    //     *ps_env = NULL.
-    // }
+	free_stack_data(&(ps_env->stack_a.head));
+	ps_env->stack_a.head = NULL;
+	free_stack_data(&(ps_env->stack_b.head));
+	ps_env->stack_b.head = NULL;
 	if (*op)
-    	free(*op);
-    if (!msg)
-        return ;
-    if (msg[0] == 'K')
-        ft_putendl_fd("KO", 1);
-    if (msg[0] == 'O')
-        ft_putendl_fd("OK", 1);
-    if (msg[0] == 'E')
-        ft_putendl_fd("Error", 2);
+		free(*op);
+	if (!msg)
+		return ;
+	if (msg[0] == 'K')
+		ft_putendl_fd("KO", 1);
+	if (msg[0] == 'O')
+		ft_putendl_fd("OK", 1);
+	if (msg[0] == 'E')
+		ft_putendl_fd("Error", 2);
 }

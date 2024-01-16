@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 10:27:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/16 10:29:33 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 11:41:27 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,19 @@ int	operation(t_stack *a, t_stack *b, char *op)
 		op_env.operation = &swap;
 	else if (op && op[0] == 'p')
 		op_env.operation = &push;
-	else if (op && op[0] == 'r' && ft_strlen(op) == 2)
-		op_env.operation = &rotate;
 	else if (op && op[0] == 'r' && ft_strlen(op) == 3)
+		op_env.operation = &rotate;
+	else if (op && op[0] == 'r' && ft_strlen(op) == 4)
 		op_env.operation = &r_rotate;
 	else
 		return (0);
-	if (op_env.operation == &push || (op[1] == 'r' && !op[2])
-		|| (op[2] && op[2] == 'r') || op[1] == 's')
+	if ((op[0] == 'p' && op[1] == 'a') || (op[1] == 'r' && !op[3])
+		|| (op[3] && op[3] == 'r') || op[1] == 's')
 		op_env.arg_b = b;
-	if (op[1] == 'b' || (ft_strlen(op) == 3 && op[2] == 'b'))
+	if (op[1] == 'b' || (ft_strlen(op) == 4 && op[2] != 'a'))
 	{
 		op_env.arg_a = b;
-		if (op_env.operation == &push)
+		if (op[0] == 'p' || (ft_strlen(op) == 4 && op[2] == 'r'))
 			op_env.arg_b = a;
 	}
 	op_env.operation(op_env.arg_a, op_env.arg_b);

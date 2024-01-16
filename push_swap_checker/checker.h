@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:15:31 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/16 10:30:45 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:02:30 by madlab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,23 @@ typedef struct s_operation
 }				t_operation;
 
 //operation.c
-void	swap(t_stack *dest, t_stack *src);
-void	rotate(t_stack *dest, t_stack *src);
-void	r_rotate(t_stack *dest, t_stack *src);
-void	push(t_stack *dest, t_stack *src);
+void			swap(t_stack *dest, t_stack *src);
+void			rotate(t_stack *dest, t_stack *src);
+void			r_rotate(t_stack *dest, t_stack *src);
+void			push(t_stack *dest, t_stack *src);
 
 unsigned int	biggest_key(t_stack *stack);
 unsigned int	smallest_key(t_stack *stack);
-int		operation(t_stack *a, t_stack *b, char *op);
+int				operation(t_stack *a, t_stack *b, char *op);
 
 // Checker_utils.c
-t_stack	        init_stack(char id);
-void	free_stack_data(t_stack_data **stack);
+t_stack			init_stack(char id);
+void			free_stack_data(t_stack_data **stack);
 t_stack_data	*add_stack_data(const int val, t_stack_data *stack);
-void            end_checker(t_checker *ps_env, char **op, char *msg);
+void			end_checker(t_checker *ps_env, char **op, char *msg);
 
 //Checker_init.c
-t_checker	init_checker(int ac, char **av);
+t_checker		init_checker(int ac, char **av);
+void			checker(int ac, char **av);
 
-void    checker(int ac, char **av);
 #endif

@@ -6,14 +6,14 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:23:30 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/16 10:18:25 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:05:05 by madlab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    checker(ac, av);
-    return (0);
+	checker(ac, av);
+	return (0);
 }
