@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:04:34 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 20:17:16 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:50:48 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/stack.h"
+#include "../includes/push_swap.h"
 
 /*
 	Shortest path between "rb" and "rrb"

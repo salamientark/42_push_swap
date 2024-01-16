@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:23:30 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/16 08:34:25 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:18:25 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/checker.h
+#include "checker.h"
 
 int main(int ac, char **av)
 {

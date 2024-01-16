@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:45:01 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 19:09:06 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:50:48 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/stack.h"
+#include "../includes/push_swap.h"
 
 /* 
 	Distance in rotate count OR -1 if not found

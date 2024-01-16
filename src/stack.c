@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:44:36 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/16 08:17:43 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:50:48 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/stack.h"
+#include "../includes/push_swap.h"
 
 t_stack	init_stack(char id)
 {

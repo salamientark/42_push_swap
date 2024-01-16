@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/stack.h"
+#include "../includes/push_swap.h"
 #include "../includes/stack_print.h"
 
 t_bool  stack_is_equal(t_stack_data *a, t_stack_data *b)

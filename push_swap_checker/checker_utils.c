@@ -6,9 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:14:03 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/16 08:26:12 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:23:22 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "checker.h"
 
 t_stack	init_stack(char id)
 {
@@ -41,7 +43,7 @@ t_stack_data	*add_stack_data(const int val, t_stack_data *stack)
 {
 	t_stack_data	*elem;
 
-	elem = (t_stack *)malloc(sizeof(struct s_stack_data));
+	elem = (t_stack_data *)malloc(sizeof(struct s_stack_data));
 	if (!elem)
 		return (NULL);
 	elem->key = 1;
@@ -64,9 +66,9 @@ t_stack_data	*add_stack_data(const int val, t_stack_data *stack)
 	return (elem);
 }
 
-static void	free_stack(t_stack **stack)
+void	free_stack_data(t_stack_data **stack)
 {
-	t_stack	*tmp;
+	t_stack_data	*tmp;
 
 	if (!(*stack))
 		return ;
@@ -89,16 +91,17 @@ static void	free_stack(t_stack **stack)
 
 void    end_checker(t_checker *ps_env, char **op, char *msg)
 {
-    free_stack(ps_env->stack_a);
-    ps_env->stack_a = NULL;
-    free_stack(ps_env->stack_b);
-    ps_env->stack_b = NULL;
-    if (*ps_env)
-    {
-        free(*ps_env);
-        *ps_env = NULL.
-    }
-    free(*op);
+    free_stack_data(&(ps_env->stack_a.head));
+    ps_env->stack_a.head = NULL;
+    free_stack_data(&(ps_env->stack_b.head));
+    ps_env->stack_b.head = NULL;
+    // if (*ps_env)
+    // {
+    //     free(*ps_env);
+    //     *ps_env = NULL.
+    // }
+	if (*op)
+    	free(*op);
     if (!msg)
         return ;
     if (msg[0] == 'K')

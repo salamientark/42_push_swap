@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 09:49:57 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/06 11:39:00 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:50:48 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/stack.h"
+#include "../includes/push_swap.h"
 
 void	free_op_buffer(t_list **list, void (*free_content)(void *))
 {

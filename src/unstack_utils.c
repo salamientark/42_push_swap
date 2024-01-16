@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 19:27:09 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 19:47:18 by madlab           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:50:48 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/stack.h"
+#include "../includes/push_swap.h"
 
 /*
 	check if val is in the limit range. When unstack for the second time

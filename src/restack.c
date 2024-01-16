@@ -6,11 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 18:18:17 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 20:50:01 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:50:48 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/stack.h"
+#include "../includes/push_swap.h"
 
 int	best_rotate_dist(t_stack *dest, t_stack *src, unsigned int val)
 {
@@ -95,7 +95,7 @@ t_list	*best_insert(t_stack *dest, t_stack *src, unsigned int val)
 					% dest->size, "rra"), make_op_buffer((src->size - src_rot)
 					% src->size, "rrb"));
 	if (op_buffer)
-		optimize_restack(&op_buffer);
+		restack_optimize(&op_buffer);
 	return (op_buffer);
 }
 

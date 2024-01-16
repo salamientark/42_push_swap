@@ -6,14 +6,14 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 21:29:21 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/06 15:50:30 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:51:12 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STACK_PRINT_H
 # define STACK_PRINT_H
 
-# include "stack.h"
+# include "push_swap.h"
 # define SEP "---------------------------------------------------------------"
 # define MAX(a,b) a >= b ? a : b
 

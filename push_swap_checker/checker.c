@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 21:45:27 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/16 09:55:35 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:35:13 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static int is_valid_operation(char *op)
     size_t  op_len;
 
     op_len  = ft_strlen(op);
-    if (op_len != 2 && op_len != 3)
+    if (op_len != 3 && op_len != 1)
         return (0);
-    if (op[0] != 's' && op[0] != 'r' && op[0] != 'p')
+    if (op[0] != 's' && op[0] != 'r' && op[0] != 'p' && op[2] == '\n')
         return (0);
     if (op_len == 3)
         return (op[0] == 'r' && op[1] == 'r'
@@ -27,35 +27,6 @@ static int is_valid_operation(char *op)
     if (op[0] == 'p')
         return (op[1] == 'a' || op[1] == 'b');
     return (op[0] == op[1] || op[1] == 'a' || op[1] == 'b');
-}
-
-static int	operation(t_stack *a, t_stack *b, char *op)
-{
-	t_operation	op_env;
-
-	op_env.arg_a = a;
-	op_env.arg_b = NULL;
-	if (op && op[0] == 's')
-		op_env.operation = &swap;
-	else if (op && op[0] == 'p')
-		op_env.operation = &push;
-	else if (op && op[0] == 'r' && ft_strlen(op) == 2)
-		op_env.operation = &rotate;
-	else if (op && op[0] == 'r' && ft_strlen(op) == 3)
-		op_env.operation = &r_rotate;
-	else
-		return (0);
-	if (op_env.operation == &push || (op[1] == 'r' && !op[2])
-		|| (op[2] && op[2] == 'r') || op[1] == 's')
-		op_env.arg_b = b;
-	if (op[1] == 'b' || (ft_strlen(op) == 3 && op[2] == 'b'))
-	{
-		op_env.arg_a = b;
-		if (op_env.operation == &push)
-			op_env.arg_b = a;
-	}
-	op_env.operation(op_env.arg_a, op_env.arg_b);
-	return (1);
 }
 
 /*
@@ -87,10 +58,10 @@ void    checker(int ac, char **av)
     char            *op;
 
 	op = NULL;
-    ps_env = init_push_swap(ac, av);
+    ps_env = init_checker(ac, av);
     if (!(ps_env.stack_a.head))
     {
-        free_checker(&ps_env);
+        end_checker(&ps_env , &op, NULL);
         return ;
     }
     op = get_next_line(0);

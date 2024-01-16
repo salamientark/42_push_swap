@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack.h                                            :+:      :+:    :+:   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/16 09:54:49 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:53:04 by madlab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STACK_H
-# define STACK_H
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
 # include "../libft/libft.h"
 
@@ -78,21 +78,21 @@ void			free_stack_data(t_stack_data**stack);
 t_stack_data	*add_stack_data(const int val, t_stack_data *stack);
 int				stack_size(t_stack_data *stack);
 
-//stack_utils.c
+//operation.c
 unsigned int	smallest_key(t_stack *stack);
 unsigned int	biggest_key(t_stack *stack);
+int				operation(t_stack *a, t_stack *b, char *op);
 
 // arg_parser.c
 t_push_swap_env	init_push_swap(int ac, char **av);
 
-// operation.c
+// operation_utils.c
 void			push(t_stack *src, t_stack *dest);
 void			swap(t_stack *stack_a, t_stack *stack_b);
 void			rotate(t_stack *stack_a, t_stack *stack_b);
 void			r_rotate(t_stack *stack_a, t_stack *stack_b);
 
 // push_swap.c
-int				operation(t_stack *a, t_stack *b, char *op);
 
 // sort_stack_data.c
 t_list			*sort_small_stack(t_stack *stack_a, unsigned int size);
@@ -157,7 +157,7 @@ t_list			*restack(t_stack *dest, t_stack *src);
 void			execute_op_buffer(t_stack *stack_a, t_stack *stack_b,
 					t_list *op_buffer);
 
-// optimize_restack.c
-void			optimize_restack(t_list **op_buffer);
+// restack_optimize.c
+void			restack_optimize(t_list **op_buffer);
 
 #endif

@@ -5,111 +5,77 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/24 23:59:12 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/06 08:50:33 by dbaladro         ###   ########.fr       */
+/*   Created: 2024/01/16 10:37:00 by dbaladro          #+#    #+#             */
+/*   Updated: 2024/01/16 10:50:48 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/stack.h"
+#include "../includes/push_swap.h"
 
-/*	Description
-		Alt version make all function with two arg
-		to make a "one call recursvie" kind of function
-	Exemple :
-		func(a, b) = func(a) + func(b)
-	This often implies a call with of func(a, NULL)
-	to stop the function
+unsigned int	biggest_key(t_stack *stack)
+{
+	unsigned int	biggest_key;
+	t_stack_data	*record;
+
+	if (!(stack->head))
+		return (0);
+	biggest_key = stack->head->key;
+	record = stack->head->next;
+	while (record != stack->head)
+	{
+		if (record->key > biggest_key)
+			biggest_key = record->key;
+		record = record->next;
+	}
+	return (biggest_key);
+}
+
+unsigned int	smallest_key(t_stack *stack)
+{
+	unsigned int	smallest_key;
+	t_stack_data	*record;
+
+	if (!(stack->head))
+		return (0);
+	smallest_key = stack->head->key;
+	record = stack->head->next;
+	while (record != stack->head)
+	{
+		if (record->key < smallest_key)
+			smallest_key = record->key;
+		record = record->next;
+	}
+	return (smallest_key);
+}
+
+/*
+    make_operation and execute it
 */
-
-void	rotate(t_stack *stack_a, t_stack *stack_b)
+int	operation(t_stack *a, t_stack *b, char *op)
 {
-	if (stack_a && stack_a->head)
-		stack_a->head = stack_a->head->next;
-	if (stack_b && stack_b->head)
-		rotate(stack_b, NULL);
-}
+	t_operation	op_env;
 
-// Reverse rotate
-void	r_rotate(t_stack *stack_a, t_stack *stack_b)
-{
-	if (stack_a && stack_a->head)
-		stack_a->head = stack_a->head->prev;
-	if (stack_b && stack_b->head)
-		r_rotate(stack_b, NULL);
-}
-
-void	swap(t_stack *stack_a, t_stack *stack_b)
-{
-	t_stack_data	*new_top;
-
-	if (!(stack_a->head) || (stack_a->head)->next == stack_a->head)
-		return ;
-	new_top = stack_a->head->next;
-	if (stack_a->head != new_top->next)
-	{
-		(stack_a->head)->next = new_top->next;
-		new_top->prev = (stack_a->head)->prev;
-		(stack_a->head)->prev = new_top;
-		new_top->next = (stack_a->head);
-		(stack_a->head)->next->prev = (stack_a->head);
-		new_top->prev->next = new_top;
-	}
-	(stack_a->head) = new_top;
-	if (!stack_b || !(stack_b->head))
-		return ;
-	swap(stack_b, NULL);
-}
-
-static void	update_stack_after_push(t_stack *dest, t_stack *src)
-{
-	unsigned int	push_value;
-
-	push_value = dest->head->key;
-	if (!(dest->head))
-		return ;
-	dest->size++;
-	if (push_value > dest->max || dest->max == 0)
-		dest->max = push_value;
-	if (push_value < dest->min || dest->min == 0)
-		dest->min = push_value;
-	if (!(src->head))
-	{
-		src->size = 0;
-		src->min = 0;
-		src->max = 0;
-		return ;
-	}
-	src->size--;
-	if (push_value == src->max)
-		src->max = biggest_key(src);
-	if (push_value == src->min)
-		src->min = smallest_key(src);
-}
-
-void	push(t_stack *dest, t_stack *src)
-{
-	t_stack_data	*elem;
-
-	if (!src->head)
-		return ;
-	elem = src->head;
-	if (elem != elem->next)
-	{
-		elem->prev->next = elem->next;
-		elem->next->prev = elem->prev;
-		src->head = elem->next;
-	}
-	if (elem == elem->next)
-		src->head = NULL;
-	if (!(dest->head))
-		(dest->head) = elem;
-	elem->prev = (dest->head)->prev;
-	elem->next = (dest->head);
-	if ((dest->head) == (dest->head)->next)
-		(dest->head)->next = elem;
+	op_env.arg_a = a;
+	op_env.arg_b = NULL;
+	if (op && op[0] == 's')
+		op_env.operation = &swap;
+	else if (op && op[0] == 'p')
+		op_env.operation = &push;
+	else if (op && op[0] == 'r' && ft_strlen(op) == 2)
+		op_env.operation = &rotate;
+	else if (op && op[0] == 'r' && ft_strlen(op) == 3)
+		op_env.operation = &r_rotate;
 	else
-		((dest->head)->prev)->next = elem;
-	(dest->head)->prev = elem;
-	dest->head = elem;
-	update_stack_after_push(dest, src);
+		return (0);
+	if (op_env.operation == &push || (op[1] == 'r' && !op[2])
+		|| (op[2] && op[2] == 'r') || op[1] == 's')
+		op_env.arg_b = b;
+	if (op[1] == 'b' || (ft_strlen(op) == 3 && op[2] == 'b'))
+	{
+		op_env.arg_a = b;
+		if (op_env.operation == &push)
+			op_env.arg_b = a;
+	}
+	op_env.operation(op_env.arg_a, op_env.arg_b);
+	return (1);
 }

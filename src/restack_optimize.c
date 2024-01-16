@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   optimize_restack.c                                 :+:      :+:    :+:   */
+/*   restack_optimize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 10:15:06 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 19:26:51 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:50:48 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/stack.h"
+#include "../includes/push_swap.h"
 
 void	extract_op_buffer(t_list **op_buffer, t_list **a_op_buffer,
 	t_list **b_op_buffer)
@@ -56,7 +56,7 @@ static t_list	*optimize_rotate(t_list *op_buffer_a, t_list *op_buffer_b,
 	return (op_buffer);
 }
 
-static t_list	*make_optimize_restack(t_list **op_buffer_a,
+static t_list	*make_restack_optimize(t_list **op_buffer_a,
 		t_list **op_buffer_b)
 {
 	t_list	*op_buffer;
@@ -75,7 +75,7 @@ static t_list	*make_optimize_restack(t_list **op_buffer_a,
 	return (op_buffer);
 }
 
-void	optimize_restack(t_list **op_buffer)
+void	restack_optimize(t_list **op_buffer)
 {
 	t_list	*a_op_buffer;
 	t_list	*b_op_buffer;
@@ -92,6 +92,6 @@ void	optimize_restack(t_list **op_buffer)
 	else if (!b_op_buffer)
 		*op_buffer = a_op_buffer;
 	else
-		*op_buffer = make_optimize_restack(&a_op_buffer, &b_op_buffer);
+		*op_buffer = make_restack_optimize(&a_op_buffer, &b_op_buffer);
 	*op_buffer = (*op_buffer)->next;
 }
