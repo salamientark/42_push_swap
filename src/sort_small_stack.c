@@ -6,12 +6,11 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 20:18:42 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/16 10:50:48 by dbaladro         ###   ########.fr       */
+/*   Updated: 2024/01/16 11:15:31 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-#include "../includes/stack_print.h"
 
 /*
 	Point of this is to make stack sort easier by having only

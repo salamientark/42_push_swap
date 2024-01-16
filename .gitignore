@@ -1,2 +1,4 @@
-.obj/*
-libft/.obj/*
+*.o
+push_swap
+.vscode/
+test.txt

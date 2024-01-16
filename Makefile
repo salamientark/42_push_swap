@@ -62,6 +62,7 @@ $(PROJECT) : $(OBJ_SRC) $(OBJ_TOOLS)
 	$(CC) -g3 $(CFLAGS) $(OBJ_SRC) -o $(PROJECT) $(FT_FLAG)
 
 $(SRC_DIR)/$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
+	@mkdir -p $(@D)
 	$(CC) -g3 $(CFLAGS) -I $(HEADER_DIR) -c $< -o $@
 
 bonus : $(OBJ_BONUS)
@@ -69,6 +70,7 @@ bonus : $(OBJ_BONUS)
 	$(CC) $(CFLAGS) $(OBJ_BONUS) -o checker $(FT_FLAG)
 
 $(BONUS_DIR)/$(OBJ_DIR)/%.o : $(BONUS_DIR)/%.c
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I $(BONUS_DIR) -c $< -o $@
 # 
 # %.o : %.c
@@ -81,7 +83,9 @@ fclean : clean
 #Suppresion des fichiers objet
 clean :
 	rm -f $(SRC_DIR)/$(OBJ_DIR)/*.o
+	@rmdir -p $(SRC_DIR)/$(OBJ_DIR)/
 	rm -f $(BONUS_DIR)/$(OBJ_DIR)/*.o
+	@rmdir -p $(BONUS_DIR)/$(OBJ_DIR)/
 	@cd $(FT_DIR) && make clean
 
 re : fclean all
