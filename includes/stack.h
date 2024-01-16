@@ -6,7 +6,7 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:39:37 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 21:07:29 by madlab           ###   ########.fr       */
+/*   Updated: 2024/01/16 09:54:49 by dbaladro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,14 @@ void			r_rotate(t_stack *stack_a, t_stack *stack_b);
 
 // push_swap.c
 int				operation(t_stack *a, t_stack *b, char *op);
-void			push_swap(int ac, char **av);
 
 // sort_stack_data.c
 t_list			*sort_small_stack(t_stack *stack_a, unsigned int size);
+t_list			*sort_big_stack(t_push_swap_env ps_env);
 char			*best_a_rotate(int rot, int size);
 
 //analyze stack.c
 int				a_sorted(t_stack *stack);
-int				is_r_sorted(t_stack *stack);
 int				is_sorted(t_stack *stack);
 
 // op_bufer.c

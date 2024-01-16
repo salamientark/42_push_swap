@@ -6,13 +6,16 @@ CFLAGS = -Wall -Wextra -Werror
 PROJECT = push_swap
 PROJECT_DIR = ./
 
-### SOURCE FILES ###
 SRC_DIR = src
 SRC_FILE = $(SRC_DIR)/init_push_swap.c $(SRC_DIR)/stack.c $(SRC_DIR)/stack_utils.c \
 			$(SRC_DIR)/operation.c $(SRC_DIR)/push_swap.c $(SRC_DIR)/sort_small_stack.c \
 			$(SRC_DIR)/stack_sorted.c $(SRC_DIR)/op_buffer_utils.c $(SRC_DIR)/op_buffer.c \
 			$(SRC_DIR)/unstack.c $(SRC_DIR)/unstack_utils.c $(SRC_DIR)/lst_utils.c $(SRC_DIR)/restack_utils.c\
-			$(SRC_DIR)/math.c $(SRC_DIR)/restack.c $(SRC_DIR)/optimize_restack.c main.c
+			$(SRC_DIR)/math.c $(SRC_DIR)/restack.c $(SRC_DIR)/optimize_restack.c
+
+BONUS_DIR = push_swap_checker
+BONUS_FILE = $(BONUS_DIR)/init_checker.c $(BONUS_DIR)/checker_utils.c \
+				$(BONUS_DIR)/checker.c $(BONUS_DIR)/main.c
 
 # Development tools -> printing stuff
 TOOLS_DIR = ./tools
@@ -32,10 +35,13 @@ FT_FLAG = -L$(FT_DIR) -l$(FT)
 
 ## OBJECT FILE ###
 OBJ_DIR = .obj
-OBJ_SRC = $(SRC_FILE:.c=.o)
+OBJ_SRC = $(addprefix $(SRC_DIR)/, $(addprefix $(OBJ_DIR)/, $(notdir $(SRC_FILE:.c=.o))))
 OBJ_TOOLS = $(TOOLS_FILE:.c=.o)
+OBJ_BONUS = $(addprefix $(BONUS_DIR)/$(OBJ_DIR)/, $(notdir $(BONUS_FILE:.c=.o)))
 # OBJ_TOOLS = $(TOOLS_FILE:$(TOOLS_DIR)/%.c=%.o)
 # BONUS_OBJ = $(BONUS_FILE:.c=.o)
+
+.PHONY=bonus
 
 ### RULES ###
 all : $(PROJECT)
@@ -45,16 +51,31 @@ test : $(OBJ_SRC) $(OBJ_TEST)
 	$(CC) -g3 $(CFLAGS) $(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_SRC))) \
 		$(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_TOOLS))) -o $(PROJECT) $(FT_FLAG)
 
+
 $(PROJECT) : $(OBJ_SRC) $(OBJ_TOOLS)
 	make -C $(FT_DIR)
-	$(CC) -g3 $(CFLAGS) $(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_SRC))) \
-		$(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_TOOLS))) -o $(PROJECT) $(FT_FLAG)
+	$(CC) -g3 $(CFLAGS) $(OBJ_SRC) -o $(PROJECT) $(FT_FLAG)
 
-%.o : %.c
-	$(CC) -g3 $(CFLAGS) -I $(HEADER_DIR) -c $< -o $(OBJ_DIR)/$(notdir $@)
+
+# $(PROJECT) : $(OBJ_SRC) $(OBJ_TOOLS)
+# 	make -C $(FT_DIR)
+# 	$(CC) -g3 $(CFLAGS) $(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_SRC))) \
+# 		$(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_TOOLS))) -o $(PROJECT) $(FT_FLAG)
+
 
 bonus : $(BONUS_OBJ)
-	ar rc $(PROJECT) $(BONUS_OBJ)
+	make -C $(FT_DIR)
+	$(CC) $(CFLAGS) $(addprefix $(OBJ_DIR)/, $(notdir $(OBJ_BONUS))) -o checker $(FT_FLAG)
+
+# $(OBJ_SRC) : $(SRC_FILE)
+# 	$(CC) -g3 $(CFLAGS) -I $(HEADER_DIR) -c $< -o $@
+
+
+$(SRC_DIR)/$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
+	$(CC) -g3 $(CFLAGS) -I $(HEADER_DIR) -c $< -o $(addprefix $(SRC_DIR)/, $(addprefix $(OBJ_DIR)/, $(notdir $@)))
+
+# %.o : %.c
+# 	$(CC) -g3 $(CFLAGS) -I $(HEADER_DIR) -c $< -o $(OBJ_DIR)/$@
 
 fclean : clean
 	rm -f $(PROJECT)
@@ -62,7 +83,8 @@ fclean : clean
 
 #Suppresion des fichiers objet
 clean :
-	rm -f *.o
+	rm -f $(SRC_DIR)/$(OBJ_DIR)/*.o
+	rm -f $(BONUS_DIR)/$(OBJ_DIR)/*.o
 	@cd $(FT_DIR) && make clean
 
 re : fclean all

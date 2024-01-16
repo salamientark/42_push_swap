@@ -6,18 +6,33 @@
 /*   By: dbaladro <dbaladro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:11:55 by dbaladro          #+#    #+#             */
-/*   Updated: 2024/01/15 20:57:28 by madlab           ###   ########.fr       */
+/*   Updated: 2024/01/16 09:56:18 by madlab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/stack.h"
-#include "../includes/stack_print.h"
 
 static void	free_push_swap(t_push_swap_env *ps_env, t_list **operation_buffer)
 {
 	free_op_buffer(operation_buffer, NULL);
 	free_stack_data(&((*ps_env).stack_a.head));
 	free_stack_data(&((*ps_env).stack_b.head));
+}
+
+static void	print_op_buffer(t_list *op_buffer)
+{
+	t_list	*head;
+
+	if (!op_buffer)
+		return ;
+	head = op_buffer;
+	ft_putendl_fd(head->content, 1);
+	head = head->next;
+	while (head != op_buffer)
+	{
+		ft_putendl_fd(head->content, 1);
+		head = head->next;
+	}
 }
 
 int	operation(t_stack *a, t_stack *b, char *op)
@@ -75,7 +90,7 @@ t_list	*sort_big_stack(t_push_swap_env ps_env)
 	return (operation_buffer);
 }
 
-void	push_swap(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_push_swap_env	ps_env;
 	t_list			*operation_buffer;
@@ -85,7 +100,7 @@ void	push_swap(int ac, char **av)
 	if (!(ps_env.stack_a.head))
 	{
 		free_push_swap(&ps_env, &operation_buffer);
-		return ;
+		return (0);
 	}
 	if (ps_env.stack_a.size <= 5)
 		operation_buffer = sort_small_stack(&(ps_env.stack_a), ps_env.max_size);
@@ -93,4 +108,5 @@ void	push_swap(int ac, char **av)
 		operation_buffer = sort_big_stack(ps_env);
 	print_op_buffer(operation_buffer);
 	free_push_swap(&ps_env, &operation_buffer);
+	return (0);
 }
