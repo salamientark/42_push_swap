@@ -20,6 +20,8 @@ BONUS_DIR = push_swap_checker
 BONUS_FILE = $(BONUS_DIR)/init_checker.c $(BONUS_DIR)/checker_utils.c $(BONUS_DIR)/checker.c \
 				$(BONUS_DIR)/operation_utils.c $(BONUS_DIR)/operation.c $(BONUS_DIR)/main.c
 
+CHECKER=checker
+
 ### HEADER FILE ###
 HEADER_DIR = ./includes
 
@@ -46,7 +48,7 @@ $(SRC_DIR)/$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 
 bonus : $(OBJ_BONUS)
 	make -C $(FT_DIR)
-	$(CC) $(CFLAGS) $(OBJ_BONUS) -o checker $(FT_FLAG)
+	$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(CHECKER) $(FT_FLAG)
 
 $(BONUS_DIR)/$(OBJ_DIR)/%.o : $(BONUS_DIR)/%.c
 	@mkdir -p $(@D)
@@ -54,6 +56,7 @@ $(BONUS_DIR)/$(OBJ_DIR)/%.o : $(BONUS_DIR)/%.c
 
 fclean : clean
 	rm -f $(PROJECT)
+	rm -f $(CHECKER)
 	@cd $(FT_DIR) && make fclean
 
 #Suppresion des fichiers objet

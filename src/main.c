@@ -42,11 +42,9 @@ int	main(int ac, char **av)
 
 	operation_buffer = NULL;
 	ps_env = init_push_swap(ac, av);
-	if (!(ps_env.stack_a.head))
-	{
-		free_push_swap(&ps_env, &operation_buffer);
-		return (0);
-	}
+	if (!(ps_env.stack_a.head) || (is_sorted(&(ps_env.stack_a)) == 1
+			&& ps_env.stack_a.head->key == 1))
+		return (free_push_swap(&ps_env, &operation_buffer), 0);
 	if (ps_env.stack_a.size <= 5)
 		operation_buffer = sort_small_stack(&(ps_env.stack_a), ps_env.max_size);
 	else
