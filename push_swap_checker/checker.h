@@ -13,7 +13,7 @@
 #ifndef CHECKER_H
 # define CHECKER_H
 
-# include "../libft/libft.h"
+# include "../libft/includes/libft.h"
 
 /*
 	Double chained rotary structur allow push swap manipulation easily

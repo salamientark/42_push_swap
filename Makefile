@@ -36,7 +36,7 @@ OBJ_BONUS = $(addprefix $(BONUS_DIR)/, $(addprefix $(OBJ_DIR)/, $(notdir $(BONUS
 ### RULES ###
 all : $(PROJECT)
 
-$(PROJECT) : $(OBJ_SRC) $(OBJ_TOOLS)
+$(PROJECT) : $(OBJ_SRC)
 	make -C $(FT_DIR)
 	$(CC) -g3 $(CFLAGS) $(OBJ_SRC) -o $(PROJECT) $(FT_FLAG)
 
