@@ -100,7 +100,7 @@ static t_stack	parse_arg(int ac, char **av)
 		while (av_one_arg[size])
 			size++;
 		if (size == 0)
-			return (init_stack('a'));
+			return (free_list(&av_one_arg), init_stack('a'));
 		stack_a = make_stack(av_one_arg, size);
 		free_list(&av_one_arg);
 		return (stack_a);
